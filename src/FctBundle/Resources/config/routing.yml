@@ -1,0 +1,3 @@
+fct_homepage:
+    path:     /
+    defaults: { _controller: FctBundle:Default:index }
