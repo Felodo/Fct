@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Alumno" table="alumnos">
+    <indexes>
+      <index name="FK_AL_CF" columns="COD_CICLO"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="NICKNAME_ALU" columns="NICKNAME_ALU"/>
+    </unique-constraints>
+    <id name="nifAlu" type="string" column="NIF_ALU" length="9">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreAlu" type="string" column="NOMBRE_ALU" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="apellido1Alu" type="string" column="APELLIDO1_ALU" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="apellido2Alu" type="string" column="APELLIDO2_ALU" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="fotografiaAlu" type="string" column="FOTOGRAFIA_ALU" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="nicknameAlu" type="string" column="NICKNAME_ALU" length="20" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="direccionAlu" type="string" column="DIRECCION_ALU" length="40" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="poblacionAlu" type="string" column="POBLACION_ALU" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="cpostalAlu" type="decimal" column="CPOSTAL_ALU" precision="5" scale="0" nullable="true"/>
+    <field name="provinciaAlu" type="decimal" column="PROVINCIA_ALU" precision="2" scale="0" nullable="true"/>
+    <field name="telfFijoAlu" type="decimal" column="TELF_FIJO_ALU" precision="9" scale="0" nullable="true"/>
+    <field name="telfMovilAlu" type="decimal" column="TELF_MOVIL_ALU" precision="9" scale="0" nullable="true"/>
+    <field name="emailAlu" type="string" column="EMAIL_ALU" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="codCiclo" target-entity="Ciclos" fetch="LAZY">
+      <join-columns>
+        <join-column name="COD_CICLO" referenced-column-name="CODIGO"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

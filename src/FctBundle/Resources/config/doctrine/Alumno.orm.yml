@@ -1,0 +1,115 @@
+FctBundle\Entity\Alumno:
+    type: entity
+    table: alumnos
+    indexes:
+        FK_AL_CF:
+            columns:
+                - COD_CICLO
+    uniqueConstraints:
+        NICKNAME_ALU:
+            columns:
+                - NICKNAME_ALU
+    id:
+        nifAlu:
+            type: string
+            nullable: false
+            length: 9
+            options:
+                fixed: false
+            id: true
+            column: NIF_ALU
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreAlu:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: NOMBRE_ALU
+        apellido1Alu:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: APELLIDO1_ALU
+        apellido2Alu:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: APELLIDO2_ALU
+        fotografiaAlu:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: FOTOGRAFIA_ALU
+        nicknameAlu:
+            type: string
+            nullable: false
+            length: 20
+            options:
+                fixed: false
+            column: NICKNAME_ALU
+        direccionAlu:
+            type: string
+            nullable: true
+            length: 40
+            options:
+                fixed: false
+            column: DIRECCION_ALU
+        poblacionAlu:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: POBLACION_ALU
+        cpostalAlu:
+            type: decimal
+            nullable: true
+            precision: 5
+            scale: 0
+            column: CPOSTAL_ALU
+        provinciaAlu:
+            type: decimal
+            nullable: true
+            precision: 2
+            scale: 0
+            column: PROVINCIA_ALU
+        telfFijoAlu:
+            type: decimal
+            nullable: true
+            precision: 9
+            scale: 0
+            column: TELF_FIJO_ALU
+        telfMovilAlu:
+            type: decimal
+            nullable: true
+            precision: 9
+            scale: 0
+            column: TELF_MOVIL_ALU
+        emailAlu:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: EMAIL_ALU
+    manyToOne:
+        codCiclo:
+            targetEntity: Ciclo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                COD_CICLO:
+                    referencedColumnName: CODIGO
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

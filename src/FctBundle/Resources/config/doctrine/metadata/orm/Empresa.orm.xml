@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Empresa" table="empresas">
+    <id name="cifEmp" type="string" column="CIF_EMP" length="9">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreEmp" type="string" column="NOMBRE_EMP" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="tutorEmp" type="string" column="TUTOR_EMP" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="direccionEmp" type="string" column="DIRECCION_EMP" length="40" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="poblacionEmp" type="string" column="POBLACION_EMP" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="cpostalEmp" type="decimal" column="CPOSTAL_EMP" precision="5" scale="0" nullable="true"/>
+    <field name="provinciaEmp" type="decimal" column="PROVINCIA_EMP" precision="2" scale="0" nullable="true"/>
+    <field name="telfFijoEmp" type="decimal" column="TELF_FIJO_EMP" precision="9" scale="0" nullable="true"/>
+    <field name="telfMovilEmp" type="decimal" column="TELF_MOVIL_EMP" precision="9" scale="0" nullable="true"/>
+    <field name="emailEmp" type="string" column="EMAIL_EMP" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

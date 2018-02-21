@@ -1,0 +1,91 @@
+FctBundle\Entity\Profesor:
+    type: entity
+    table: profesores
+    uniqueConstraints:
+        NICKNAME_PROF:
+            columns:
+                - NICKNAME_PROF
+        PASSWORD_PROF:
+            columns:
+                - PASSWORD_PROF
+    id:
+        nifProf:
+            type: string
+            nullable: false
+            length: 9
+            options:
+                fixed: false
+            id: true
+            column: NIF_PROF
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreProf:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: NOMBRE_PROF
+        apellido1Prof:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: APELLIDO1_PROF
+        apellido2Prof:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: APELLIDO2_PROF
+        fotografiaProf:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: FOTOGRAFIA_PROF
+        nicknameProf:
+            type: string
+            nullable: false
+            length: 20
+            options:
+                fixed: false
+            column: NICKNAME_PROF
+        telfFijoProf:
+            type: decimal
+            nullable: true
+            precision: 9
+            scale: 0
+            column: TELF_FIJO_PROF
+        telfMovilProf:
+            type: decimal
+            nullable: true
+            precision: 9
+            scale: 0
+            column: TELF_MOVIL_PROF
+        emailProf:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: EMAIL_PROF
+        passwordProf:
+            type: string
+            nullable: false
+            length: 60
+            options:
+                fixed: false
+            column: PASSWORD_PROF
+        rolProf:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+            column: ROL_PROF
+    lifecycleCallbacks: {  }

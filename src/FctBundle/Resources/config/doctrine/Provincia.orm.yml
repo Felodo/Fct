@@ -1,0 +1,22 @@
+FctBundle\Entity\Provincia:
+    type: entity
+    table: provincias
+    id:
+        idProvincia:
+            type: decimal
+            nullable: false
+            precision: 2
+            scale: 0
+            id: true
+            column: ID_PROVINCIA
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+            column: NOMBRE
+    lifecycleCallbacks: {  }

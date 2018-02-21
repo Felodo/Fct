@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Profesor" table="profesores">
+    <unique-constraints>
+      <unique-constraint name="NICKNAME_PROF" columns="NICKNAME_PROF"/>
+      <unique-constraint name="PASSWORD_PROF" columns="PASSWORD_PROF"/>
+    </unique-constraints>
+    <id name="nifProf" type="string" column="NIF_PROF" length="9">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreProf" type="string" column="NOMBRE_PROF" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="apellido1Prof" type="string" column="APELLIDO1_PROF" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="apellido2Prof" type="string" column="APELLIDO2_PROF" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="fotografiaProf" type="string" column="FOTOGRAFIA_PROF" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="nicknameProf" type="string" column="NICKNAME_PROF" length="20" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="telfFijoProf" type="decimal" column="TELF_FIJO_PROF" precision="9" scale="0" nullable="true"/>
+    <field name="telfMovilProf" type="decimal" column="TELF_MOVIL_PROF" precision="9" scale="0" nullable="true"/>
+    <field name="emailProf" type="string" column="EMAIL_PROF" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="passwordProf" type="string" column="PASSWORD_PROF" length="60" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rolProf" type="string" column="ROL_PROF" length="10" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

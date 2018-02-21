@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Fct" table="fct">
+    <indexes>
+      <index name="FK_FCT" columns="NIF_PROF"/>
+      <index name="FK_FCT2" columns="CIF_EMP"/>
+      <index name="FK_FCT3" columns="NIF_ALU"/>
+    </indexes>
+    <id name="idFct" type="integer" column="ID_FCT">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="anio" type="decimal" column="ANIO" precision="4" scale="0" nullable="true"/>
+    <many-to-one field="nifProf" target-entity="Profesores" fetch="LAZY">
+      <join-columns>
+        <join-column name="NIF_PROF" referenced-column-name="NIF_PROF"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="cifEmp" target-entity="Empresas" fetch="LAZY">
+      <join-columns>
+        <join-column name="CIF_EMP" referenced-column-name="CIF_EMP"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nifAlu" target-entity="Alumnos" fetch="LAZY">
+      <join-columns>
+        <join-column name="NIF_ALU" referenced-column-name="NIF_ALU"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Ciclo" table="ciclos">
+    <id name="codigo" type="string" column="CODIGO" length="5">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreCiclo" type="string" column="NOMBRE_CICLO" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="grado" type="string" column="GRADO" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="horasfct" type="decimal" column="HORASFCT" precision="4" scale="0" nullable="true"/>
+  </entity>
+</doctrine-mapping>

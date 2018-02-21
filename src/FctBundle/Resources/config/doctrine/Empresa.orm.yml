@@ -1,0 +1,75 @@
+FctBundle\Entity\Empresa:
+    type: entity
+    table: empresas
+    id:
+        cifEmp:
+            type: string
+            nullable: false
+            length: 9
+            options:
+                fixed: false
+            id: true
+            column: CIF_EMP
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreEmp:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: NOMBRE_EMP
+        tutorEmp:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: TUTOR_EMP
+        direccionEmp:
+            type: string
+            nullable: true
+            length: 40
+            options:
+                fixed: false
+            column: DIRECCION_EMP
+        poblacionEmp:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: POBLACION_EMP
+        cpostalEmp:
+            type: decimal
+            nullable: true
+            precision: 5
+            scale: 0
+            column: CPOSTAL_EMP
+        provinciaEmp:
+            type: decimal
+            nullable: true
+            precision: 2
+            scale: 0
+            column: PROVINCIA_EMP
+        telfFijoEmp:
+            type: decimal
+            nullable: true
+            precision: 9
+            scale: 0
+            column: TELF_FIJO_EMP
+        telfMovilEmp:
+            type: decimal
+            nullable: true
+            precision: 9
+            scale: 0
+            column: TELF_MOVIL_EMP
+        emailEmp:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+            column: EMAIL_EMP
+    lifecycleCallbacks: {  }

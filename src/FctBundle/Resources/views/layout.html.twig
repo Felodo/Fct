@@ -1,0 +1,72 @@
+<! DOCTYPE HTML>
+<html lang="es">
+    <head>
+        <meta charset="utf-8"/>
+        <title>
+            {% block title %} Gestion de FCT {% endblock %}
+        </title>
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+            <div><h2>DAWES-Practica2#FTC</h2></div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+                <a class="navbar-brand" href="{{path("fct_homepage")}}">Inicio</a>
+                <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class=""></span>
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                    </ul>-->
+                    <ul class="navbar-nav navbar-right">
+                        {% if app.user != null %}
+                            <li class="nav-item active"><a class="nav-link" href="#"> Bienvenido, {{app.user.nicknameProf}} </a></li>
+                            <li class="nav-item active"><a class="nav-link" href="{{path("logout")}}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Logout</a></li>
+                            
+                        {% else %}
+                            <li class="nav-item active"><a class="nav-link" href="{{path("sign_up")}}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign Up</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="{{path("login")}}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a></li>
+                            
+                        {% endif %}
+                        
+                        
+                    </ul>
+                </div>
+            </nav>
+
+
+        </header>
+        <section id="content">
+            
+            {% block content %} Gestion de FCT {% endblock %}
+        </section>
+        <footer>
+            {% block footer %} <hr> Felix Lozano Dominguez - 2ºDAW &copy 2018 {% endblock %}
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+FctBundle\Entity\Fct:
+    type: entity
+    table: fct
+    indexes:
+        FK_FCT:
+            columns:
+                - NIF_PROF
+        FK_FCT2:
+            columns:
+                - CIF_EMP
+        FK_FCT3:
+            columns:
+                - NIF_ALU
+    id:
+        idFct:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ID_FCT
+            generator:
+                strategy: IDENTITY
+    fields:
+        anio:
+            type: decimal
+            nullable: true
+            precision: 4
+            scale: 0
+            column: ANIO
+    manyToOne:
+        nifProf:
+            targetEntity: Profesores
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                NIF_PROF:
+                    referencedColumnName: NIF_PROF
+            orphanRemoval: false
+        cifEmp:
+            targetEntity: Empresas
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                CIF_EMP:
+                    referencedColumnName: CIF_EMP
+            orphanRemoval: false
+        nifAlu:
+            targetEntity: Alumnos
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                NIF_ALU:
+                    referencedColumnName: NIF_ALU
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

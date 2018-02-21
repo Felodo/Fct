@@ -1,3 +1,17 @@
+login:
+    path: /login
+    defaults: { _controller: FctBundle:Profesor:login }
+    
+login_check:
+    path: /login_check
+    
+logout:
+    path: /logout
+    
+sign_up:
+    path: /create_profesor
+    defaults: { _controller: FctBundle:Profesor:create_profesor }
+
 fct_homepage:
     path:     /
     defaults: { _controller: FctBundle:Default:index }
