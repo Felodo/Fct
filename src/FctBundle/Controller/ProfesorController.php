@@ -29,6 +29,16 @@ class ProfesorController extends Controller
         $form ->handleRequest($request);
         
         if($form->isValid()){
+            $profesor = new Profesor();
+            $profesor->setNombreProf($form->get('nombreProf')->getData());
+            $profesor->setApellido1Prof($form->get('apellido1Prof')->getData());
+            $profesor->setApellido2Prof($form->get('apellido2Prof')->getData());
+            $profesor->setFotografiaProf($form->get('fotografiaProf')->getData());
+            $profesor->setNicknameProf($form->get('nicknameProf')->getData());
+            $profesor->setTelfFijoProf($form->get('telfFijoProf')->getData());
+            $profesor->setTelfMovilProf($form->get('telfMovilProf')->getData());
+            $profesor->setEmailProf($form->get('emailProf')->getData());
+            $profesor->setPasswordProf($form->get('passwordProf')->getData());
             $status = "El profesor se ha creado correctamente";
         }else{
             $status = "No te has resgistrado correctamente";

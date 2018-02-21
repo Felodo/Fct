@@ -20,21 +20,24 @@ class ProfesorType extends AbstractType
     {
         $builder
             ->add('nombreProf', TextType::class, array("required"=>"required", 
-                "attr"=>["class"=>"form-name form-control"]))
+                "attr"=>["class"=>"form-name form-control"], "label" => "Nombre:"))
             ->add('apellido1Prof', TextType::class, array("required"=>"required", 
-                "attr"=>["class"=>"form-surname form-control"]))
+                "attr"=>["class"=>"form-surname form-control"], "label" => "Primer apellido:"))
             ->add('apellido2Prof', TextType::class, array("required"=>"required", 
-                "attr"=>["class"=>"form-surname form-control"]))
-            ->add('fotografiaProf', TextType::class)
+                "attr"=>["class"=>"form-surname form-control"],"label" => "Segundo apellido:"))
+            ->add('fotografiaProf', TextType::class, array("attr"=>["class"=>"form-photo form-control"], 
+                "label" => "Fotografia:"))
             ->add('nicknameProf', TextType::class, array("required"=>"required", 
-                "attr"=>["class"=>"form-nickname form-control"]))
-            ->add('telfFijoProf')
-            ->add('telfMovilProf')
+                "attr"=>["class"=>"form-nickname form-control"], "label" => "Nickname:"))
+            ->add('telfFijoProf', TextType::class, array("attr"=>["class"=>"form-fijo form-control"],
+                "label" => "Telefono fijo:"))
+            ->add('telfMovilProf', TextType::class, array("attr"=>["class"=>"form-movil form-control"], 
+                "label" => "Telefono movil:"))
             ->add('emailProf', EmailType::class, array("required"=>"required", 
-                "attr"=>["class"=>"form-email form-control"]))
+                "attr"=>["class"=>"form-email form-control"],"label" => "Correo electronico:"))
             ->add('passwordProf', PasswordType::class, array("required"=>"required", 
-                "attr"=>["class"=>"form-password form-control"]))
-            ->add('Guardar', SubmitType::class)
+                "attr"=>["class"=>"form-password form-control"], "label" => "Contraseña:"))
+            ->add('Guardar', SubmitType::class, array("attr"=>["class"=>"form-submit btn btn-success"]))
             //->add('rolProf')
         ;
     }
