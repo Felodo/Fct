@@ -25,8 +25,8 @@ class ProfesorType extends AbstractType
                 "attr"=>["class"=>"form-surname form-control"], "label" => "Primer apellido:"))
             ->add('apellido2Prof', TextType::class, array("required"=>"required", 
                 "attr"=>["class"=>"form-surname form-control"],"label" => "Segundo apellido:"))
-            ->add('fotografiaProf', TextType::class, array("attr"=>["class"=>"form-photo form-control"], 
-                "label" => "Fotografia:"))
+            /*->add('fotografiaProf', TextType::class, array("attr"=>["class"=>"form-photo form-control"], 
+                "label" => "Fotografia:"))*/
             ->add('nicknameProf', TextType::class, array("required"=>"required", 
                 "attr"=>["class"=>"form-nickname form-control"], "label" => "Nickname:"))
             ->add('telfFijoProf', TextType::class, array("attr"=>["class"=>"form-fijo form-control"],

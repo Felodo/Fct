@@ -16,10 +16,16 @@
             Estas logueado como usuario normal
         </strong>
     {% endif %}
+    
+    
 
     <div class="col-lg-4">
         <h2>Iniciar sesión</h2>
         <hr>
+        {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}{{ status }}</div>
+                <hr>
+        {% endif %}
         <form action="{{path("login_check")}}" method="post">
             <label>Nombre de Usuario (Nickname):</label>
             <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}">
