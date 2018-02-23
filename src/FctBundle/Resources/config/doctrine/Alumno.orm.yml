@@ -5,22 +5,34 @@ FctBundle\Entity\Alumno:
         FK_AL_CF:
             columns:
                 - COD_CICLO
+        FK_AL_CF2:
+            columns:
+                - PROVINCIA_ALU
     uniqueConstraints:
+        NIF_ALU:
+            columns:
+                - NIF_ALU
         NICKNAME_ALU:
             columns:
                 - NICKNAME_ALU
     id:
+        idAlu:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ID_ALU
+            generator:
+                strategy: IDENTITY
+    fields:
         nifAlu:
             type: string
             nullable: false
             length: 9
             options:
                 fixed: false
-            id: true
             column: NIF_ALU
-            generator:
-                strategy: IDENTITY
-    fields:
         nombreAlu:
             type: string
             nullable: true
@@ -71,28 +83,22 @@ FctBundle\Entity\Alumno:
                 fixed: false
             column: POBLACION_ALU
         cpostalAlu:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 5
-            scale: 0
+            options:
+                unsigned: false
             column: CPOSTAL_ALU
-        provinciaAlu:
-            type: decimal
-            nullable: true
-            precision: 2
-            scale: 0
-            column: PROVINCIA_ALU
         telfFijoAlu:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 9
-            scale: 0
+            options:
+                unsigned: false
             column: TELF_FIJO_ALU
         telfMovilAlu:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 9
-            scale: 0
+            options:
+                unsigned: false
             column: TELF_MOVIL_ALU
         emailAlu:
             type: string
@@ -110,6 +116,16 @@ FctBundle\Entity\Alumno:
             inversedBy: null
             joinColumns:
                 COD_CICLO:
-                    referencedColumnName: CODIGO
+                    referencedColumnName: ID_CICLO
+            orphanRemoval: false
+        provinciaAlu:
+            targetEntity: Provincia
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                PROVINCIA_ALU:
+                    referencedColumnName: ID_PROVINCIA
             orphanRemoval: false
     lifecycleCallbacks: {  }

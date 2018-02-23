@@ -6,9 +6,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Profesor
  */
-
 class Profesor implements UserInterface
 {
+    /**
+     * @var integer
+     */
+    private $idProf;
+
     /**
      * @var string
      */
@@ -40,12 +44,12 @@ class Profesor implements UserInterface
     private $nicknameProf;
 
     /**
-     * @var string
+     * @var integer
      */
     private $telfFijoProf;
 
     /**
-     * @var string
+     * @var integer
      */
     private $telfMovilProf;
 
@@ -64,7 +68,6 @@ class Profesor implements UserInterface
      */
     private $rolProf;
 
-    
     // AUTH
     
     public function getUsername() {
@@ -83,8 +86,31 @@ class Profesor implements UserInterface
         
     }
 
-
     // END AUTH
+    
+    /**
+     * Get idProf
+     *
+     * @return integer
+     */
+    public function getIdProf()
+    {
+        return $this->idProf;
+    }
+
+    /**
+     * Set nifProf
+     *
+     * @param string $nifProf
+     *
+     * @return Profesor
+     */
+    public function setNifProf($nifProf)
+    {
+        $this->nifProf = $nifProf;
+
+        return $this;
+    }
 
     /**
      * Get nifProf
@@ -219,7 +245,7 @@ class Profesor implements UserInterface
     /**
      * Set telfFijoProf
      *
-     * @param string $telfFijoProf
+     * @param integer $telfFijoProf
      *
      * @return Profesor
      */
@@ -233,7 +259,7 @@ class Profesor implements UserInterface
     /**
      * Get telfFijoProf
      *
-     * @return string
+     * @return integer
      */
     public function getTelfFijoProf()
     {
@@ -243,7 +269,7 @@ class Profesor implements UserInterface
     /**
      * Set telfMovilProf
      *
-     * @param string $telfMovilProf
+     * @param integer $telfMovilProf
      *
      * @return Profesor
      */
@@ -257,7 +283,7 @@ class Profesor implements UserInterface
     /**
      * Get telfMovilProf
      *
-     * @return string
+     * @return integer
      */
     public function getTelfMovilProf()
     {
@@ -346,4 +372,3 @@ class Profesor implements UserInterface
         return $this->rolProf;
     }
 }
-

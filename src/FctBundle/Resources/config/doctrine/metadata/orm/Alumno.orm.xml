@@ -3,13 +3,20 @@
   <entity name="Alumno" table="alumnos">
     <indexes>
       <index name="FK_AL_CF" columns="COD_CICLO"/>
+      <index name="FK_AL_CF2" columns="PROVINCIA_ALU"/>
     </indexes>
     <unique-constraints>
+      <unique-constraint name="NIF_ALU" columns="NIF_ALU"/>
       <unique-constraint name="NICKNAME_ALU" columns="NICKNAME_ALU"/>
     </unique-constraints>
-    <id name="nifAlu" type="string" column="NIF_ALU" length="9">
+    <id name="idAlu" type="integer" column="ID_ALU">
       <generator strategy="IDENTITY"/>
     </id>
+    <field name="nifAlu" type="string" column="NIF_ALU" length="9" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
     <field name="nombreAlu" type="string" column="NOMBRE_ALU" length="20" nullable="true">
       <options>
         <option name="fixed"/>
@@ -45,10 +52,21 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="cpostalAlu" type="decimal" column="CPOSTAL_ALU" precision="5" scale="0" nullable="true"/>
-    <field name="provinciaAlu" type="decimal" column="PROVINCIA_ALU" precision="2" scale="0" nullable="true"/>
-    <field name="telfFijoAlu" type="decimal" column="TELF_FIJO_ALU" precision="9" scale="0" nullable="true"/>
-    <field name="telfMovilAlu" type="decimal" column="TELF_MOVIL_ALU" precision="9" scale="0" nullable="true"/>
+    <field name="cpostalAlu" type="integer" column="CPOSTAL_ALU" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="telfFijoAlu" type="integer" column="TELF_FIJO_ALU" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="telfMovilAlu" type="integer" column="TELF_MOVIL_ALU" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
     <field name="emailAlu" type="string" column="EMAIL_ALU" length="25" nullable="true">
       <options>
         <option name="fixed"/>
@@ -56,7 +74,12 @@
     </field>
     <many-to-one field="codCiclo" target-entity="Ciclos" fetch="LAZY">
       <join-columns>
-        <join-column name="COD_CICLO" referenced-column-name="CODIGO"/>
+        <join-column name="COD_CICLO" referenced-column-name="ID_CICLO"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="provinciaAlu" target-entity="Provincias" fetch="LAZY">
+      <join-columns>
+        <join-column name="PROVINCIA_ALU" referenced-column-name="ID_PROVINCIA"/>
       </join-columns>
     </many-to-one>
   </entity>

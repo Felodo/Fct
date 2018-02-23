@@ -2,6 +2,9 @@ FctBundle\Entity\Profesor:
     type: entity
     table: profesores
     uniqueConstraints:
+        NIF_PROF:
+            columns:
+                - NIF_PROF
         NICKNAME_PROF:
             columns:
                 - NICKNAME_PROF
@@ -9,17 +12,23 @@ FctBundle\Entity\Profesor:
             columns:
                 - PASSWORD_PROF
     id:
+        idProf:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ID_PROF
+            generator:
+                strategy: IDENTITY
+    fields:
         nifProf:
             type: string
             nullable: false
             length: 9
             options:
                 fixed: false
-            id: true
             column: NIF_PROF
-            generator:
-                strategy: IDENTITY
-    fields:
         nombreProf:
             type: string
             nullable: true
@@ -56,16 +65,16 @@ FctBundle\Entity\Profesor:
                 fixed: false
             column: NICKNAME_PROF
         telfFijoProf:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 9
-            scale: 0
+            options:
+                unsigned: false
             column: TELF_FIJO_PROF
         telfMovilProf:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 9
-            scale: 0
+            options:
+                unsigned: false
             column: TELF_MOVIL_PROF
         emailProf:
             type: string
@@ -84,7 +93,7 @@ FctBundle\Entity\Profesor:
         rolProf:
             type: string
             nullable: false
-            length: 10
+            length: 20
             options:
                 fixed: false
             column: ROL_PROF

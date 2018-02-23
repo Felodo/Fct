@@ -8,6 +8,11 @@ namespace FctBundle\Entity;
 class Ciclo
 {
     /**
+     * @var integer
+     */
+    private $idCiclo;
+
+    /**
      * @var string
      */
     private $codigo;
@@ -23,10 +28,34 @@ class Ciclo
     private $grado;
 
     /**
-     * @var string
+     * @var integer
      */
     private $horasfct;
 
+
+    /**
+     * Get idCiclo
+     *
+     * @return integer
+     */
+    public function getIdCiclo()
+    {
+        return $this->idCiclo;
+    }
+
+    /**
+     * Set codigo
+     *
+     * @param string $codigo
+     *
+     * @return Ciclo
+     */
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+
+        return $this;
+    }
 
     /**
      * Get codigo
@@ -89,7 +118,7 @@ class Ciclo
     /**
      * Set horasfct
      *
-     * @param string $horasfct
+     * @param integer $horasfct
      *
      * @return Ciclo
      */
@@ -103,11 +132,10 @@ class Ciclo
     /**
      * Get horasfct
      *
-     * @return string
+     * @return integer
      */
     public function getHorasfct()
     {
         return $this->horasfct;
     }
 }
-

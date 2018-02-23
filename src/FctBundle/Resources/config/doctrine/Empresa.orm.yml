@@ -1,18 +1,32 @@
 FctBundle\Entity\Empresa:
     type: entity
     table: empresas
+    indexes:
+        FK_EMP:
+            columns:
+                - PROVINCIA_EMP
+    uniqueConstraints:
+        CIF_EMP:
+            columns:
+                - CIF_EMP
     id:
+        idEmp:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ID_EMP
+            generator:
+                strategy: IDENTITY
+    fields:
         cifEmp:
             type: string
             nullable: false
             length: 9
             options:
                 fixed: false
-            id: true
             column: CIF_EMP
-            generator:
-                strategy: IDENTITY
-    fields:
         nombreEmp:
             type: string
             nullable: true
@@ -42,28 +56,22 @@ FctBundle\Entity\Empresa:
                 fixed: false
             column: POBLACION_EMP
         cpostalEmp:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 5
-            scale: 0
+            options:
+                unsigned: false
             column: CPOSTAL_EMP
-        provinciaEmp:
-            type: decimal
-            nullable: true
-            precision: 2
-            scale: 0
-            column: PROVINCIA_EMP
         telfFijoEmp:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 9
-            scale: 0
+            options:
+                unsigned: false
             column: TELF_FIJO_EMP
         telfMovilEmp:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 9
-            scale: 0
+            options:
+                unsigned: false
             column: TELF_MOVIL_EMP
         emailEmp:
             type: string
@@ -72,4 +80,15 @@ FctBundle\Entity\Empresa:
             options:
                 fixed: false
             column: EMAIL_EMP
+    manyToOne:
+        provinciaEmp:
+            targetEntity: Provincia
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                PROVINCIA_EMP:
+                    referencedColumnName: ID_PROVINCIA
+            orphanRemoval: false
     lifecycleCallbacks: {  }

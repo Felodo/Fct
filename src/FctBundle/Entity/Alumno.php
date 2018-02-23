@@ -8,6 +8,11 @@ namespace FctBundle\Entity;
 class Alumno
 {
     /**
+     * @var integer
+     */
+    private $idAlu;
+
+    /**
      * @var string
      */
     private $nifAlu;
@@ -48,22 +53,22 @@ class Alumno
     private $poblacionAlu;
 
     /**
-     * @var string
+     * @var integer
      */
     private $cpostalAlu;
 
     /**
-     * @var string
+     * @var integer
      */
     private $provinciaAlu;
 
     /**
-     * @var string
+     * @var integer
      */
     private $telfFijoAlu;
 
     /**
-     * @var string
+     * @var integer
      */
     private $telfMovilAlu;
 
@@ -77,6 +82,30 @@ class Alumno
      */
     private $codCiclo;
 
+
+    /**
+     * Get idAlu
+     *
+     * @return integer
+     */
+    public function getIdAlu()
+    {
+        return $this->idAlu;
+    }
+
+    /**
+     * Set nifAlu
+     *
+     * @param string $nifAlu
+     *
+     * @return Alumno
+     */
+    public function setNifAlu($nifAlu)
+    {
+        $this->nifAlu = $nifAlu;
+
+        return $this;
+    }
 
     /**
      * Get nifAlu
@@ -259,7 +288,7 @@ class Alumno
     /**
      * Set cpostalAlu
      *
-     * @param string $cpostalAlu
+     * @param integer $cpostalAlu
      *
      * @return Alumno
      */
@@ -273,7 +302,7 @@ class Alumno
     /**
      * Get cpostalAlu
      *
-     * @return string
+     * @return integer
      */
     public function getCpostalAlu()
     {
@@ -283,7 +312,7 @@ class Alumno
     /**
      * Set provinciaAlu
      *
-     * @param string $provinciaAlu
+     * @param integer $provinciaAlu
      *
      * @return Alumno
      */
@@ -297,7 +326,7 @@ class Alumno
     /**
      * Get provinciaAlu
      *
-     * @return string
+     * @return integer
      */
     public function getProvinciaAlu()
     {
@@ -307,7 +336,7 @@ class Alumno
     /**
      * Set telfFijoAlu
      *
-     * @param string $telfFijoAlu
+     * @param integer $telfFijoAlu
      *
      * @return Alumno
      */
@@ -321,7 +350,7 @@ class Alumno
     /**
      * Get telfFijoAlu
      *
-     * @return string
+     * @return integer
      */
     public function getTelfFijoAlu()
     {
@@ -331,7 +360,7 @@ class Alumno
     /**
      * Set telfMovilAlu
      *
-     * @param string $telfMovilAlu
+     * @param integer $telfMovilAlu
      *
      * @return Alumno
      */
@@ -345,7 +374,7 @@ class Alumno
     /**
      * Get telfMovilAlu
      *
-     * @return string
+     * @return integer
      */
     public function getTelfMovilAlu()
     {
@@ -400,4 +429,3 @@ class Alumno
         return $this->codCiclo;
     }
 }
-

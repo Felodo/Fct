@@ -1,18 +1,28 @@
 FctBundle\Entity\Ciclo:
     type: entity
     table: ciclos
+    uniqueConstraints:
+        CODIGO:
+            columns:
+                - CODIGO
     id:
+        idCiclo:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ID_CICLO
+            generator:
+                strategy: IDENTITY
+    fields:
         codigo:
             type: string
             nullable: false
             length: 5
             options:
                 fixed: false
-            id: true
             column: CODIGO
-            generator:
-                strategy: IDENTITY
-    fields:
         nombreCiclo:
             type: string
             nullable: true
@@ -28,9 +38,9 @@ FctBundle\Entity\Ciclo:
                 fixed: false
             column: GRADO
         horasfct:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 4
-            scale: 0
+            options:
+                unsigned: false
             column: HORASFCT
     lifecycleCallbacks: {  }

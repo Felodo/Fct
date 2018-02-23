@@ -8,7 +8,7 @@ namespace FctBundle\Entity;
 class Provincia
 {
     /**
-     * @var string
+     * @var integer
      */
     private $idProvincia;
 
@@ -21,7 +21,7 @@ class Provincia
     /**
      * Get idProvincia
      *
-     * @return string
+     * @return integer
      */
     public function getIdProvincia()
     {
@@ -52,4 +52,3 @@ class Provincia
         return $this->nombre;
     }
 }
-

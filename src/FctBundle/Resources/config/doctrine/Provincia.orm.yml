@@ -3,10 +3,10 @@ FctBundle\Entity\Provincia:
     table: provincias
     id:
         idProvincia:
-            type: decimal
+            type: integer
             nullable: false
-            precision: 2
-            scale: 0
+            options:
+                unsigned: false
             id: true
             column: ID_PROVINCIA
             generator:

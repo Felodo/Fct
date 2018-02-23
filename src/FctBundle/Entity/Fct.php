@@ -13,24 +13,24 @@ class Fct
     private $idFct;
 
     /**
-     * @var string
+     * @var integer
      */
     private $anio;
 
     /**
      * @var \FctBundle\Entity\Profesores
      */
-    private $nifProf;
+    private $idProf;
 
     /**
      * @var \FctBundle\Entity\Empresas
      */
-    private $cifEmp;
+    private $idEmp;
 
     /**
      * @var \FctBundle\Entity\Alumnos
      */
-    private $nifAlu;
+    private $idAlu;
 
 
     /**
@@ -46,7 +46,7 @@ class Fct
     /**
      * Set anio
      *
-     * @param string $anio
+     * @param integer $anio
      *
      * @return Fct
      */
@@ -60,7 +60,7 @@ class Fct
     /**
      * Get anio
      *
-     * @return string
+     * @return integer
      */
     public function getAnio()
     {
@@ -68,75 +68,74 @@ class Fct
     }
 
     /**
-     * Set nifProf
+     * Set idProf
      *
-     * @param \FctBundle\Entity\Profesores $nifProf
+     * @param \FctBundle\Entity\Profesor $idProf
      *
      * @return Fct
      */
-    public function setNifProf(\FctBundle\Entity\Profesores $nifProf = null)
+    public function setIdProf(\FctBundle\Entity\Profesor $idProf = null)
     {
-        $this->nifProf = $nifProf;
+        $this->idProf = $idProf;
 
         return $this;
     }
 
     /**
-     * Get nifProf
+     * Get idProf
      *
-     * @return \FctBundle\Entity\Profesores
+     * @return \FctBundle\Entity\Profesor
      */
-    public function getNifProf()
+    public function getIdProf()
     {
-        return $this->nifProf;
+        return $this->idProf;
     }
 
     /**
-     * Set cifEmp
+     * Set idEmp
      *
-     * @param \FctBundle\Entity\Empresas $cifEmp
+     * @param \FctBundle\Entity\Empresa $idEmp
      *
      * @return Fct
      */
-    public function setCifEmp(\FctBundle\Entity\Empresas $cifEmp = null)
+    public function setIdEmp(\FctBundle\Entity\Empresa $idEmp = null)
     {
-        $this->cifEmp = $cifEmp;
+        $this->idEmp = $idEmp;
 
         return $this;
     }
 
     /**
-     * Get cifEmp
+     * Get idEmp
      *
-     * @return \FctBundle\Entity\Empresas
+     * @return \FctBundle\Entity\Empresa
      */
-    public function getCifEmp()
+    public function getIdEmp()
     {
-        return $this->cifEmp;
+        return $this->idEmp;
     }
 
     /**
-     * Set nifAlu
+     * Set idAlu
      *
-     * @param \FctBundle\Entity\Alumnos $nifAlu
+     * @param \FctBundle\Entity\Alumno $idAlu
      *
      * @return Fct
      */
-    public function setNifAlu(\FctBundle\Entity\Alumnos $nifAlu = null)
+    public function setIdAlu(\FctBundle\Entity\Alumno $idAlu = null)
     {
-        $this->nifAlu = $nifAlu;
+        $this->idAlu = $idAlu;
 
         return $this;
     }
 
     /**
-     * Get nifAlu
+     * Get idAlu
      *
-     * @return \FctBundle\Entity\Alumnos
+     * @return \FctBundle\Entity\Alumno
      */
-    public function getNifAlu()
+    public function getIdAlu()
     {
-        return $this->nifAlu;
+        return $this->idAlu;
     }
 }
-

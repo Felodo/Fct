@@ -8,6 +8,11 @@ namespace FctBundle\Entity;
 class Empresa
 {
     /**
+     * @var integer
+     */
+    private $idEmp;
+
+    /**
      * @var string
      */
     private $cifEmp;
@@ -33,22 +38,22 @@ class Empresa
     private $poblacionEmp;
 
     /**
-     * @var string
+     * @var integer
      */
     private $cpostalEmp;
 
     /**
-     * @var string
+     * @var integer
      */
     private $provinciaEmp;
 
     /**
-     * @var string
+     * @var integer
      */
     private $telfFijoEmp;
 
     /**
-     * @var string
+     * @var integer
      */
     private $telfMovilEmp;
 
@@ -57,6 +62,30 @@ class Empresa
      */
     private $emailEmp;
 
+
+    /**
+     * Get idEmp
+     *
+     * @return integer
+     */
+    public function getIdEmp()
+    {
+        return $this->idEmp;
+    }
+
+    /**
+     * Set cifEmp
+     *
+     * @param string $cifEmp
+     *
+     * @return Empresa
+     */
+    public function setCifEmp($cifEmp)
+    {
+        $this->cifEmp = $cifEmp;
+
+        return $this;
+    }
 
     /**
      * Get cifEmp
@@ -167,7 +196,7 @@ class Empresa
     /**
      * Set cpostalEmp
      *
-     * @param string $cpostalEmp
+     * @param integer $cpostalEmp
      *
      * @return Empresa
      */
@@ -181,7 +210,7 @@ class Empresa
     /**
      * Get cpostalEmp
      *
-     * @return string
+     * @return integer
      */
     public function getCpostalEmp()
     {
@@ -191,7 +220,7 @@ class Empresa
     /**
      * Set provinciaEmp
      *
-     * @param string $provinciaEmp
+     * @param integer $provinciaEmp
      *
      * @return Empresa
      */
@@ -205,7 +234,7 @@ class Empresa
     /**
      * Get provinciaEmp
      *
-     * @return string
+     * @return integer
      */
     public function getProvinciaEmp()
     {
@@ -215,7 +244,7 @@ class Empresa
     /**
      * Set telfFijoEmp
      *
-     * @param string $telfFijoEmp
+     * @param integer $telfFijoEmp
      *
      * @return Empresa
      */
@@ -229,7 +258,7 @@ class Empresa
     /**
      * Get telfFijoEmp
      *
-     * @return string
+     * @return integer
      */
     public function getTelfFijoEmp()
     {
@@ -239,7 +268,7 @@ class Empresa
     /**
      * Set telfMovilEmp
      *
-     * @param string $telfMovilEmp
+     * @param integer $telfMovilEmp
      *
      * @return Empresa
      */
@@ -253,7 +282,7 @@ class Empresa
     /**
      * Get telfMovilEmp
      *
-     * @return string
+     * @return integer
      */
     public function getTelfMovilEmp()
     {
@@ -284,4 +313,3 @@ class Empresa
         return $this->emailEmp;
     }
 }
-

@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 
 class ProfesorType extends AbstractType
 {
@@ -19,11 +20,14 @@ class ProfesorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombreProf', TextType::class, array("required"=>"required", 
+            
+            ->add('nifProf', TextType::class, array("required"=>"required", 
+                "attr"=>["class"=>"form-nif form-control"], "label" => "NIF:"))
+            ->add('nombreProf', TextType::class, array( 
                 "attr"=>["class"=>"form-name form-control"], "label" => "Nombre:"))
-            ->add('apellido1Prof', TextType::class, array("required"=>"required", 
+            ->add('apellido1Prof', TextType::class, array( 
                 "attr"=>["class"=>"form-surname form-control"], "label" => "Primer apellido:"))
-            ->add('apellido2Prof', TextType::class, array("required"=>"required", 
+            ->add('apellido2Prof', TextType::class, array( 
                 "attr"=>["class"=>"form-surname form-control"],"label" => "Segundo apellido:"))
             /*->add('fotografiaProf', TextType::class, array("attr"=>["class"=>"form-photo form-control"], 
                 "label" => "Fotografia:"))*/
@@ -38,6 +42,7 @@ class ProfesorType extends AbstractType
             ->add('passwordProf', PasswordType::class, array("required"=>"required", 
                 "attr"=>["class"=>"form-password form-control"], "label" => "Contraseña:"))
             ->add('Guardar', SubmitType::class, array("attr"=>["class"=>"form-submit btn btn-success"]))
+                ->add('Cancelar', ResetType::class, array("attr"=>["class"=>"form-reset btn btn-alert"]))
             //->add('rolProf')
         ;
     }

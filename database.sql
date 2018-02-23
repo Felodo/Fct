@@ -30,18 +30,19 @@ USE bdfct;
 /*==============================================================*/
 create table PROFESORES
 (
-   NIF_PROF             varchar(9) not null,
+   ID_PROF              integer(11) not null AUTO_INCREMENT,
+   NIF_PROF             varchar(9) unique not null,
    NOMBRE_PROF          varchar(20),
    APELLIDO1_PROF       varchar(20),
    APELLIDO2_PROF       varchar(20),
    FOTOGRAFIA_PROF      varchar(100),
    NICKNAME_PROF        varchar(20) unique not null,
-   TELF_FIJO_PROF       numeric(9,0),
-   TELF_MOVIL_PROF      numeric(9,0),
+   TELF_FIJO_PROF       integer(9),
+   TELF_MOVIL_PROF      integer(9),
    EMAIL_PROF           varchar(25),
    PASSWORD_PROF        varchar(60) unique not null,
    ROL_PROF             varchar(20) not null,
-   primary key (NIF_PROF)
+   primary key (ID_PROF)
 );
 
 /*==============================================================*/
@@ -68,7 +69,7 @@ create table PROFESORES
 /*==============================================================*/
 create table PROVINCIAS
 (
-   ID_PROVINCIA         numeric(2,0) not null,
+   ID_PROVINCIA         integer(2) not null,
    NOMBRE               varchar(10),
    primary key (ID_PROVINCIA)
 );
@@ -78,34 +79,12 @@ create table PROVINCIAS
 /*==============================================================*/
 create table CICLOS
 (
-   CODIGO               varchar(5) not null,
+   ID_CICLO             integer(11) not null AUTO_INCREMENT,
+   CODIGO               varchar(5) unique not null,
    NOMBRE_CICLO         varchar(30),
    GRADO                varchar(30),
-   HORASFCT             numeric(4,0),
-   primary key (CODIGO)
-);
-
-/*==============================================================*/
-/* Table: ALUMNOS                                               */
-/*==============================================================*/
-CREATE TABLE ALUMNOS
-(
-   NIF_ALU              varchar(9) not null,
-   COD_CICLO            varchar(5) not null,
-   NOMBRE_ALU           varchar(20),
-   APELLIDO1_ALU        varchar(20),
-   APELLIDO2_ALU        varchar(20),
-   FOTOGRAFIA_ALU       varchar(100),
-   NICKNAME_ALU         varchar(20) unique not null,
-   DIRECCION_ALU        varchar(40),
-   POBLACION_ALU        varchar(25),
-   CPOSTAL_ALU          numeric(5,0),
-   PROVINCIA_ALU        numeric(2,0),
-   TELF_FIJO_ALU        numeric(9,0),
-   TELF_MOVIL_ALU       numeric(9,0),
-   EMAIL_ALU            varchar(25),
-   primary key (NIF_ALU),
-   constraint FK_AL_CF foreign key (COD_CICLO) references CICLOS (CODIGO)
+   HORASFCT             integer(4),
+   primary key (ID_CICLO)
 );
 
 /*==============================================================*/
@@ -113,34 +92,63 @@ CREATE TABLE ALUMNOS
 /*==============================================================*/
 create table EMPRESAS
 (
-   CIF_EMP              varchar(9) not null,
+   ID_EMP               integer(11) not null AUTO_INCREMENT,
+   CIF_EMP              varchar(9) unique not null,
    NOMBRE_EMP           varchar(20),
    TUTOR_EMP            varchar(20),
    DIRECCION_EMP        varchar(40),
    POBLACION_EMP        varchar(25),
-   CPOSTAL_EMP          numeric(5,0),
-   PROVINCIA_EMP        numeric(2,0),
-   TELF_FIJO_EMP        numeric(9,0),
-   TELF_MOVIL_EMP       numeric(9,0),
+   CPOSTAL_EMP          integer(5),
+   PROVINCIA_EMP        integer(2),
+   TELF_FIJO_EMP        integer(9),
+   TELF_MOVIL_EMP       integer(9),
    EMAIL_EMP            varchar(25),
-   primary key (CIF_EMP)
+   primary key (ID_EMP),
+   constraint FK_EMP foreign key (PROVINCIA_EMP) references PROVINCIAS (ID_PROVINCIA)
 );
+
+/*==============================================================*/
+/* Table: ALUMNOS                                               */
+/*==============================================================*/
+CREATE TABLE ALUMNOS
+(
+   ID_ALU               integer(11) not null AUTO_INCREMENT,
+   NIF_ALU              varchar(9) unique not null,
+   COD_CICLO            integer(11) not null,
+   NOMBRE_ALU           varchar(20),
+   APELLIDO1_ALU        varchar(20),
+   APELLIDO2_ALU        varchar(20),
+   FOTOGRAFIA_ALU       varchar(100),
+   NICKNAME_ALU         varchar(20) unique not null,
+   DIRECCION_ALU        varchar(40),
+   POBLACION_ALU        varchar(25),
+   CPOSTAL_ALU          integer(5),
+   PROVINCIA_ALU        integer(2),
+   TELF_FIJO_ALU        integer(9),
+   TELF_MOVIL_ALU       integer(9),
+   EMAIL_ALU            varchar(25),
+   primary key (ID_ALU),
+   constraint FK_AL_CF foreign key (COD_CICLO) references CICLOS (ID_CICLO),
+   constraint FK_AL_CF2 foreign key (PROVINCIA_ALU) references PROVINCIAS (ID_PROVINCIA)
+);
+
+
 
 /*==============================================================*/
 /* Table: FCT                                                   */
 /*==============================================================*/
 create table FCT
 (
-   ID_FCT               integer(9) not null AUTO_INCREMENT,
-   NIF_PROF             varchar(9) not null,
-   CIF_EMP              varchar(9) not null,
-   NIF_ALU              varchar(9) not null,
-   ANIO                 numeric(4,0),
+   ID_FCT               integer(11) not null AUTO_INCREMENT,
+   ID_PROF              integer(9) not null,
+   ID_EMP               integer(9) not null,
+   ID_ALU               integer(9) not null,
+   ANIO                 integer(4),
    primary key (ID_FCT),
    /*primary key (NIF_PROF, CIF_EMP, NIF_ALU),*/
-   constraint FK_FCT foreign key (NIF_PROF) references PROFESORES (NIF_PROF),
-   constraint FK_FCT2 foreign key (CIF_EMP) references EMPRESAS (CIF_EMP),
-   constraint FK_FCT3 foreign key (NIF_ALU) references ALUMNOS (NIF_ALU)
+   constraint FK_FCT foreign key (ID_PROF) references PROFESORES (ID_PROF),
+   constraint FK_FCT2 foreign key (ID_EMP) references EMPRESAS (ID_EMP),
+   constraint FK_FCT3 foreign key (ID_ALU) references ALUMNOS (ID_ALU)
 );
 
 /*INSERT INTO `USUARIOS` (`NIF_USER`, `NICKNAME_USER`, `PASSWORD_USER`, `ROL_USER`) VALUES
@@ -210,7 +218,7 @@ INSERT INTO `provincias` (`ID_PROVINCIA`, `NOMBRE`) VALUES
 INSERT INTO `ALUMNOS` (`NIF_ALU`, `COD_CICLO`, `NOMBRE_ALU`, `APELLIDO1_ALU`, 
 `APELLIDO2_ALU`, `NICKNAME_ALU`, `DIRECCION_ALU`, `POBLACION_ALU`, `CPOSTAL_ALU`, 
 `PROVINCIA_ALU`, `TELF_FIJO_ALU`, `TELF_MOVIL_ALU`, `EMAIL_ALU`) VALUES
-('48922995S', 'ASIR', 'ANA', 'LOZANO', 'LOPEZ', 'ALONA', 'c/ SAN JUAN DEL PUERTO Nº4', 'HUELVA', 21004, 21, 959, 666, 'alona93@gmail.com');
+('48922995S', 2, 'ANA', 'LOZANO', 'LOPEZ', 'ALONA', 'c/ SAN JUAN DEL PUERTO Nº4', 'HUELVA', 21004, 21, 959, 666, 'alona93@gmail.com');
 
 INSERT INTO `PROFESORES` (`NIF_PROF`, `NOMBRE_PROF`, `APELLIDO1_PROF`, 
 `APELLIDO2_PROF`, `NICKNAME_PROF`, `TELF_FIJO_PROF`, `TELF_MOVIL_PROF`, 
@@ -223,5 +231,5 @@ INSERT INTO `EMPRESAS` (`CIF_EMP`, `NOMBRE_EMP`, `TUTOR_EMP`, `DIRECCION_EMP`,
 VALUES
 ('1', 'SERVINFORM', 'JOSE', 'c/Alonso Sanchez nº 14', 'HUELVA', 21005, 21, 959, 666, 'rhumanos@servinform.es');
 
-INSERT INTO `FCT` (`NIF_ALU`, `CIF_EMP`, `NIF_PROF`, `ANIO`) VALUES
-('48922995S', '1', '48922993S', 2015);
+INSERT INTO `FCT` (`ID_ALU`, `ID_EMP`, `ID_PROF`, `ANIO`) VALUES
+(1, 1, 1, 2015);

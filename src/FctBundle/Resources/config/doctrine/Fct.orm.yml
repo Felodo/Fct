@@ -4,13 +4,13 @@ FctBundle\Entity\Fct:
     indexes:
         FK_FCT:
             columns:
-                - NIF_PROF
+                - ID_PROF
         FK_FCT2:
             columns:
-                - CIF_EMP
+                - ID_EMP
         FK_FCT3:
             columns:
-                - NIF_ALU
+                - ID_ALU
     id:
         idFct:
             type: integer
@@ -23,40 +23,40 @@ FctBundle\Entity\Fct:
                 strategy: IDENTITY
     fields:
         anio:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 4
-            scale: 0
+            options:
+                unsigned: false
             column: ANIO
     manyToOne:
-        nifProf:
-            targetEntity: Profesores
+        idProf:
+            targetEntity: Profesor
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                NIF_PROF:
-                    referencedColumnName: NIF_PROF
+                ID_PROF:
+                    referencedColumnName: ID_PROF
             orphanRemoval: false
-        cifEmp:
-            targetEntity: Empresas
+        idEmp:
+            targetEntity: Empresa
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                CIF_EMP:
-                    referencedColumnName: CIF_EMP
+                ID_EMP:
+                    referencedColumnName: ID_EMP
             orphanRemoval: false
-        nifAlu:
-            targetEntity: Alumnos
+        idAlu:
+            targetEntity: Alumno
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                NIF_ALU:
-                    referencedColumnName: NIF_ALU
+                ID_ALU:
+                    referencedColumnName: ID_ALU
             orphanRemoval: false
     lifecycleCallbacks: {  }
