@@ -9,8 +9,12 @@ logout:
     path: /logout
     
 sign_up:
-    path: /create_profesor
+    path: /profesores/create_profesor
     defaults: { _controller: FctBundle:Profesor:create_profesor }
+    
+create_alumno:
+    path: /alumnos/create_alumno
+    defaults: { _controller: FctBundle:Alumno:create_alumno }
 
 fct_homepage:
     path:     /

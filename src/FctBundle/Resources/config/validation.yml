@@ -1,0 +1,44 @@
+FctBundle\Entity\Profesor:
+    properties:
+        nifProf:
+            - NotBlank: {message: "El NIF no puede estar vacio"}
+            - Length:
+                min: 9
+                minMessage: "El NIF es de 9 caracteres"
+                max: 9
+                maxMessage: "El NIF es de 9 caracteres"
+        nicknameProf:
+            - NotBlank: {message: "El nickname no puede estar vacio"}
+        passwordProf:
+            - NotBlank: {message: "La contraseña no puede estar vacio"}
+            - Length:
+                min: 4
+                minMessage: "La contraseña debe tener 4 caracteres como minimo"
+                max: 30
+                maxMessage: "La contraseña debe tener 30 caracteres como maximo"
+        telfFijoProf:
+            - Length:
+                min: 9
+                minMessage: "El numero de telefono es de 9 digitos"
+                max: 9
+                maxMessage: "El numero de telefono es de 9 digitos"
+        telfMovilProf:
+            - Length:
+                min: 9
+                minMessage: "El numero de telefono es de 9 digitos"
+                max: 9
+                maxMessage: "El numero de telefono es de 9 digitos"
+        emailProf:
+            - Email: {message: "Este valor no es correcto para la direccion de correo electronico"}
+
+FctBundle\Entity\Alumno:
+    properties:
+        nifAlu:
+            - NotBlank: {message: "El nif no puede estar vacio"}
+            - Length:
+                min: 9
+                minMessage: "El NIF es de 9 caracteres"
+                max: 9
+                maxMessage: "El NIF es de 9 caracteres"
+                
+        
