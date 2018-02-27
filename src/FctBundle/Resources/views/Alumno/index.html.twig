@@ -1,0 +1,43 @@
+{% extends "FctBundle::layout.html.twig" %}
+
+{% block content %}
+    <br>
+    <h2>Listado de los alumnos</h2>
+    <hr>
+    {% for message in app.session.flashbag().get('status') %}
+        <div class="alert alert-success">{{message}}</div>
+        <hr>
+    {% endfor %}
+    <div class="col-lg-4"><a class="btn btn-success btn-lg" href="{{path("fct_create_alumno")}}">Añadir alumno</a><div>
+    <br>
+    <div class="col-lg-4">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Nif</th>
+                    <th>Nickname</th>
+                    <th>Nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+                    <th>Email</th>
+                    <th>Ciclo</th>
+                    <th>Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alumno in alumnos %}
+                    <tr>
+                        <td>{{alumno.nif}}</td>
+                        <td>{{alumno.nickname}}</td>
+                        <td>{{alumno.nombre}}</td>
+                        <td>{{alumno.apellido1}}</td>
+                        <td>{{alumno.apellido2}}</td>
+                        <td>{{alumno.email}}</td>
+                        <td>{{alumno.codigoCiclo}}</td>
+                        <td><a class="btn btn-danger" href="{{path("fct_delete_alumno", {"id_alu":alumno.id_alu})}}"><span></span>X</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

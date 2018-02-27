@@ -16,6 +16,35 @@ class AlumnoController extends Controller {
     public function __construct() {
         $this->session = new Session();
     }
+    
+    public function indexAction(){
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $alumno_repo = $em ->getRepository("FctBundle:Alumno");
+        $alumnos = $alumno_repo->findAll();
+        $alumnos1 = [];
+        $ciclo_repo = $em ->getRepository("FctBundle:Ciclo");
+        $ciclos = $ciclo_repo->findAll();
+        
+        foreach($alumnos as $alumno){
+            $alumno1['id_alu'] = $alumno->getIdAlu();
+            $alumno1['nif'] = $alumno-> getNifAlu();
+            $alumno1['nickname'] = $alumno->getNicknameAlu();
+            $alumno1['nombre'] = $alumno->getNombreAlu();
+            $alumno1['apellido1'] = $alumno->getApellido1Alu();
+            $alumno1['apellido2'] = $alumno->getApellido2Alu();
+            $alumno1['email'] = $alumno->getEmailAlu();
+            $alumno1['codigoCiclo'] = $alumno->getCodCiclo()->getCodigo();
+            $alumnos1[] = $alumno1;
+        }
+        
+        
+        
+        return $this->render('FctBundle:Alumno:index.html.twig', array(
+            "alumnos" => $alumnos1,
+        ));
+    }
 
     public function create_alumnoAction(Request $request) {
         $alumno = new Alumno();
@@ -66,6 +95,7 @@ class AlumnoController extends Controller {
                 $status = "Error: El alumno no se ha registrado, porque el formulario no es valido :(";
             }
             $this->session->getFlashBag()->add("status", $status);
+            return $this->redirectToRoute("fct_index_alumno");
         }
 
 
@@ -74,6 +104,15 @@ class AlumnoController extends Controller {
                     "status" => $status,
                     "form" => $form->createView()
         ));
+    }
+    
+    public function delete_alumnoAction($id_alu){
+        $em = $this->getDoctrine()->getManager();
+        $alumno_repo = $em ->getRepository("FctBundle:Alumno");
+        $alumno = $alumno_repo -> find($id_alu);
+        $em->remove($alumno);
+        $em->flush();
+        return $this->redirectToRoute("fct_index_alumno");
     }
 
 }

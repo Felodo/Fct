@@ -15,6 +15,25 @@
             <div><h2>DAWES-Practica2#FTC</h2></div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
                 <a class="navbar-brand" href="{{path("fct_homepage")}}">Inicio</a>
+                {% if app.user != null %}
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{path("fct_index_alumno")}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class=""></span>
+                                Alumnos
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{path("fct_create_alumno")}}">Añadir alumno</a>
+                                <a class="dropdown-item" href="{{path("fct_index_alumno")}}">Listado de alumnos</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item active"><a class="nav-link" href="{{path("fct_index_alumno")}}">Alumnos</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="#">Profesores</a></li>
+                    </ul>
+                {% endif %}
                 <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

@@ -11,11 +11,20 @@ logout:
 sign_up:
     path: /profesores/create_profesor
     defaults: { _controller: FctBundle:Profesor:create_profesor }
-    
-create_alumno:
-    path: /alumnos/create_alumno
-    defaults: { _controller: FctBundle:Alumno:create_alumno }
 
 fct_homepage:
     path:     /
     defaults: { _controller: FctBundle:Default:index }
+
+fct_index_alumno:
+    path: /alumnos
+    defaults: { _controller: FctBundle:Alumno:index }
+
+fct_create_alumno:
+    path: /alumnos/create_alumno
+    defaults: { _controller: FctBundle:Alumno:create_alumno }
+    
+fct_delete_alumno:
+    path: /alumnos/delete_alumno/{id_alu}
+    defaults: { _controller: FctBundle:Alumno:delete_alumno }
+
