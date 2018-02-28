@@ -110,6 +110,16 @@ class AlumnoController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $alumno_repo = $em ->getRepository("FctBundle:Alumno");
         $alumno = $alumno_repo -> find($id_alu);
+        
+        if(count($alumno->getFct()) == 0){
+            $em->remove($alumno);
+            $em->flush();
+            return $this->redirectToRoute('fct_index_alumno');
+            //return $this->render('FctBundle:Ciclo:index.html.twig');
+        }
+        
+        
+        
         $em->remove($alumno);
         $em->flush();
         return $this->redirectToRoute("fct_index_alumno");

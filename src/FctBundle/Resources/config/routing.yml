@@ -27,4 +27,16 @@ fct_create_alumno:
 fct_delete_alumno:
     path: /alumnos/delete_alumno/{id_alu}
     defaults: { _controller: FctBundle:Alumno:delete_alumno }
+    
+fct_index_ciclo:
+    path: /ciclos
+    defaults: { _controller: FctBundle:Ciclo:index }
+
+fct_create_ciclo:
+    path: /ciclos/create_ciclo
+    defaults: { _controller: FctBundle:Ciclo:create_ciclo }
+    
+fct_delete_ciclo:
+    path: /ciclos/delete_ciclo/{id_ciclo}
+    defaults: { _controller: FctBundle:Ciclo:delete_ciclo }
 
