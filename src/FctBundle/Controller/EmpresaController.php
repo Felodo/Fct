@@ -5,6 +5,8 @@ namespace FctBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use FctBundle\Form\EmpresaType;
+use FctBundle\Entity\Empresa;
 
 class EmpresaController extends Controller
 {
@@ -24,14 +26,17 @@ class EmpresaController extends Controller
         
 
         foreach ($empresas as $empresa) {
-            $empresa1['id_alu'] = $empresa->getIdAlu();
-            $empresa1['nif'] = $empresa->getNifAlu();
-            $empresa1['nickname'] = $empresa->getNicknameAlu();
-            $empresa1['nombre'] = $empresa->getNombreAlu();
-            $empresa1['apellido1'] = $empresa->getApellido1Alu();
-            $empresa1['apellido2'] = $empresa->getApellido2Alu();
-            $empresa1['email'] = $empresa->getEmailAlu();
-            $empresa1['codigoCiclo'] = $empresa->getCodCiclo()->getCodigo();
+            $empresa1['id_emp'] = $empresa->getIdEmp();
+            $empresa1['cif'] = $empresa->getCifEmp();
+            $empresa1['nombre'] = $empresa->getNombreEmp();
+            $empresa1['tutor'] = $empresa->getTutorEmp();
+            $empresa1['direccion'] = $empresa->getDireccionEmp();
+            $empresa1['poblacion'] = $empresa->getPoblacionEmp();
+            $empresa1['cpostal'] = $empresa->getCpostalEmp();
+            $empresa1['provincia'] = $empresa->getProvinciaEmp()->getNombre();
+            $empresa1['telffijo']=$empresa->getTelfFijoEmp();
+            $empresa1['telfmovil']=$empresa->getTelfMovilEmp();
+            $empresa1['email']=$empresa->getEmailEmp();
             $empresas1[] = $empresa1;
         }
 
@@ -45,7 +50,58 @@ class EmpresaController extends Controller
         //return $this->render('FctBundle:Ciclo:index.html.twig');
     }
     
-    public function create_empresaAction(){
+    public function create_empresaAction(Request $request){
+        $empresa = new Empresa();
+        $form = $this->createForm(EmpresaType::class, $empresa);
+
+        $form->handleRequest($request);
+        $status = "";
         
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+
+                $em = $this->getDoctrine()->getManager();
+
+                $empresa = $em->getRepository('FctBundle:Empresa')->findOneBy(array("cifEmp" => $form->get('cifEmp')->getData()));
+
+                if (count($empresa) == 0) {
+                    $empresa = new Empresa();
+                    $empresa->setCifEmp($form->get('cifEmp')->getData());
+                    $empresa->setNombreEmp($form->get('nombreEmp')->getData());
+                    $empresa->setTutorEmp($form->get('tutorEmp')->getData());
+                    $empresa->setDireccionEmp($form->get('direccionEmp')->getData());
+                    $empresa->setPoblacionEmp($form->get('poblacionEmp')->getData());
+                    $empresa->setCpostalEmp($form->get('cpostalEmp')->getData());
+                    $empresa->setProvinciaEmp($form->get('provinciaEmp')->getData());
+                    $empresa->setTelfFijoEmp($form->get('telfFijoEmp')->getData());
+                    $empresa->setTelfMovilEmp($form->get('telfMovilEmp')->getData());
+                    $empresa->setEmailEmp($form->get('emailEmp')->getData());
+                    
+
+                    //Obtenemos el entity manager
+                    $em = $this->getDoctrine()->getManager();
+                    //y persistimos los datos almacenándolos dentro de doctrine
+                    $em->persist($empresa);
+                    //Volcamos los datos del ORM en la base de datos
+                    $flush = $em->flush();
+
+                    if ($flush != NULL) {
+                        $status = "Error: La empresa no se registró correctamente!! :(";
+                    } else {
+                        $status = "La empresa se ha registrado correctamente!! :)";
+                    }
+                } else {
+                    $status = "Error: La empresa ya existe!! :(";
+                }
+            } else {
+                $status = "Error: La empresa no se ha registrado, porque el formulario no es valido :(";
+            }
+            $this->session->getFlashBag()->add("status", $status);
+            return $this->redirectToRoute("fct_index_empresa");
+        }
+        return $this->render('FctBundle:Empresa:createEmpresa.html.twig', array(
+                    "status" => $status,
+                    "form" => $form->createView()
+        ));
     }
 }

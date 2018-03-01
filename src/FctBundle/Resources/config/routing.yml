@@ -39,4 +39,24 @@ fct_create_ciclo:
 fct_delete_ciclo:
     path: /ciclos/delete_ciclo/{id_ciclo}
     defaults: { _controller: FctBundle:Ciclo:delete_ciclo }
+    
+fct_index_empresa:
+    path: /empresas
+    defaults: { _controller: FctBundle:Empresa:index }
+    
+fct_create_empresa:
+    path: /empresas/create_empresa
+    defaults: { _controller: FctBundle:Empresa:create_empresa }
+    
+fct_delete_empresa:
+    path: /empresas/delete_empresa/{id_emp}
+    defaults: { _controller: FctBundle:Empresa:delete_empresa }
+    
+fct_index_fct:
+    path: /fct
+    defaults: { _controller: FctBundle:Fct:index }
+    
+fct_create_fct:
+    path: /fct/create_fct
+    defaults: { _controller: FctBundle:Fct:create_fct }
 

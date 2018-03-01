@@ -44,7 +44,7 @@ class CicloController extends Controller {
 
     public function create_cicloAction(Request $request) 
     {
-        $ciclo = new ciclo();
+        $ciclo = new Ciclo();
         $form = $this->createForm(CicloType::class, $ciclo);
 
         $form->handleRequest($request);
@@ -86,7 +86,8 @@ class CicloController extends Controller {
                     //Volcamos los datos del ORM en la base de datos
                     $flush = $em->flush();
 
-                    if ($flush != NULL) {
+                    if ($flush != NULL) 
+                    {
                         $status = "Error: El alumno no se registró correctamente!! :(";
                     } else {
                         $status = "El alumno se ha registrado correctamente!! :)";
