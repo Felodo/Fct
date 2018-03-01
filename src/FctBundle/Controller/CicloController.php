@@ -115,10 +115,19 @@ class CicloController extends Controller {
 
         if (count($ciclo->getAlumno()) == 0) {
             $em->remove($ciclo);
-            $em->flush();
-            return $this->redirectToRoute('fct_index_ciclos');
+            $flush = $em->flush();
+            
+             if ($flush != NULL) {
+                $status = "Error: El ciclo no se pudo eliminar correctamente!! :(";
+            } else {
+                $status = "El ciclo se ha eliminado correctamente!! :)";
+            }
             //return $this->render('FctBundle:Ciclo:index.html.twig');
+        }else{
+            $status = "Error: El ciclo no se pudo eliminar, porque hay alumnos registrados :(";
         }
+        $this->session->getFlashBag()->add("status", $status);
+        return $this->redirectToRoute('fct_index_ciclos');
     }
 
 }

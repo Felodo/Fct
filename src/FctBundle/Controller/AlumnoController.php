@@ -16,20 +16,20 @@ class AlumnoController extends Controller {
     public function __construct() {
         $this->session = new Session();
     }
-    
-    public function indexAction(){
-        
+
+    public function indexAction() {
+
         $em = $this->getDoctrine()->getManager();
-        
-        $alumno_repo = $em ->getRepository("FctBundle:Alumno");
+
+        $alumno_repo = $em->getRepository("FctBundle:Alumno");
         $alumnos = $alumno_repo->findAll();
         $alumnos1 = [];
-        $ciclo_repo = $em ->getRepository("FctBundle:Ciclo");
+        $ciclo_repo = $em->getRepository("FctBundle:Ciclo");
         $ciclos = $ciclo_repo->findAll();
-        
-        foreach($alumnos as $alumno){
+
+        foreach ($alumnos as $alumno) {
             $alumno1['id_alu'] = $alumno->getIdAlu();
-            $alumno1['nif'] = $alumno-> getNifAlu();
+            $alumno1['nif'] = $alumno->getNifAlu();
             $alumno1['nickname'] = $alumno->getNicknameAlu();
             $alumno1['nombre'] = $alumno->getNombreAlu();
             $alumno1['apellido1'] = $alumno->getApellido1Alu();
@@ -38,11 +38,11 @@ class AlumnoController extends Controller {
             $alumno1['codigoCiclo'] = $alumno->getCodCiclo()->getCodigo();
             $alumnos1[] = $alumno1;
         }
-        
-        
-        
+
+
+
         return $this->render('FctBundle:Alumno:index.html.twig', array(
-            "alumnos" => $alumnos1,
+                    "alumnos" => $alumnos1,
         ));
     }
 
@@ -75,7 +75,7 @@ class AlumnoController extends Controller {
                     $alumno->setTelfMovilAlu($form->get('telfMovilAlu')->getData());
                     $alumno->setCodCiclo($form->get('codCiclo')->getData());
                     $alumno->setEmailAlu($form->get('emailAlu')->getData());
-                    
+
                     //Obtenemos el entity manager
                     $em = $this->getDoctrine()->getManager();
                     //y persistimos los datos almacenándolos dentro de doctrine
@@ -88,7 +88,7 @@ class AlumnoController extends Controller {
                     } else {
                         $status = "El alumno se ha registrado correctamente!! :)";
                     }
-                }else{
+                } else {
                     $status = "Error: El alumno ya existe!! :(";
                 }
             } else {
@@ -105,24 +105,30 @@ class AlumnoController extends Controller {
                     "form" => $form->createView()
         ));
     }
-    
-    public function delete_alumnoAction($id_alu){
+
+    public function delete_alumnoAction($id_alu) 
+    {
         $em = $this->getDoctrine()->getManager();
-        $alumno_repo = $em ->getRepository("FctBundle:Alumno");
-        $alumno = $alumno_repo -> find($id_alu);
-        
-        if(count($alumno->getFct()) == 0){
+        $alumno_repo = $em->getRepository("FctBundle:Alumno");
+        $alumno = $alumno_repo->find($id_alu);
+
+        if (count($alumno->getFct()) == 0) {
             $em->remove($alumno);
-            $em->flush();
-            return $this->redirectToRoute('fct_index_alumno');
+            $flush = $em->flush();
+
+            if ($flush != NULL) {
+                $status = "Error: El alumno no se pudo eliminar correctamente!! :(";
+            } else {
+                $status = "El alumno se ha eliminado correctamente!! :)";
+            }
+
+
             //return $this->render('FctBundle:Ciclo:index.html.twig');
+        }else{
+            $status = "Error: El alumno no se pudo eliminar correctamente!! Está asociado a una fct :(";
         }
-        
-        
-        
-        $em->remove($alumno);
-        $em->flush();
-        return $this->redirectToRoute("fct_index_alumno");
+        $this->session->getFlashBag()->add("status", $status);
+        return $this->redirectToRoute('fct_index_alumno');
     }
 
 }
