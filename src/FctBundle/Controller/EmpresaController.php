@@ -104,4 +104,26 @@ class EmpresaController extends Controller
                     "form" => $form->createView()
         ));
     }
+    
+    public function delete_empresaAction($id_empresa){
+        $em = $this->getDoctrine()->getManager();
+        $empresa_repo = $em->getRepository("FctBundle:Empresa");
+        $empresa = $empresa_repo->find($id_empresa);
+
+        if (count($empresa->getFct()) == 0) {
+            $em->remove($empresa);
+            $flush = $em->flush();
+            
+             if ($flush != NULL) {
+                $status = "Error: La empresa no se pudo eliminar correctamente!! :(";
+            } else {
+                $status = "El empresa se ha eliminado correctamente!! :)";
+            }
+            //return $this->render('FctBundle:Ciclo:index.html.twig');
+        }else{
+            $status = "Error: El empresa no se pudo eliminar, porque hay fct registrados :(";
+        }
+        $this->session->getFlashBag()->add("status", $status);
+        return $this->redirectToRoute('fct_index_empresa');
+    }
 }

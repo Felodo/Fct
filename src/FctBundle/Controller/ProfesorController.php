@@ -15,6 +15,30 @@ class ProfesorController extends Controller {
     public function __construct() {
         $this->session = new Session();
     }
+    
+    public function indexAction(){
+        $em = $this->getDoctrine()->getManager();
+
+        $profesor_repo = $em->getRepository("FctBundle:Profesor");
+        $profesores = $profesor_repo->findAll();
+        $profesores1 = [];
+        
+        foreach ($profesores as $profesor) {
+            $profesor1['id_prof'] = $profesor->getIdProf();
+            $profesor1['nif_prof'] = $profesor->getNifProf();
+            $profesor1['nombre_prof'] = $profesor->getNombreProf();
+            $profesor1['apellido1_prof'] = $profesor->getApellido1Prof();
+            $profesor1['apellido2_prof'] = $profesor->getApellido2Prof();
+            $profesor1['nickname_prof'] = $profesor->getNicknameProf();
+            $profesor1['telffijo_prof'] = $profesor->getTelfFijoProf();
+            $profesor1['telfmovil_prof'] = $profesor->getTelfMovilProf();
+            $profesor1['email_prof'] = $profesor->getEmailProf();
+            $profesores1[] = $profesor1;
+        }
+        return $this->render('FctBundle:Profesor:index.html.twig', array(
+                    "profesores" => $profesores1,
+        ));
+    }
 
     public function loginAction(Request $request) {
         $authenticationUtils = $this->get("security.authentication_utils");
@@ -98,6 +122,31 @@ class ProfesorController extends Controller {
         ]);
 
         //$em = $this->getDoctrine()->getManager();
+    }
+    
+    public function delete_profesorAction($id_prof)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $profesor_repo = $em->getRepository("FctBundle:Profesor");
+        $profesor = $profesor_repo->find($id_prof);
+
+        if (count($profesor->getFct()) == 0) {
+            $em->remove($profesor);
+            $flush = $em->flush();
+
+            if ($flush != NULL) {
+                $status = "Error: El profesor no se pudo eliminar correctamente!! :(";
+            } else {
+                $status = "El profesor se ha eliminado correctamente!! :)";
+            }
+
+
+            //return $this->render('FctBundle:Ciclo:index.html.twig');
+        }else{
+            $status = "Error: El profesor no se pudo eliminar correctamente!! Está asociado a una fct :(";
+        }
+        $this->session->getFlashBag()->add("status", $status);
+        return $this->redirectToRoute('fct_index_alumno');
     }
 
 }

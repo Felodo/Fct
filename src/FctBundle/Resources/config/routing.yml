@@ -15,6 +15,14 @@ sign_up:
 fct_homepage:
     path:     /
     defaults: { _controller: FctBundle:Default:index }
+    
+fct_index_profesor:
+    path: /profesores
+    defaults: { _controller: FctBundle:Profesor:index }
+    
+fct_delete_profesor:
+    path: /profesores/delete_profesor/{id_prof}
+    defaults: { _controller: FctBundle:Profesor:delete_profesor }
 
 fct_index_alumno:
     path: /alumnos

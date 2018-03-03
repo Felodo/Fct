@@ -1,0 +1,52 @@
+{% extends "FctBundle::layout.html.twig" %}
+
+{% block content %}
+    <br>
+    <h2>Listado de los Profesores</h2>
+    <hr>
+    {% for message in app.session.flashbag().get('status') %}
+        <div class="alert alert-success">{{message}}</div>
+        <hr>
+    {% endfor %}
+   
+            <br>
+            <div class="col-lg-4">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Nif</th>
+                            <th>Nickname</th>
+                            <th>Nombre</th>
+                            <th>Primer Apellido</th>
+                            <th>Segundo Apellido</th>
+                            
+                            <th>Telefono Fijo</th>
+                            <th>Telefono Movil</th>
+                            <th>Email</th>
+                            <th>Operaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for profesor in profesores %}
+                            <tr>
+                                <td>{{profesor.nif_prof}}</td>
+                                <td>{{profesor.nickname_prof}}</td>
+                                <td>{{profesor.nombre_prof}}</td>
+                                <td>{{profesor.apellido1_prof}}</td>
+                                <td>{{profesor.apellido2_prof}}</td>
+                                <td>{{profesor.telffijo_prof}}</td>
+                                <td>{{profesor.telfmovil_prof}}</td>
+                                <td>{{profesor.email_prof}}</td>
+                                
+                                <td>
+                                    <a class="btn btn-danger" href="{{path("fct_delete_profesor", {"id_prof":profesor.id_prof})}}"><span></span>X</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endblock %}
+{# empty Twig template #}
+{# empty Twig template #}
+{# empty Twig template #}
