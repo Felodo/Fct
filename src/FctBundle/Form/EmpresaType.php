@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class EmpresaType extends AbstractType
 {
@@ -41,6 +42,7 @@ class EmpresaType extends AbstractType
                 "choice_label"=>"nombre",
                 "choice_value"=>"idProvincia",
                 "attr"=>["class"=>"form-cod_provincia form-control"], "label"=>"Provincia:"))
+            ->add('Guardar', SubmitType::class, array("attr"=>["class"=>"form-submit btn btn-success"]))
         ;
     }
     

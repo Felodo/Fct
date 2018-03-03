@@ -59,4 +59,8 @@ fct_index_fct:
 fct_create_fct:
     path: /fct/create_fct
     defaults: { _controller: FctBundle:Fct:create_fct }
+    
+fct_delete_fct:
+    path: /fct/delete_fct/{id_fct}
+    defaults: { _controller: FctBundle:Fct:delete_fct }
 
