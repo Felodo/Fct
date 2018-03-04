@@ -111,4 +111,41 @@ class FctController extends Controller {
         return $this->redirectToRoute('fct_index_ciclos');
     }
 
+    public function edit_fct($id_fct) {
+        $em = $this->getDoctrine()->getManager();
+        $fct_repo = $em->getRepository("FctBundle:Fct");
+        $fct = $fct_repo->find($id_fct);
+
+        $form = $this->createForm(FctType::class, $fct);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $fct->setAnio($form->get('anio')->getData());
+                $fct->setIdProf($form->get('idProf')->getData());
+                $fct->setIdAlu($form->get('idAlu')->getData());
+                $fct->setIdEmp($form->get('idEmp')->getData());
+
+                $em = $this->getDoctrine()->getManager();
+                //y persistimos los datos almacenándolos dentro de doctrine
+                $em->persist($fct);
+                //Volcamos los datos del ORM en la base de datos
+                $flush = $em->flush();
+
+                if ($flush != NULL) {
+                    $status = "Error: La empresa no se registró correctamente!! :(";
+                } else {
+                    $status = "La empresa se ha registrado correctamente!! :)";
+                }
+            } else {
+                $status = "Error: El ciclo no se ha registrado, porque el formulario no es valido :(";
+            }
+            $this->session->getFlashBag()->add("status", $status);
+            return $this->redirectToRoute("fct_index_empresa");
+        }
+
+        return $this->render('FctBundle:Fct:editFct.html.twig', array(
+                    "form" => $form->createView()
+        ));
+    }
+
 }

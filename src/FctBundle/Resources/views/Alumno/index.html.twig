@@ -34,7 +34,10 @@
                         <td>{{alumno.apellido2}}</td>
                         <td>{{alumno.email}}</td>
                         <td>{{alumno.codigoCiclo}}</td>
-                        <td><a class="btn btn-danger" href="{{path("fct_delete_alumno", {"id_alu":alumno.id_alu})}}"><span></span>X</a></td>
+                        <td>
+                            <a class="btn btn-danger" href="{{path("fct_delete_alumno", {"id_alu":alumno.id_alu})}}"><span></span>X</a>
+                            <a class="btn btn-danger" href="{{path("fct_edit_alumno", {"id_alu":alumno.id_alu})}}"><span></span>Editar</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -106,8 +106,7 @@ class AlumnoController extends Controller {
         ));
     }
 
-    public function delete_alumnoAction($id_alu) 
-    {
+    public function delete_alumnoAction($id_alu) {
         $em = $this->getDoctrine()->getManager();
         $alumno_repo = $em->getRepository("FctBundle:Alumno");
         $alumno = $alumno_repo->find($id_alu);
@@ -124,11 +123,59 @@ class AlumnoController extends Controller {
 
 
             //return $this->render('FctBundle:Ciclo:index.html.twig');
-        }else{
+        } else {
             $status = "Error: El alumno no se pudo eliminar correctamente!! Está asociado a una fct :(";
         }
         $this->session->getFlashBag()->add("status", $status);
         return $this->redirectToRoute('fct_index_alumno');
+    }
+
+    public function edit_alumnoAction($id_alu) {
+        $em = $this->getDoctrine()->getManager();
+        $alumno_repo = $em->getRepository("FctBundle:Alumno");
+        $alumno = $alumno_repo->find($id_alu);
+
+        $form = $this->createForm(AlumnoType::class, $alumno);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $alumno = new Alumno();
+                $alumno->setNifAlu($form->get('nifAlu')->getData());
+                $alumno->setNombreAlu($form->get('nombreAlu')->getData());
+                $alumno->setApellido1Alu($form->get('apellido1Alu')->getData());
+                $alumno->setApellido2Alu($form->get('apellido2Alu')->getData());
+                $alumno->setNicknameAlu($form->get('nicknameAlu')->getData());
+                $alumno->setDireccionAlu($form->get('direccionAlu')->getData());
+                $alumno->setPoblacionAlu($form->get('poblacionAlu')->getData());
+                $alumno->setProvinciaAlu($form->get('provinciaAlu')->getData());
+                $alumno->setCpostalAlu($form->get('cpostalAlu')->getData());
+                $alumno->setTelfFijoAlu($form->get('telfFijoAlu')->getData());
+                $alumno->setTelfMovilAlu($form->get('telfMovilAlu')->getData());
+                $alumno->setCodCiclo($form->get('codCiclo')->getData());
+                $alumno->setEmailAlu($form->get('emailAlu')->getData());
+
+                //Obtenemos el entity manager
+                //$em = $this->getDoctrine()->getManager();
+                //y persistimos los datos almacenándolos dentro de doctrine
+                $em->persist($alumno);
+                //Volcamos los datos del ORM en la base de datos
+                $flush = $em->flush();
+
+                if ($flush != NULL) {
+                    $status = "Error: El alumno no se registró correctamente!! :(";
+                } else {
+                    $status = "El alumno se ha registrado correctamente!! :)";
+                }
+            } else {
+                $status = "Error: El alumno no se ha registrado, porque el formulario no es valido :(";
+            }
+            $this->session->getFlashBag()->add("status", $status);
+            return $this->redirectToRoute("fct_index_alumno");
+        } 
+
+        return $this->render('FctBundle:Alumno:editAlumno.html.twig', array(
+                    "form" => $form->createView()
+        ));
     }
 
 }

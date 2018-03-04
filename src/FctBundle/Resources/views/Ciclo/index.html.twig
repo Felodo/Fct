@@ -30,6 +30,7 @@
                                 <td>{{ciclo.horas}}</td>
                                 <td>
                                     <a class="btn btn-danger" href="{{path("fct_delete_ciclo", {"id_ciclo":ciclo.id_ciclo})}}"><span></span>X</a>
+                                    <a class="btn btn-danger" href="{{path("fct_edit_ciclo", {"id_ciclo":ciclo.id_ciclo})}}"><span></span>Editar</a>
                                 </td>
                             </tr>
                         {% endfor %}

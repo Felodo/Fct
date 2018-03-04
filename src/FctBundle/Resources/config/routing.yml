@@ -36,6 +36,10 @@ fct_delete_alumno:
     path: /alumnos/delete_alumno/{id_alu}
     defaults: { _controller: FctBundle:Alumno:delete_alumno }
     
+fct_edit_alumno:
+    path: /alumnos/edit_Alumno/{id_alu}
+    defaults: { _controller: FctBundke:Alumno:edit_alumno }
+    
 fct_index_ciclo:
     path: /ciclos
     defaults: { _controller: FctBundle:Ciclo:index }
@@ -47,6 +51,10 @@ fct_create_ciclo:
 fct_delete_ciclo:
     path: /ciclos/delete_ciclo/{id_ciclo}
     defaults: { _controller: FctBundle:Ciclo:delete_ciclo }
+    
+fct_edit_ciclo:
+    path: /ciclos/edit_ciclo/{id_ciclo}
+    deafults: { _controller: FctBundle:Ciclo:edit_ciclo }
     
 fct_index_empresa:
     path: /empresas
@@ -60,6 +68,10 @@ fct_delete_empresa:
     path: /empresas/delete_empresa/{id_emp}
     defaults: { _controller: FctBundle:Empresa:delete_empresa }
     
+fct_edit_empresa:
+    path: /empresas/edit_empresa/{id_emp}
+    defaults: { _controller: FctBundle:Empresa:edit_empresa }
+    
 fct_index_fct:
     path: /fct
     defaults: { _controller: FctBundle:Fct:index }
@@ -71,4 +83,8 @@ fct_create_fct:
 fct_delete_fct:
     path: /fct/delete_fct/{id_fct}
     defaults: { _controller: FctBundle:Fct:delete_fct }
+    
+fct_edit_fct:
+    path: /fct/edit_fct/{id_fct}
+    defaults: { _controller: FctBundle:Fct:edit_fct }
 

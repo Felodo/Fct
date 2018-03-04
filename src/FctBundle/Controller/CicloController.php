@@ -75,9 +75,9 @@ class CicloController extends Controller {
                 if (count($ciclo) == 0) {
                     $ciclo = new Alumno();
                     $ciclo->setCodigo($form->get('codigo')->getData());
-                    $alumno->setNombreCiclo($form->get('nombreCiclo')->getData());
-                    $alumno->setGrado($form->get('grado')->getData());
-                    $alumno->setHorasfct($form->get('horas')->getData());
+                    $ciclo->setNombreCiclo($form->get('nombreCiclo')->getData());
+                    $ciclo->setGrado($form->get('grado')->getData());
+                    $ciclo->setHorasfct($form->get('horas')->getData());
 
                     //Obtenemos el entity manager
                     $em = $this->getDoctrine()->getManager();
@@ -129,6 +129,41 @@ class CicloController extends Controller {
         }
         $this->session->getFlashBag()->add("status", $status);
         return $this->redirectToRoute('fct_index_ciclos');
+    }
+    
+    public function edit_cicloAction($id_ciclo){
+        $em = $this->getDoctrine()->getManager();
+        $ciclo_repo = $em->getRepository("FctBundle:Ciclo");
+        $ciclo = $ciclo_repo->find($id_ciclo);
+
+        $form = $this->createForm(CicloType::class, $ciclo);
+        
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $ciclo->setCodigo($form->get('codigo')->getData());
+                $ciclo->setNombreCiclo($form->get('nombreCiclo')->getData());
+                $ciclo->setGrado($form->get('grado')->getData());
+                $ciclo->setHorasfct($form->get('horas')->getData());
+                
+                $em->persist($ciclo);
+                //Volcamos los datos del ORM en la base de datos
+                $flush = $em->flush();
+
+                if ($flush != NULL) {
+                    $status = "Error: El ciclo no se registró correctamente!! :(";
+                } else {
+                    $status = "El ciclo se ha registrado correctamente!! :)";
+                }
+            }else{
+                $status = "Error: El ciclo no se ha registrado, porque el formulario no es valido :(";
+            }
+            $this->session->getFlashBag()->add("status", $status);
+            return $this->redirectToRoute("fct_index_ciclo");
+        }
+        
+        return $this->render('FctBundle:Alumno:editCiclo.html.twig', array(
+                    "form" => $form->createView()
+        ));
     }
 
 }
