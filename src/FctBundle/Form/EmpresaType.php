@@ -33,7 +33,7 @@ class EmpresaType extends AbstractType
                 "attr"=>["class"=>"form-cp form-control"], "label" => "Codigo Postal:"))
             ->add('telfFijoEmp', TextType::class, array(
                 "attr"=>["class"=>"form-nif form-control"], "label" => "Nº de Telefono Fijo:"))
-            ->add('telfMovilEmp', TextType::class, array(
+            ->add('telfMovilEmp', TextType::class, array("required"=>false,
                 "attr"=>["class"=>"form-nif form-control"], "label" => "Nº de Telefono Movil:"))
             ->add('emailEmp', EmailType::class, array("required"=>"required", 
                 "attr"=>["class"=>"form-email form-control"],"label" => "Correo electronico:"))

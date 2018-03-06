@@ -23,14 +23,18 @@ class ProfesorType extends AbstractType
             
             ->add('nifProf', TextType::class, array("required"=>"required", 
                 "attr"=>["class"=>"form-nif form-control"], "label" => "NIF:"))
-            ->add('nombreProf', TextType::class, array( 
+            ->add('nombreProf', TextType::class, array("required"=>false,
                 "attr"=>["class"=>"form-name form-control"], "label" => "Nombre:"))
-            ->add('apellido1Prof', TextType::class, array( 
+            ->add('apellido1Prof', TextType::class, array("required"=>false,
                 "attr"=>["class"=>"form-surname form-control"], "label" => "Primer apellido:"))
-            ->add('apellido2Prof', TextType::class, array( 
+            ->add('apellido2Prof', TextType::class, array("required"=>false,
                 "attr"=>["class"=>"form-surname form-control"],"label" => "Segundo apellido:"))
             /*->add('fotografiaProf', TextType::class, array("attr"=>["class"=>"form-photo form-control"], 
                 "label" => "Fotografia:"))*/
+            ->add('fotografiaProf', FileType::class,  array(
+                "required"=>false, 
+                "attr"=>["class"=>"form-surname1 form-control"], 
+                "label" => "Imagen:"))
             ->add('nicknameProf', TextType::class, array("required"=>"required", 
                 "attr"=>["class"=>"form-nickname form-control"], "label" => "Nickname:"))
             ->add('telfFijoProf', TextType::class, array("attr"=>["class"=>"form-fijo form-control"],

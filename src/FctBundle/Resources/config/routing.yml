@@ -37,8 +37,8 @@ fct_delete_alumno:
     defaults: { _controller: FctBundle:Alumno:delete_alumno }
     
 fct_edit_alumno:
-    path: /alumnos/edit_Alumno/{id_alu}
-    defaults: { _controller: FctBundke:Alumno:edit_alumno }
+    path: /alumnos/edit_alumno/{id_alu}
+    defaults: { _controller: FctBundle:Alumno:edit_alumno }
     
 fct_index_ciclo:
     path: /ciclos
@@ -54,7 +54,7 @@ fct_delete_ciclo:
     
 fct_edit_ciclo:
     path: /ciclos/edit_ciclo/{id_ciclo}
-    deafults: { _controller: FctBundle:Ciclo:edit_ciclo }
+    defaults: { _controller: FctBundle:Ciclo:edit_ciclo }
     
 fct_index_empresa:
     path: /empresas

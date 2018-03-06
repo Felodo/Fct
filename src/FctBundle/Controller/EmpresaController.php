@@ -126,12 +126,14 @@ class EmpresaController extends Controller {
         return $this->redirectToRoute('fct_index_empresa');
     }
 
-    public function edit_empresaAction($id_emp) {
+    public function edit_empresaAction(Request $request, $id_emp) {
         $em = $this->getDoctrine()->getManager();
         $empresa_repo = $em->getRepository("FctBundle:Empresa");
-        $empresa = $empresa_repo->find($id_empresa);
+        $empresa = $empresa_repo->find($id_emp);
 
         $form = $this->createForm(EmpresaType::class, $empresa);
+		
+		$form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
@@ -146,8 +148,6 @@ class EmpresaController extends Controller {
                 $empresa->setTelfMovilEmp($form->get('telfMovilEmp')->getData());
                 $empresa->setEmailEmp($form->get('emailEmp')->getData());
 
-                //Obtenemos el entity manager
-                $em = $this->getDoctrine()->getManager();
                 //y persistimos los datos almacenándolos dentro de doctrine
                 $em->persist($empresa);
                 //Volcamos los datos del ORM en la base de datos

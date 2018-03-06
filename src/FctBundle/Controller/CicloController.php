@@ -131,13 +131,15 @@ class CicloController extends Controller {
         return $this->redirectToRoute('fct_index_ciclos');
     }
     
-    public function edit_cicloAction($id_ciclo){
+    public function edit_cicloAction(Request $request, $id_ciclo){
         $em = $this->getDoctrine()->getManager();
         $ciclo_repo = $em->getRepository("FctBundle:Ciclo");
         $ciclo = $ciclo_repo->find($id_ciclo);
 
         $form = $this->createForm(CicloType::class, $ciclo);
         
+		$form->handleRequest($request);
+		
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $ciclo->setCodigo($form->get('codigo')->getData());
@@ -161,7 +163,7 @@ class CicloController extends Controller {
             return $this->redirectToRoute("fct_index_ciclo");
         }
         
-        return $this->render('FctBundle:Alumno:editCiclo.html.twig', array(
+        return $this->render('FctBundle:Ciclo:editCiclo.html.twig', array(
                     "form" => $form->createView()
         ));
     }

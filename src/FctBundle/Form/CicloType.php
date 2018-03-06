@@ -23,7 +23,10 @@ class CicloType extends AbstractType {
                     "attr" => ["class" => "form-codigo form-control"], "label" => "Siglas:"))
                 ->add('nombreCiclo', TextType::class, array("required" => "required",
                     "attr" => ["class" => "form-name form-control"], "label" => "Nombre del ciclo:"))
-                ->add('grado', ChoiceType::class, array("choices"=>['Grado Básico' => "Grado Básico", "Grado Medio" => "Grado Medio", "Grado Superior" => "Grado Superior"], "required" => "required",
+                ->add('grado', ChoiceType::class, 
+                        array("choices"=>['Grado Básico' => "Grado Básico", 
+                            "Grado Medio" => "Grado Medio", 
+                            "Grado Superior" => "Grado Superior"], "required" => "required",
                     "attr" => ["class" => "form-grado form-control"], "label" => "Grado:"))
                 ->add('horasfct', TextType::class, array("required" => "required",
                     "attr" => ["class" => "form-horas form-control"], "label" => "Horas:"))

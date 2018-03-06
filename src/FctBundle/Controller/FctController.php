@@ -97,7 +97,7 @@ class FctController extends Controller {
         $fct = $fct_repo->find($id_fct);
 
 
-        $em->remove(fct);
+        $em->remove($fct);
         $flush = $em->flush();
 
         if ($flush != NULL) {
@@ -111,12 +111,13 @@ class FctController extends Controller {
         return $this->redirectToRoute('fct_index_ciclos');
     }
 
-    public function edit_fct($id_fct) {
+    public function edit_fctAction(Request $request, $id_fct) {
         $em = $this->getDoctrine()->getManager();
-        $fct_repo = $em->getRepository("FctBundle:Fct");
-        $fct = $fct_repo->find($id_fct);
+        $fct = $em->getRepository("FctBundle:Fct")->find($id_fct);
 
         $form = $this->createForm(FctType::class, $fct);
+		
+		$form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
@@ -125,22 +126,21 @@ class FctController extends Controller {
                 $fct->setIdAlu($form->get('idAlu')->getData());
                 $fct->setIdEmp($form->get('idEmp')->getData());
 
-                $em = $this->getDoctrine()->getManager();
                 //y persistimos los datos almacenándolos dentro de doctrine
                 $em->persist($fct);
                 //Volcamos los datos del ORM en la base de datos
                 $flush = $em->flush();
 
                 if ($flush != NULL) {
-                    $status = "Error: La empresa no se registró correctamente!! :(";
+                    $status = "Error: La fct no se registró correctamente!! :(";
                 } else {
-                    $status = "La empresa se ha registrado correctamente!! :)";
+                    $status = "La fct se ha registrado correctamente!! :)";
                 }
             } else {
-                $status = "Error: El ciclo no se ha registrado, porque el formulario no es valido :(";
+                $status = "Error: El fct no se ha registrado, porque el formulario no es valido :(";
             }
             $this->session->getFlashBag()->add("status", $status);
-            return $this->redirectToRoute("fct_index_empresa");
+            return $this->redirectToRoute("fct_index_fct");
         }
 
         return $this->render('FctBundle:Fct:editFct.html.twig', array(

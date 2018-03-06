@@ -8,33 +8,38 @@
         <div class="alert alert-success">{{message}}</div>
         <hr>
     {% endfor %}
-    <div class="col-lg-4"><a class="btn btn-success btn-lg" href="{{path("fct_create_ciclo")}}">Añadir ciclo</a><div>
-            <br>
-            <div class="col-lg-4">
-                <table class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Nombre</th>
-                            <th>Grado</th>
-                            <th>Horas</th>
-                            <th>Operaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for ciclo in ciclos %}
-                            <tr>
-                                <td>{{ciclo.codigo}}</td>
-                                <td>{{ciclo.nombreCiclo}}</td>
-                                <td>{{ciclo.grado}}</td>
-                                <td>{{ciclo.horas}}</td>
-                                <td>
-                                    <a class="btn btn-danger" href="{{path("fct_delete_ciclo", {"id_ciclo":ciclo.id_ciclo})}}"><span></span>X</a>
-                                    <a class="btn btn-danger" href="{{path("fct_edit_ciclo", {"id_ciclo":ciclo.id_ciclo})}}"><span></span>Editar</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% endblock %}
+    <div class="col-lg-4"><a class="btn btn-success btn-lg" href="{{path("fct_create_ciclo")}}">Añadir ciclo</a></div>
+    <br>
+    <div class="col-lg-4">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Grado</th>
+                    <th>Horas</th>
+                        {% if is_granted('ROLE_DIRECCION') %}
+                        <th colspan="2">Operaciones</th>
+                        {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for ciclo in ciclos %}
+                    <tr>
+                        <td>{{ciclo.codigo}}</td>
+                        <td>{{ciclo.nombreCiclo}}</td>
+                        <td>{{ciclo.grado}}</td>
+                        <td>{{ciclo.horas}}</td>
+                        {% if is_granted('ROLE_DIRECCION') %}
+                            <td>
+                                <a class="btn btn-danger" href="{{path("fct_delete_ciclo", {"id_ciclo":ciclo.id_ciclo})}}"><span></span>X</a>
+                            </td><td>
+                                <a class="btn btn-danger" href="{{path("fct_edit_ciclo", {"id_ciclo":ciclo.id_ciclo})}}"><span></span>Editar</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

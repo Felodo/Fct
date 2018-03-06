@@ -8,34 +8,36 @@
         <div class="alert alert-success">{{message}}</div>
         <hr>
     {% endfor %}
-    <div class="col-lg-4"><a class="btn btn-success btn-lg" href="{{path("fct_create_fct")}}">Añadir fct</a><div>
-            <br>
-            <div class="col-lg-4">
-                <table class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Año</th>
-                            <th>Profesor</th>
-                            <th>Empresa</th>
-                            <th>Alumno</th>
-                            <th>Operaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for fct in fcts %}
-                            <tr>
-                                <td>{{fct.anio}}</td>
-                                <td>{{fct.nombreProf}}</td>
-                                <td>{{fct.nombreEmp}}</td>
-                                <td>{{fct.nombreAlu}}</td>
-                                <td>
-                                    <a class="btn btn-danger" href="{{path("fct_delete_fct", {"id_fct":fct.id_fct})}}"><span></span>X</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% endblock %}
+    <div class="col-lg-4"><a class="btn btn-success btn-lg" href="{{path("fct_create_fct")}}">Añadir fct</a></div>
+    <br>
+    <div class="col-lg-4">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Año</th>
+                    <th>Profesor</th>
+                    <th>Empresa</th>
+                    <th>Alumno</th>
+                    <th colspan="2">Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fct in fcts %}
+                    <tr>
+                        <td>{{fct.anio}}</td>
+                        <td>{{fct.nombreProf}}</td>
+                        <td>{{fct.nombreEmp}}</td>
+                        <td>{{fct.nombreAlu}}</td>
+                        <td>
+                            <a class="btn btn-danger" href="{{path("fct_delete_fct", {"id_fct":fct.id_fct})}}"><span></span>X</a>
+                        </td><td>
+                            <a class="btn btn-danger" href="{{path("fct_edit_fct", {"id_fct":fct.id_fct})}}"><span></span>Editar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
 {# empty Twig template #}
 {# empty Twig template #}

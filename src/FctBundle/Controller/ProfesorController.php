@@ -15,14 +15,14 @@ class ProfesorController extends Controller {
     public function __construct() {
         $this->session = new Session();
     }
-    
-    public function indexAction(){
+
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $profesor_repo = $em->getRepository("FctBundle:Profesor");
         $profesores = $profesor_repo->findAll();
         $profesores1 = [];
-        
+
         foreach ($profesores as $profesor) {
             $profesor1['id_prof'] = $profesor->getIdProf();
             $profesor1['nif_prof'] = $profesor->getNifProf();
@@ -78,7 +78,20 @@ class ProfesorController extends Controller {
                     $profesor->setNombreProf($form->get('nombreProf')->getData());
                     $profesor->setApellido1Prof($form->get('apellido1Prof')->getData());
                     $profesor->setApellido2Prof($form->get('apellido2Prof')->getData());
-                    $profesor->setFotografiaProf(null);
+
+                    $file = $form['fotografiaProf']->getData();
+
+                    if (!empty($file) && $file = null) {
+                        $ext = $file->guessExtension();
+                        $file_name = $profesor->getNicknameProf() . "." . $ext;
+                        $file->move('../assets/imagen', $file_name);
+                        $profesor->setFotografiaProf($file_name);
+                    } else {
+                        $profesor->setFotografiaProf(null);
+                    }
+                    //$profesor->setFotografiaProf(null);
+
+
                     $profesor->setNicknameProf($form->get('nicknameProf')->getData());
                     $profesor->setTelfFijoProf($form->get('telfFijoProf')->getData());
                     $profesor->setTelfMovilProf($form->get('telfMovilProf')->getData());
@@ -110,9 +123,10 @@ class ProfesorController extends Controller {
                 $status = "Error: El profesor no se registró correctamente!! :(";
             }
             $this->session->getFlashBag()->add("status", $status);
+            return $this->redirectToRoute('fct_homepage');
         }
 
-        
+
 
         return $this->render("FctBundle:Profesor:createProfesor.html.twig", [
                     //"error" => $error,
@@ -123,9 +137,8 @@ class ProfesorController extends Controller {
 
         //$em = $this->getDoctrine()->getManager();
     }
-    
-    public function delete_profesorAction($id_prof)
-    {
+
+    public function delete_profesorAction($id_prof) {
         $em = $this->getDoctrine()->getManager();
         $profesor_repo = $em->getRepository("FctBundle:Profesor");
         $profesor = $profesor_repo->find($id_prof);
@@ -142,11 +155,77 @@ class ProfesorController extends Controller {
 
 
             //return $this->render('FctBundle:Ciclo:index.html.twig');
-        }else{
+        } else {
             $status = "Error: El profesor no se pudo eliminar correctamente!! Está asociado a una fct :(";
         }
         $this->session->getFlashBag()->add("status", $status);
-        return $this->redirectToRoute('fct_index_alumno');
+        return $this->redirectToRoute('fct_index_profesor');
+    }
+
+    public function edit_perfil(Request $request, $id_prof) {
+        $em = $this->getDoctrine()->getManager();
+        $profesor = $em->getRepository("FctBundle:Profesor")->find($id_prof);
+
+
+        $form = $this->createForm(ProfesorType::class, $profesor);
+
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+
+            if ($form->isValid()) {
+                $profesor = new Profesor();
+                $profesor->setNifProf($form->get('nifProf')->getData());
+                $profesor->setNombreProf($form->get('nombreProf')->getData());
+                $profesor->setApellido1Prof($form->get('apellido1Prof')->getData());
+                $profesor->setApellido2Prof($form->get('apellido2Prof')->getData());
+
+                $file = $form['fotografiaProf']->getData();
+
+                if (!empty($file) && $file == null) {
+                    $ext = $file->guessExtension();
+                    $file_name = $profesor->getNicknameProf() . "." . $ext;
+                    $file->move('../assets/imagen', $file_name);
+                    $profesor->setFotografiaProf($file_name);
+                } else {
+                    $profesor->setFotografiaProf(null);
+                }
+                //$profesor->setFotografiaProf(null);
+
+
+                $profesor->setNicknameProf($form->get('nicknameProf')->getData());
+                $profesor->setTelfFijoProf($form->get('telfFijoProf')->getData());
+                $profesor->setTelfMovilProf($form->get('telfMovilProf')->getData());
+                $profesor->setEmailProf($form->get('emailProf')->getData());
+
+                $factory = $this->get("security.encoder_factory");
+                $encoder = $factory->getEncoder($profesor);
+                $password = $encoder->encodePassword($form->get('passwordProf')->getData(), $profesor->getSalt());
+
+                $profesor->setPasswordProf($password);
+
+                //y persistimos los datos almacenándolos dentro de doctrine
+                $em->persist($profesor);
+                //Volcamos los datos del ORM en la base de datos
+                $flush = $em->flush();
+
+                if ($flush != NULL) {
+                    $status = "Error: El profesor no se registró correctamente!! :(";
+                } else {
+                    $status = "Te has tegistrado correctamente!! :)";
+                }
+            } else {
+                $status = "Error: El profesor no se editó correctamente!! :(";
+            }
+            $this->session->getFlashBag()->add("status", $status);
+            return $this->redirectToRoute("fct_index_profesor");
+        }
+        
+        return $this->render("FctBundle:Profesor:editPerfil.html.twig", [
+                    "form" => $form->createView()
+        ]);
     }
 
 }

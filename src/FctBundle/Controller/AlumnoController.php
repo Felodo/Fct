@@ -76,6 +76,18 @@ class AlumnoController extends Controller {
                     $alumno->setCodCiclo($form->get('codCiclo')->getData());
                     $alumno->setEmailAlu($form->get('emailAlu')->getData());
 
+
+                    $file = $form['fotografiaAlu']->getData();
+
+                    if (!empty($file) && $file = null) {
+                        $ext = $file->guessExtension();
+                        $file_name = $alumno->getNicknameAlu() . "." . $ext;
+                        $file->move('../assets/imagen', $file_name);
+                        $alumno->setFotografiaAlu($file_name);
+                    } else {
+                        $alumno->setFotografiaAlu(null);
+                    }
+
                     //Obtenemos el entity manager
                     $em = $this->getDoctrine()->getManager();
                     //y persistimos los datos almacenándolos dentro de doctrine
@@ -130,16 +142,21 @@ class AlumnoController extends Controller {
         return $this->redirectToRoute('fct_index_alumno');
     }
 
-    public function edit_alumnoAction($id_alu) {
+    public function edit_alumnoAction(Request $request, $id_alu) {
         $em = $this->getDoctrine()->getManager();
-        $alumno_repo = $em->getRepository("FctBundle:Alumno");
-        $alumno = $alumno_repo->find($id_alu);
+        $alumno = $em->getRepository("FctBundle:Alumno")->find($id_alu);
+
 
         $form = $this->createForm(AlumnoType::class, $alumno);
 
+
+
+        $form->handleRequest($request);
+
         if ($form->isSubmitted()) {
+
             if ($form->isValid()) {
-                $alumno = new Alumno();
+                //$alumno = new Alumno();
                 $alumno->setNifAlu($form->get('nifAlu')->getData());
                 $alumno->setNombreAlu($form->get('nombreAlu')->getData());
                 $alumno->setApellido1Alu($form->get('apellido1Alu')->getData());
@@ -153,6 +170,18 @@ class AlumnoController extends Controller {
                 $alumno->setTelfMovilAlu($form->get('telfMovilAlu')->getData());
                 $alumno->setCodCiclo($form->get('codCiclo')->getData());
                 $alumno->setEmailAlu($form->get('emailAlu')->getData());
+
+
+                $file = $form['fotografiaAlu']->getData();
+
+                if (!empty($file) && $file == null) {
+                    $ext = $file->guessExtension();
+                    $file_name = $alumno->getNicknameAlu() . "." . $ext;
+                    $file->move('../assets/imagen', $file_name);
+                    $alumno->setFotografiaAlu($file_name);
+                } else {
+                    $alumno->setFotografiaAlu(null);
+                }
 
                 //Obtenemos el entity manager
                 //$em = $this->getDoctrine()->getManager();
@@ -171,7 +200,8 @@ class AlumnoController extends Controller {
             }
             $this->session->getFlashBag()->add("status", $status);
             return $this->redirectToRoute("fct_index_alumno");
-        } 
+        }
+        //return $this->redirectToRoute("fct_index_alumno");
 
         return $this->render('FctBundle:Alumno:editAlumno.html.twig', array(
                     "form" => $form->createView()

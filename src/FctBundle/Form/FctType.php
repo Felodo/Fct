@@ -36,7 +36,6 @@ class FctType extends AbstractType
                 "choice_value"=>"idAlu",
                 "attr"=>["class"=>"form-cod_alumno form-control"], "label"=>"Alumno:"))
             ->add('Guardar', SubmitType::class, array("attr"=>["class"=>"form-submit btn btn-success"]))
-                
         ;
     }
     

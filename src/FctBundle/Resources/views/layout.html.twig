@@ -18,18 +18,74 @@
                 {% if app.user != null %}
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{path("fct_index_ciclo")}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class=""></span>
+                                Ciclos
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% if is_granted('ROLE_DIRECCION') %}
+                                    <a class="dropdown-item" href="{{path("fct_create_ciclo")}}">Añadir ciclos</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="{{path("fct_index_ciclo")}}">Listado de ciclos</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="{{path("fct_index_alumno")}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class=""></span>
                                 Alumnos
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{path("fct_create_alumno")}}">Añadir alumno</a>
+                                {% if is_granted('ROLE_DIRECCION') %}
+                                    <a class="dropdown-item" href="{{path("fct_create_alumno")}}">Añadir alumno</a>
+                                {% endif %}
                                 <a class="dropdown-item" href="{{path("fct_index_alumno")}}">Listado de alumnos</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </li>
-                        
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{path("fct_index_profesor")}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class=""></span>
+                                Profesores
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                <a class="dropdown-item" href="{{path("fct_index_profesor")}}">Listado de profesor</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{path("fct_index_empresa")}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class=""></span>
+                                Empresa
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% if is_granted('ROLE_DIRECCION') %}
+                                    <a class="dropdown-item" href="{{path("fct_create_empresa")}}">Añadir empresa</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="{{path("fct_index_empresa")}}">Listado de empresa</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{path("fct_index_fct")}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class=""></span>
+                                Formacion de Centro de Trabajo
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{path("fct_create_fct")}}">Añadir formacion de centro de trabajo</a>
+                                <a class="dropdown-item" href="{{path("fct_index_fct")}}">Listado de Formaciones de Centros de Trabajo</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+
                         <li class="nav-item active"><a class="nav-link" href="{{path("fct_index_alumno")}}">Alumnos</a></li>
                         <li class="nav-item active"><a class="nav-link" href="#">Profesores</a></li>
                     </ul>
@@ -62,26 +118,26 @@
                             <a class="nav-link disabled" href="#">Disabled</a>
                         </li>
                     </ul>-->
-                    <ul class="navbar-nav navbar-right">
-                        {% if app.user != null %}
-                            <li class="nav-item active"><a class="nav-link" href="#"> Bienvenido, {{app.user.nicknameProf}} </a></li>
-                            <li class="nav-item active"><a class="nav-link" href="{{path("logout")}}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Logout</a></li>
-                            
-                        {% else %}
-                            <li class="nav-item active"><a class="nav-link" href="{{path("sign_up")}}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign Up</a></li>
-                            <li class="nav-item active"><a class="nav-link" href="{{path("login")}}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a></li>
-                            
-                        {% endif %}
-                        
-                        
-                    </ul>
+                <ul class="navbar-nav navbar-right">
+                    {% if app.user != null %}
+                        <li class="nav-item active"><a class="nav-link" href="#"> Bienvenido, {{app.user.nicknameProf}} </a></li>
+                        <li class="nav-item active"><a class="nav-link" href="{{path("logout")}}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Logout</a></li>
+
+                    {% else %}
+                        <li class="nav-item active"><a class="nav-link" href="{{path("sign_up")}}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign Up</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="{{path("login")}}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a></li>
+
+                    {% endif %}
+
+
+                </ul>
                 </div>
             </nav>
 
 
         </header>
         <section id="content">
-            
+
             {% block content %} Gestion de FCT {% endblock %}
         </section>
         <footer>
