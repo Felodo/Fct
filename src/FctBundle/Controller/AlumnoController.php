@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use FctBundle\Entity\Alumno;
 use FctBundle\Entity\Ciclo;
 use FctBundle\Form\AlumnoType;
+use AppBundle\Repository\AlumnoRepository;
 
 class AlumnoController extends Controller {
 
@@ -17,12 +18,18 @@ class AlumnoController extends Controller {
         $this->session = new Session();
     }
 
-    public function indexAction() {
+    public function indexAction($page) {
 
         $em = $this->getDoctrine()->getManager();
 
         $alumno_repo = $em->getRepository("FctBundle:Alumno");
-        $alumnos = $alumno_repo->findAll();
+        $alumnos = $alumno_repo->getPaginationAlumno(5, $page);//findAll();
+        
+        $totalitems = count($alumnos);
+        $pagesCount=ceil($totalitems/5);
+        
+        
+        
         $alumnos1 = [];
         $ciclo_repo = $em->getRepository("FctBundle:Ciclo");
         $ciclos = $ciclo_repo->findAll();
@@ -43,6 +50,9 @@ class AlumnoController extends Controller {
 
         return $this->render('FctBundle:Alumno:index.html.twig', array(
                     "alumnos" => $alumnos1,
+                    "totalitems" => $totalitems,
+                    "pagesCount" => $pagesCount,
+                    "page" => $page
         ));
     }
 

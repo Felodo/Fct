@@ -25,8 +25,8 @@ fct_delete_profesor:
     defaults: { _controller: FctBundle:Profesor:delete_profesor }
 
 fct_index_alumno:
-    path: /alumnos
-    defaults: { _controller: FctBundle:Alumno:index }
+    path: /alumnos/{page}
+    defaults: { _controller: FctBundle:Alumno:index, page:1 }
 
 fct_create_alumno:
     path: /alumnos/create_alumno

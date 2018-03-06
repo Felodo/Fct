@@ -1,6 +1,7 @@
 FctBundle\Entity\Alumno:
     type: entity
     table: alumnos
+    repositoryClass: FctBundle\Repository\AlumnoRepository
     indexes:
         FK_AL_CF:
             columns:
