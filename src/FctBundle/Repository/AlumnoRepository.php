@@ -25,4 +25,21 @@ class AlumnoRepository extends \Doctrine\ORM\EntityRepository
         $paginator = new Paginator($query, $fetchJoinCollection = true);
         return $paginator;
     }
+	
+	public function getBuscarAlumno($filtros, $pageSize=5, $currentPage=1){
+		$em = $this->getEntityManager();
+		
+		$dql = "SELECT a FROM FctBundle\Entity\Alumno a";
+		
+		if(count($filtros) > 0) {
+			$sql .= ' WHERE ' . implode(' and ', $filtros);
+		}
+		
+		$query = $em->createQuery($dql)
+                ->setFirstResult($pageSize*($currentPage-1))
+                ->setMaxResults($pageSize);
+        
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        return $paginator;
+	}
 }

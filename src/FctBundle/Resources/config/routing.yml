@@ -40,6 +40,10 @@ fct_edit_alumno:
     path: /alumnos/edit_alumno/{id_alu}
     defaults: { _controller: FctBundle:Alumno:edit_alumno }
     
+fct_find_alumno:
+    path: /alumnos/find_alumno/{page}/{direccion}/{ciclo}/{provincia}
+    defaults: { _controller: FctBundle:Alumno:find_alumno, page:1, direccion:null, ciclo:null, provincia:null }
+    
 fct_index_ciclo:
     path: /ciclos/{page}
     defaults: { _controller: FctBundle:Ciclo:index, page:1 }

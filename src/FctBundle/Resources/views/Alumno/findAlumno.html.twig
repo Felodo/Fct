@@ -1,0 +1,56 @@
+{% extends "FctBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="col-lg-4">
+        <h2>Buscar alumno</h2>
+        <hr>
+        {% for message in app.session.flashbag().get('status') %}
+            <div class="alert alert-success">{{message}}</div>
+            <hr>
+        {% endfor %}
+        <form action="{{path("fct_find_alumno")}}" method="post">
+
+           <label for="txtdireccion">Direccion:*
+				<select class="form-control" name="operador_direccion">
+					<option value="igual">Igual</option>
+					<option value="mayor">Mayor</option>
+					<option value="menor">Menor</option>
+					<option value="mayorigual">Mayor Igual</option>
+					<option value="menorigual">Menor Igual</option>
+					<option value="contiene">Contiene</option>
+				</select> </label>
+				<label for="txtdireccion">
+				<input type="text" class="form-control" name="direccion" value ="">
+				</label>
+            <br>
+            <label for="txtcpostal">Codigo Postal:*
+				<select class="form-control" name="operador_cpostal">
+					<option value="igual">Igual</option>
+					<option value="mayor">Mayor</option>
+					<option value="menor">Menor</option>
+					<option value="mayorigual">Mayor Igual</option>
+					<option value="menorigual">Menor Igual</option>
+				</select></label>
+				<label for="txtcpostal">
+				<input type="text" class="form-control" name="cpostal" value ="">
+				</label>
+				<br>
+            <label for="txtcpostal">Selecciona provincia:*
+            <select class="form-control" name="id_provincia">
+                <option value="">Seleccione una..</option>
+                {% for provincia in provincias %}
+                    <option value="{{provincia.idProvincia}}">{{provincia.nombre}}</option>
+                {% endfor %}
+            </select>
+            </label>
+            <br>
+            <input class="btn btn-success" type="submit" value="Buscar">
+            <input class="btn btn-success" type="reset" value="Cancelar">
+            <input type="hidden" name="_target_path" value="/login">
+        </form>
+    </div>
+    <div class="clear-fix">
+
+    </div>
+
+{% endblock %}{# empty Twig template #}

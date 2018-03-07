@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use FctBundle\Entity\Alumno;
+use FctBundle\Entity\Provincia;
 use FctBundle\Entity\Ciclo;
 use FctBundle\Form\AlumnoType;
 use FctBundle\Repository\AlumnoRepository;
@@ -23,16 +24,16 @@ class AlumnoController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $alumno_repo = $em->getRepository("FctBundle:Alumno");
-        $alumnos = $alumno_repo->getPaginationAlumno(5, $page);//findAll();
-        
+        $alumnos = $alumno_repo->getPaginationAlumno(5, $page); //findAll();
+
         $totalitems = count($alumnos);
-        $pagesCount=ceil($totalitems/5);
-        
-        
-        
+        $pagesCount = ceil($totalitems / 5);
+
+
+
         $alumnos1 = [];
-        $ciclo_repo = $em->getRepository("FctBundle:Ciclo");
-        $ciclos = $ciclo_repo->findAll();
+        //$ciclo_repo = $em->getRepository("FctBundle:Ciclo");
+        //$ciclos = $ciclo_repo->findAll();
 
         foreach ($alumnos as $alumno) {
             $alumno1['id_alu'] = $alumno->getIdAlu();
@@ -53,6 +54,50 @@ class AlumnoController extends Controller {
                     "totalitems" => $totalitems,
                     "pagesCount" => $pagesCount,
                     "page" => $page
+        ));
+    }
+
+    public function find_alumnoAction(Request $request, $page, $direccion, $ciclo, $provincia) {
+        $em = $this->getDoctrine()->getManager();
+        $alumno_a = new Alumno();
+        $form = $this->createForm(AlumnoType::class, $alumno_a);
+        
+        $provincia_repo = $em->getRepository("FctBundle:Provincia");
+        $provincias = $provincia_repo->findAll();
+
+        $alumno_repo = $em->getRepository("FctBundle:Alumno");
+        $alumnos = $alumno_repo->getPaginationAlumno(5, $page); //findAll();
+
+        $totalitems = count($alumnos);
+        $pagesCount = ceil($totalitems / 5);
+
+
+
+        $alumnos1 = [];
+        //$ciclo_repo = $em->getRepository("FctBundle:Ciclo");
+        //$ciclos = $ciclo_repo->findAll();
+
+        foreach ($alumnos as $alumno) {
+            $alumno1['id_alu'] = $alumno->getIdAlu();
+            $alumno1['nif'] = $alumno->getNifAlu();
+            $alumno1['nickname'] = $alumno->getNicknameAlu();
+            $alumno1['nombre'] = $alumno->getNombreAlu();
+            $alumno1['apellido1'] = $alumno->getApellido1Alu();
+            $alumno1['apellido2'] = $alumno->getApellido2Alu();
+            $alumno1['email'] = $alumno->getEmailAlu();
+            $alumno1['codigoCiclo'] = $alumno->getCodCiclo()->getCodigo();
+            $alumnos1[] = $alumno1;
+        }
+
+
+
+        return $this->render('FctBundle:Alumno:findAlumno.html.twig', array(
+                    "alumnos" => $alumnos1,
+                    "totalitems" => $totalitems,
+                    "pagesCount" => $pagesCount,
+                    "page" => $page,
+                    "provincias" => $provincias,
+                    "form" => $form->createView()
         ));
     }
 
