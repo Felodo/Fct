@@ -17,11 +17,11 @@ class CicloController extends Controller {
         $this->session = new Session();
     }
 
-    public function indexAction() {
+    public function indexAction($page) {
         $em = $this->getDoctrine()->getManager();
 
         $ciclo_repo = $em->getRepository("FctBundle:Ciclo");
-        $ciclos = $ciclo_repo->findAll();
+        $ciclos = $ciclo_repo->getPaginationCiclo(5, $page);//findAll();
         $ciclo1 = [];
 
 

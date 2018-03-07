@@ -48,12 +48,15 @@
             </tbody>
         </table>
 
-        <ul class="pagination">
-            <li><a href="{{path("fct_index_alumno", {"page":page-1})}}">&laquo;</a></li>
-            {% for i in 1..pagesCount %}
-                <li><a herf="{{path("fct_index_alumno", {"page":i})}}">{{i}}</a></li>
-            {% endfor %}
-            <li><a href="{{path("fct_index_alumno", {"page":page+1})}}">&raquo;</a></li>
-        </ul>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="{{path("fct_index_alumno", {"page":page-1})}}">&laquo;</a></li>
+                    {% for i in 1..pagesCount %}
+                    <li class="page-item"><a class="page-link" herf="{{path("fct_index_alumno", {"page":i})}}">{{i}}</a></li>
+                    {% endfor %}
+                <li class="page-item"><a class="page-link" href="{{path("fct_index_alumno", {"page":page+1})}}">&raquo;</a></li>
+            </ul>
+        </nav>
+
     </div>
 {% endblock %}

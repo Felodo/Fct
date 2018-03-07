@@ -1,6 +1,7 @@
 FctBundle\Entity\Fct:
     type: entity
     table: fct
+    repositoryClass: FctBundle\Repository\FctRepository
     indexes:
         FK_FCT:
             columns:

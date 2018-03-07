@@ -16,11 +16,11 @@ class EmpresaController extends Controller {
         $this->session = new Session();
     }
 
-    public function indexAction() {
+    public function indexAction($page) {
         $em = $this->getDoctrine()->getManager();
 
         $empresa_repo = $em->getRepository("FctBundle:Empresa");
-        $empresas = $empresa_repo->findAll();
+        $empresas = $empresa_repo->getPaginationEmpresa(5, $page);//findAll();
         $empresas1 = [];
 
 

@@ -24,7 +24,5 @@ class AlumnoRepository extends \Doctrine\ORM\EntityRepository
         
         $paginator = new Paginator($query, $fetchJoinCollection = true);
         return $paginator;
-        
-        
     }
 }

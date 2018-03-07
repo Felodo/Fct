@@ -1,6 +1,7 @@
 FctBundle\Entity\Profesor:
     type: entity
     table: profesores
+    repositoryClass: FctBundle\Repository\ProfesorRepository
     uniqueConstraints:
         NIF_PROF:
             columns:

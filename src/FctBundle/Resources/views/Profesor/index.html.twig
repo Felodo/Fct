@@ -8,50 +8,60 @@
         <div class="alert alert-success">{{message}}</div>
         <hr>
     {% endfor %}
-   
-            <br>
-            <div class="col-lg-4">
-                <table class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Nif</th>
-                            <th>Nickname</th>
-                            <th>Nombre</th>
-                            <th>Primer Apellido</th>
-                            <th>Segundo Apellido</th>
-                            
-                            <th>Telefono Fijo</th>
-                            <th>Telefono Movil</th>
-                            <th>Email</th>
-                            <th colspan="3">Operaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for profesor in profesores %}
-                            <tr>
-                                <td>{{profesor.nif_prof}}</td>
-                                <td>{{profesor.nickname_prof}}</td>
-                                <td>{{profesor.nombre_prof}}</td>
-                                <td>{{profesor.apellido1_prof}}</td>
-                                <td>{{profesor.apellido2_prof}}</td>
-                                <td>{{profesor.telffijo_prof}}</td>
-                                <td>{{profesor.telfmovil_prof}}</td>
-                                <td>{{profesor.email_prof}}</td>
-                                
-                                <td>
-                                    <a class="btn btn-danger" href="{{path("fct_delete_profesor", {"id_prof":profesor.id_prof})}}"><span></span>X</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger" href="{{path("fct_delete_profesor", {"id_prof":profesor.id_prof})}}"><span></span>X</a>
-                                
-                                </td>
-                                <td></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% endblock %}
+
+    <br>
+    <div class="col-lg-4">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Nif</th>
+                    <th>Nickname</th>
+                    <th>Nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+
+                    <th>Telefono Fijo</th>
+                    <th>Telefono Movil</th>
+                    <th>Email</th>
+                    <th colspan="3">Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profesor in profesores %}
+                    <tr>
+                        <td>{{profesor.nif_prof}}</td>
+                        <td>{{profesor.nickname_prof}}</td>
+                        <td>{{profesor.nombre_prof}}</td>
+                        <td>{{profesor.apellido1_prof}}</td>
+                        <td>{{profesor.apellido2_prof}}</td>
+                        <td>{{profesor.telffijo_prof}}</td>
+                        <td>{{profesor.telfmovil_prof}}</td>
+                        <td>{{profesor.email_prof}}</td>
+
+                        <td>
+                            <a class="btn btn-danger" href="{{path("fct_delete_profesor", {"id_prof":profesor.id_prof})}}"><span></span>X</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="{{path("fct_delete_profesor", {"id_prof":profesor.id_prof})}}"><span></span>X</a>
+
+                        </td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="{{path("fct_index_profesor", {"page":page-1})}}">&laquo;</a></li>
+                    {% for i in 1..pagesCount %}
+                    <li class="page-item"><a class="page-link" herf="{{path("fct_index_profesor", {"page":i})}}">{{i}}</a></li>
+                    {% endfor %}
+                <li class="page-item"><a class="page-link" href="{{path("fct_index_profesor", {"page":page+1})}}">&raquo;</a></li>
+            </ul>
+        </nav>
+    </div>
+{% endblock %}
 {# empty Twig template #}
 {# empty Twig template #}
 {# empty Twig template #}

@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use FctBundle\Entity\Alumno;
 use FctBundle\Entity\Ciclo;
 use FctBundle\Form\AlumnoType;
-use AppBundle\Repository\AlumnoRepository;
+use FctBundle\Repository\AlumnoRepository;
 
 class AlumnoController extends Controller {
 

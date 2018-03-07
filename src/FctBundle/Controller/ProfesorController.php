@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use FctBundle\Entity\Profesor;
 use FctBundle\Form\ProfesorType;
+use FctBundle\Repository\ProfesorRepository;
 
 class ProfesorController extends Controller {
 
@@ -16,11 +17,11 @@ class ProfesorController extends Controller {
         $this->session = new Session();
     }
 
-    public function indexAction() {
+    public function indexAction($page) {
         $em = $this->getDoctrine()->getManager();
 
         $profesor_repo = $em->getRepository("FctBundle:Profesor");
-        $profesores = $profesor_repo->findAll();
+        $profesores = $profesor_repo->getPaginatorProfesor();//findAll();
         $profesores1 = [];
 
         foreach ($profesores as $profesor) {

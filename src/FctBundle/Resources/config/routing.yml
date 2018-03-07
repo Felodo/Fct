@@ -17,8 +17,8 @@ fct_homepage:
     defaults: { _controller: FctBundle:Default:index }
     
 fct_index_profesor:
-    path: /profesores
-    defaults: { _controller: FctBundle:Profesor:index }
+    path: /profesores/{page}
+    defaults: { _controller: FctBundle:Profesor:index, page:1 }
     
 fct_delete_profesor:
     path: /profesores/delete_profesor/{id_prof}
@@ -41,8 +41,8 @@ fct_edit_alumno:
     defaults: { _controller: FctBundle:Alumno:edit_alumno }
     
 fct_index_ciclo:
-    path: /ciclos
-    defaults: { _controller: FctBundle:Ciclo:index }
+    path: /ciclos/{page}
+    defaults: { _controller: FctBundle:Ciclo:index, page:1 }
 
 fct_create_ciclo:
     path: /ciclos/create_ciclo
@@ -57,8 +57,8 @@ fct_edit_ciclo:
     defaults: { _controller: FctBundle:Ciclo:edit_ciclo }
     
 fct_index_empresa:
-    path: /empresas
-    defaults: { _controller: FctBundle:Empresa:index }
+    path: /empresas/{page}
+    defaults: { _controller: FctBundle:Empresa:index, page:1 }
     
 fct_create_empresa:
     path: /empresas/create_empresa
@@ -73,8 +73,8 @@ fct_edit_empresa:
     defaults: { _controller: FctBundle:Empresa:edit_empresa }
     
 fct_index_fct:
-    path: /fct
-    defaults: { _controller: FctBundle:Fct:index }
+    path: /fct/{page}
+    defaults: { _controller: FctBundle:Fct:index, page:1 }
     
 fct_create_fct:
     path: /fct/create_fct

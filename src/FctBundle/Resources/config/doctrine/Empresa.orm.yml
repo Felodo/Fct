@@ -1,6 +1,7 @@
 FctBundle\Entity\Empresa:
     type: entity
     table: empresas
+    repositoryClass: FctBundle\Repository\EmpresaRepository
     indexes:
         FK_EMP:
             columns:

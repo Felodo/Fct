@@ -41,5 +41,15 @@
                 {% endfor %}
             </tbody>
         </table>
+            
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="{{path("fct_index_ciclo", {"page":page-1})}}">&laquo;</a></li>
+                    {% for i in 1..pagesCount %}
+                    <li class="page-item"><a class="page-link" herf="{{path("fct_index_ciclo", {"page":i})}}">{{i}}</a></li>
+                    {% endfor %}
+                <li class="page-item"><a class="page-link" href="{{path("fct_index_ciclo", {"page":page+1})}}">&raquo;</a></li>
+            </ul>
+        </nav>
     </div>
 {% endblock %}

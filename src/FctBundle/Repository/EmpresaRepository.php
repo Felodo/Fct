@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace FctBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
 /**
  * CursoRepository
  *
@@ -10,4 +11,16 @@ namespace AppBundle\Repository;
  */
 class EmpresaRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getPaginationEmpresa($pageSize=5, $currentPage=1){
+        $em = $this->getEntityManager();
+        
+        $dql = "SELECT a FROM FctBundle\Entity\Empresa a ORDER BY a.idEmp DESC";
+        
+        $query = $em->createQuery($dql)
+                ->setFirstResult($pageSize*($currentPage-1))
+                ->setMaxResults($pageSize);
+        
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        return $paginator;
+    }
 }

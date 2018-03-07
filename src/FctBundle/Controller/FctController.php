@@ -20,7 +20,7 @@ class FctController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $fct_repo = $em->getRepository("FctBundle:Fct");
-        $fcts = $fct_repo->findAll();
+        $fcts = $fct_repo->getPaginationFct(5, $page);//findAll();
         $fcts1 = [];
 
         foreach ($fcts as $fct) {

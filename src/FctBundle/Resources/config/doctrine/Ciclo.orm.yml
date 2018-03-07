@@ -1,6 +1,7 @@
 FctBundle\Entity\Ciclo:
     type: entity
     table: ciclos
+    repositoryClass: FctBundle\Repository\CicloRepository
     uniqueConstraints:
         CODIGO:
             columns:
