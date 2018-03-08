@@ -1,0 +1,56 @@
+{% extends "FctBundle::layout.html.twig" %}
+
+{% block content %}
+    <br>
+    <h2>Datos del Alumno</h2>
+    <hr>
+    {% for message in app.session.flashbag().get('status') %}
+        <div class="alert alert-success">{{message}}</div>
+        <hr>
+    {% endfor %}
+
+    <br>
+    <div class="container centrar">
+        <div style="float: left; width: 43%;">
+            <p>
+            <h3>Datos personales</h3><br>
+            NIF: {{alumno.nif}}<br>
+            Nombre: {{alumno.nombre}}<br>
+            Primer Apellido: {{alumno.apellido1}}<br>Segundo Apellido: {{alumno.apellido2}}<br>
+            Provincia: {{alumno.provincia}}<br>
+            Poblacion: {{alumno.poblacion}}<br>
+            Direccion: {{alumno.direccion}}<br>
+            Codigo Postal: {{alumno.cpostal}}
+
+            </p>
+            <p>
+            <h3>Datos Academicos</h3>
+            Nombre del ciclo: {{alumno.codigoCiclo}}-{{alumno.nombreCiclo}}
+            </p>
+            <h3>Datos Contactos</h3>
+            <p>
+                Nombre de contacto: {{alumno.nickname}}<br>
+                Correo electronico: {{alumno.email}}<br>
+                Telefono fijo: {{alumno.telfFijo}}<br>
+                Telefono movil: {{alumno.telfMovil}}
+            </p> 
+            <p>
+                <a href="{{path('fct_index_alumno')}}" class="btn btn-info" role="button">Volver</a>
+                <a class="btn btn-danger" href="{{path("fct_index_alumno")}}"><span></span>Volver</a>
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <br><br><br>
+            {{}}
+            <img class="alineadoTextoImagen" src="{{asset("../assets/imagen"~alumno.fotografia)}}" width="50px" /><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div>
+    </div>
+
+    <div class="clear-fix">
+
+    </div>
+    <div class="clear-fix">
+
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "FctBundle::layout.html.twig" %}
+
+{% block content %}
+    <br>
+    <h2>Datos del Profesor</h2>
+    <hr>
+    {% for message in app.session.flashbag().get('status') %}
+        <div class="alert alert-success">{{message}}</div>
+        <hr>
+    {% endfor %}
+    
+    <br>
+	<div class="container centrar">
+    <div style="float: left; width: 43%;">
+			<p>
+				<h3>Datos personales</h3><br>
+				NIF: {{profesor.nif}}<br>
+				Nombre: {{profesor.nombre}}<br>
+				Primer Apellido: {{profesor.apellido1}}<br>Segundo Apellido: {{profesor.apellido2}}<br>
+				
+			</p>
+			<p>
+				<h3>Datos Contactos</h3>
+				Nombre de contacto: {{profesor.nickname}}<br>
+				Correo electronico: {{profesor.email}}<br>
+				Telefono fijo: {{profesor.telfFijo}}<br>
+				Telefono movil: {{profesor.telfMovil}}
+				
+				
+			
+			</p>
+			<a href="{{path("fct_index_profesor")}}" class="btn btn-info" role="button">Volver</a>
+	</div>
+	<div class="col-lg-6">
+		<br><br><br>
+			<img class="alineadoTextoImagen" src="{{asset("../assets/imagen"~profesor.fotografia)}}" width="50px" /><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</div>
+	</div>
+	
+	<div class="clear-fix">
+
+    </div>
+	<div class="clear-fix">
+
+    </div>
+{% endblock %}

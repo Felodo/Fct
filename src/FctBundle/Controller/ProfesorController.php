@@ -5,6 +5,10 @@ namespace FctBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use FctBundle\Entity\Profesor;
 use FctBundle\Form\ProfesorType;
 use FctBundle\Repository\ProfesorRepository;
@@ -40,6 +44,167 @@ class ProfesorController extends Controller {
                     "profesores" => $profesores1,
         ));
     }
+    
+    public function find_profesorAction(Request $request, $page) {
+        $em = $this->getDoctrine()->getManager();
+        //$alumno_a = new Alumno();
+		$defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+                ->add('rol', ChoiceType::class, 
+                        array("choices"=>['Direccion' => "ROLE_DIRECCION", 
+                            "Profesor" => "ROLE_PROFESOR"], 
+					"required" => "required",
+                    "attr" => ["class" => "form-grado form-control"], 
+					"label" => "Rol:"))
+                ->add('operador_fijo', ChoiceType::class, 
+                        array("choices"=>['Igual' => "igual", 
+                            "Mayor" => "mayor", 
+                            "Menor" => "menor",
+							"Mayor Igual" => "mayorigual",
+							"Menor Igual" => "menorigual",
+							"Contiene" => "contiene"], 
+					"required" => "required",
+                    "attr" => ["class" => "form-grado form-control"], 
+					"label" => ":"))
+                ->add('telfFijoProf', TextType::class, array("required"=>false,
+                    "attr"=>["class"=>"form-fijo form-control"],
+                    "label" => "Telefono fijo:"))
+                ->add('operador_movil', ChoiceType::class, 
+                        array("choices"=>['Igual' => "igual", 
+                            "Mayor" => "mayor", 
+                            "Menor" => "menor",
+							"Mayor Igual" => "mayorigual",
+							"Menor Igual" => "menorigual",
+							"Contiene" => "contiene"], 
+					"required" => "required",
+                    "attr" => ["class" => "form-grado form-control"], 
+					"label" => ":"))
+                ->add('telfMovilProf', TextType::class, array("required"=>false,
+                    "attr"=>["class"=>"form-movil form-control"], 
+                    "label" => "Telefono movil:"))
+                ->add('operador_email', ChoiceType::class, 
+                        array("choices"=>['Igual' => "igual", 
+                            "Mayor" => "mayor", 
+                            "Menor" => "menor",
+							"Mayor Igual" => "mayorigual",
+							"Menor Igual" => "menorigual",
+							"Contiene" => "contiene"], 
+					"required" => "required",
+                    "attr" => ["class" => "form-grado form-control"], 
+					"label" => ":"))
+                ->add('emailProf', EmailType::class, array("required"=>false, 
+                "attr"=>["class"=>"form-email form-control"],"label" => "Correo electronico:"))
+                ->add('Buscar', SubmitType::class, array("attr"=>["class"=>"form-submit btn btn-success"]))
+                ->getForm();
+        $form->handleRequest($request);
+        $filtros = [];
+        if ($form->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            
+            $rol = $form->get('rol')->getData();
+            
+            var_dump($rol);
+            //die();
+            $telfFijo = $form->get('telfFijoProf')->getData();
+            if($telfFijo != null || $telfFijo != ""){
+                $operador_fijo = $form->get('operador_fijo')->getData();
+            }else {
+                $operador_fijo = "";
+            }
+            $telfMovil = $form->get('telfMovilProf')->getData();
+            if($telfMovil != null || $telfMovil != ""){
+                $operador_movil = $form->get('operador_movil')->getData();
+            }else {
+                $operador_movil = "";
+            }
+            $email = $form->get('emailProf')->getData();
+            if($email != null || $email != ""){
+                $operador_email = $form->get('operador_email')->getData();
+            }else {
+                $operador_email = "";
+            }
+            
+            if($rol != null && $rol !=""){
+					$filtros["rol"] = "a.rolProf = '{$rol}'";
+			}
+            if($telfFijo != null && $telfFijo != ""){
+				if($operador_fijo == "igual"){
+					$filtros["telfFijo"] = "a.telfFijoProf = '{$telfFijo}'";
+				}elseif ($operador_fijo == "mayor"){
+					$filtros["telfFijo"] = "a.telfFijoProf >'{$telfFijo}'";
+				}elseif ($operador_fijo == "menor"){
+					$filtros["telfFijo"] = "a.telfFijoProf <'{$telfFijo}'";
+				}elseif ($operador_fijo == "mayorigual"){
+					$filtros["telfFijo"] = "a.telfFijoProf >='{$telfFijo}'";
+				}elseif ($operador_fijo == "menorigual"){
+					$filtros["telfFijo"] = "a.telfFijoProf <='{$telfFijo}'";
+				}elseif ($operador_fijo == "contiene"){
+					$filtros["telfFijo"] = "a.telfFijoProf LIKE '%{$telfFijo}%'";
+                }
+			}
+            if($telfMovil != null && $telfMovil != ""){
+				if($operador_movil == "igual"){
+					$filtros["telfMovil"] = "a.telfMovilProf = '{$telfMovil}'";
+				}elseif ($operador_movil == "mayor"){
+					$filtros["telfMovil"] = "a.telfMovilProf >'{$telfMovil}'";
+				}elseif ($operador_movil == "menor"){
+					$filtros["telfMovil"] = "a.telfMovilProf <'{$telfMovil}'";
+				}elseif ($operador_movil == "mayorigual"){
+					$filtros["telfMovil"] = "a.telfMovilProf >='{$telfMovil}'";
+				}elseif ($operador_movil == "menorigual"){
+					$filtros["telfMovil"] = "a.telfMovilProf <='{$telfMovil}'";
+				}elseif ($operador_movil == "contiene"){
+					$filtros["telfMovil"] = "a.telfMovilProf LIKE '%{$telfMovil}%'";
+                }
+			}
+            if($email != null && $email != ""){
+				if($operador_email == "igual"){
+					$filtros["email"] = "a.emailProf = '{$email}'";
+				}elseif ($operador_email == "mayor"){
+					$filtros["email"] = "a.emailProf >'{$email}'";
+				}elseif ($operador_movil == "menor"){
+					$filtros["email"] = "a.emailProf <'{$email}'";
+				}elseif ($operador_movil == "mayorigual"){
+					$filtros["email"] = "a.emailProf >='{$email}'";
+				}elseif ($operador_movil == "menorigual"){
+					$filtros["email"] = "a.emailProf <='{$email}'";
+				}elseif ($operador_movil == "contiene"){
+					$filtros["email"] = "a.emailProf LIKE '%{$email}%'";
+                }
+			}
+            $profesor_repo = $em->getRepository("FctBundle:Profesor");
+			$profesores = $profesor_repo->getBuscarProfesor($filtros, 5, $page);
+            
+        } else {
+            $profesor_repo = $em->getRepository("FctBundle:Profesor");
+			$profesores = $profesor_repo->getPaginationProfesor(5, $page); //findAll();
+        }
+        
+        $totalitems = count($profesores);
+        $pagesCount = ceil($totalitems / 5);
+        
+        $profesores1 = [];
+
+        foreach ($profesores as $profesor) {
+            $profesor1['id_prof'] = $profesor->getIdProf();
+            $profesor1['nif_prof'] = $profesor->getNifProf();
+            $profesor1['nombre_prof'] = $profesor->getNombreProf();
+            $profesor1['apellido1_prof'] = $profesor->getApellido1Prof();
+            $profesor1['apellido2_prof'] = $profesor->getApellido2Prof();
+            $profesor1['nickname_prof'] = $profesor->getNicknameProf();
+            $profesor1['telffijo_prof'] = $profesor->getTelfFijoProf();
+            $profesor1['telfmovil_prof'] = $profesor->getTelfMovilProf();
+            $profesor1['email_prof'] = $profesor->getEmailProf();
+            $profesores1[] = $profesor1;
+        }
+        return $this->render('FctBundle:Profesor:findProfesor.html.twig', array(
+                    "profesores" => $profesores1,
+                    "totalitems" => $totalitems,
+                    "pagesCount" => $pagesCount,
+                    "page" => $page,
+                    "form" => $form->createView()
+        ));
+    }
 
     public function loginAction(Request $request) {
         $authenticationUtils = $this->get("security.authentication_utils");
@@ -57,6 +222,28 @@ class ProfesorController extends Controller {
                     "last_username" => $lastUsername
         ]);
     }
+	
+	public function seemore_profesorAction(Request $request, $id_prof){
+		$em = $this->getDoctrine()->getManager();
+        $profesor = $em->getRepository("FctBundle:Profesor")->find($id_prof);
+		$profesor1 = [];
+		
+		$profesor1['id'] = $profesor->getIdProf();
+		$profesor1['nif'] = $profesor->getNifProf();
+        $profesor1['nickname'] = $profesor->getNicknameProf();
+        $profesor1['nombre'] = $profesor->getNombreProf();
+        $profesor1['apellido1'] = $profesor->getApellido1Prof();
+        $profesor1['apellido2'] = $profesor->getApellido2Prof();
+        $profesor1['email'] = $profesor->getEmailProf();
+		$profesor1['fotografia'] = $profesor->getFotografiaProf();
+		$profesor1['telfFijo'] = $profesor->getTelffijoProf();
+		$profesor1['telfMovil'] = $profesor->getTelfMovilProf();
+		
+		return $this->render('FctBundle:Profesor:seemoreProfesor.html.twig', array(
+                    "profesor" => $profesor1
+        ));
+		
+	}
 
     public function create_profesorAction(Request $request) {
         $profesor = new Profesor();

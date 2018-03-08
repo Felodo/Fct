@@ -1,16 +1,40 @@
 {% extends "FctBundle::layout.html.twig" %}
 
 {% block content %}
-    <br>
-    <h2>Listado de los Profesores</h2>
-    <hr>
-    {% for message in app.session.flashbag().get('status') %}
-        <div class="alert alert-success">{{message}}</div>
-        <hr>
-    {% endfor %}
-
-    <br>
     <div class="col-lg-4">
+        <h2>Buscar profesor</h2>
+        <hr>
+        {% for message in app.session.flashbag().get('status') %}
+            <div class="alert alert-success">{{message}}</div>
+            <hr>
+        {% endfor %}
+		
+		{{form_start(form, {'action':'','method':'POST'})}}
+			<label for="txtdireccion">Rol:*
+				{{form_errors(form.rol)}}
+				{{form_widget(form.rol)}}
+            </label>
+            <br>
+            <label for="txtdireccion">Telefono fijo:*
+				{{form_errors(form.operador_fijo)}}
+				{{form_widget(form.operador_fijo)}}</label><label>
+				{{form_errors(form.telfFijoProf)}}
+				{{form_widget(form.telfFijoProf)}}
+			</label>
+			<label for="txtdireccion">Telefono movil:*
+				{{form_errors(form.operador_movil)}}
+				{{form_widget(form.operador_movil)}}</label><label>
+				{{form_errors(form.telfMovilProf)}}
+				{{form_widget(form.telfMovilProf)}}
+			</label>
+			<label for="txtdireccion">Email:*
+				{{form_errors(form.operador_email)}}
+				{{form_widget(form.operador_email)}}</label><label>
+				{{form_errors(form.emailProf)}}
+				{{form_widget(form.emailProf)}}
+			</label>
+		{{form_end(form)}}
+		  
         <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -56,15 +80,24 @@
 
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="{{path("fct_index_profesor", {"page":page-1})}}">&laquo;</a></li>
+				{%if page == 1%}
+				<li class="page-item disabled"><a class="page-link" href="{{path("fct_index_alumno", {"page":page-1})}}">&laquo;</a></li>
+				{% else %}
+                <li class="page-item"><a class="page-link" href="{{path("fct_index_alumno", {"page":page-1})}}">&laquo;</a></li>
+				{% endif %}
                     {% for i in 1..pagesCount %}
-                    <li class="page-item"><a class="page-link" herf="{{path("fct_index_profesor", {"page":i})}}">{{i}}</a></li>
+                    <li class="page-item"><a class="page-link" herf="{{path("fct_index_alumno", {"page":i})}}">{{i}}</a></li>
                     {% endfor %}
-                <li class="page-item"><a class="page-link" href="{{path("fct_index_profesor", {"page":page+1})}}">&raquo;</a></li>
+				{% if page == pagesCount %}
+				<li class="page-item disabled"><a class="page-link" href="{{path("fct_index_alumno", {"page":page+1})}}">&raquo;</a></li>
+				{% else %}
+                <li class="page-item"><a class="page-link" href="{{path("fct_index_alumno", {"page":page+1})}}">&raquo;</a></li>
+				{% endif %}
             </ul>
         </nav>
     </div>
-{% endblock %}
-{# empty Twig template #}
-{# empty Twig template #}
-{# empty Twig template #}
+    <div class="clear-fix">
+
+    </div>
+
+{% endblock %}{# empty Twig template #}

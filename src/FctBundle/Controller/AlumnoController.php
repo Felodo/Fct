@@ -5,6 +5,10 @@ namespace FctBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use FctBundle\Entity\Alumno;
 use FctBundle\Entity\Provincia;
 use FctBundle\Entity\Ciclo;
@@ -57,16 +61,155 @@ class AlumnoController extends Controller {
         ));
     }
 
-    public function find_alumnoAction(Request $request, $page, $direccion, $ciclo, $provincia) {
+    public function find_alumnoAction(Request $request, $page) {
         $em = $this->getDoctrine()->getManager();
-        $alumno_a = new Alumno();
-        $form = $this->createForm(AlumnoType::class, $alumno_a);
+        //$alumno_a = new Alumno();
+		$defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+			->add('operador_direccion', ChoiceType::class, 
+                        array("choices"=>['Igual' => "igual", 
+                            "Mayor" => "mayor", 
+                            "Menor" => "menor",
+							"Mayor Igual" => "mayorigual",
+							"Menor Igual" => "menorigual",
+							"Contiene" => "contiene"], 
+					"required" => "required",
+                    "attr" => ["class" => "form-grado form-control"], 
+					"label" => ":"))
+			->add('direccion', TextType::class, array("required"=>false,
+                "attr"=>["class"=>"form-address form-control"], "label" => "Direccion:"))
+			->add('operador_cpostal', ChoiceType::class, 
+                        array("choices"=>['Igual' => "igual", 
+                            "Mayor" => "mayor", 
+                            "Menor" => "menor",
+							"Mayor Igual" => "mayorigual",
+							"Menor Igual" => "menorigual",
+							"Contiene" => "contiene"], 
+					"required" => "required",
+                    "attr" => ["class" => "form-grado form-control"], 
+					"label" => ":"))
+			->add('cpostal', TextType::class, array("required"=>false,
+                "attr"=>["class"=>"form-cp form-control"], "label" => "Codigo Postal:"))
+			->add('idCiclo', EntityType::class, array("class"=>"FctBundle:Ciclo",
+                "placeholder"=>"Selecciona un ciclo...", 
+                "choice_label"=>"nombreCiclo",
+                "choice_value"=>"idCiclo",
+                "attr"=>["class"=>"form-cod_ciclo form-control"],"required"=>false, "label"=>"Ciclo:"))
+            ->add('idProvincia', EntityType::class, array("class"=>"FctBundle:Provincia",
+                "placeholder"=>"Selecciona una provincia...", 
+                "choice_label"=>"nombre",
+                "choice_value"=>"idProvincia",
+                "attr"=>["class"=>"form-cod_provincia form-control"], "required"=>false, "label"=>"Provincia:"))
+			->add('Buscar', SubmitType::class, array("attr"=>["class"=>"form-submit btn btn-success"]))
+			->getForm();
+		
+		$form->handleRequest($request);
+		
         
         $provincia_repo = $em->getRepository("FctBundle:Provincia");
         $provincias = $provincia_repo->findAll();
-
-        $alumno_repo = $em->getRepository("FctBundle:Alumno");
-        $alumnos = $alumno_repo->getPaginationAlumno(5, $page); //findAll();
+		
+		$ciclo_repo = $em->getRepository("FctBundle:Ciclo");
+		$ciclos = $ciclo_repo->findAll();
+		$filtros = [];
+		
+		if ($form->isSubmitted()) {
+			
+			$em = $this->getDoctrine()->getManager();
+			//$alumno = new Alumno();
+			//var_dump($form);
+			//die();
+			//$alumno = $em->getRepository('FctBundle:Alumno')->findOneBy(array("idCiclo" => $form->get('idCiclo')->getData(), "provinciaAlu" => $form->get('idProvincia')->getData()));
+			/*$data = array(
+				"direccion" => $form->get('direccion')->getData(),
+				"operador_direccion" => $form->get('operador_direccion')->getData(),
+				"cpostal" => $form->get('cpostal')->getData(),
+				"operador_cpostal" => $form->get('operador_cpostal')->getData(), 
+				"ciclo" => $form->get('idCiclo')->getData(),
+				"provincia" => $form->get('idProvincia')->getData()
+			);*/
+            $direccion = $form->get('direccion')->getData();
+            //$operador_direccion = "";
+            if($direccion != null || $direccion != ""){
+                $operador_direccion = $form->get('operador_direccion')->getData();
+            }else{
+                $operador_direccion = "";
+            }
+            $cpostal = $form->get('cpostal')->getData();
+            if($cpostal != null || $cpostal != ""){
+                $operador_cpostal = $form->get('operador_cpostal')->getData();
+            }else{
+                $operador_cpostal = "";
+            }
+            if($form->get('idCiclo')->getData() != null)
+                $ciclo = $form->get('idCiclo')->getData()->getIdCiclo();
+            else
+                $ciclo = "";
+            
+            if($form->get('idProvincia')->getData() != null)
+                $provincia = $form->get('idProvincia')->getData()->getIdProvincia();
+            else
+                $provincia = "";
+            
+            var_dump($direccion);
+            var_dump($operador_direccion);
+            var_dump($cpostal);
+            var_dump($operador_cpostal);
+            var_dump($ciclo);
+            var_dump($provincia);
+            /*$operador_cpostal = $data['operador_cpostal'];
+            if($data['ciclo'].getIdCiclo() != null)
+                $ciclo = $data['ciclo'].getIdCiclo();
+            else
+                $ciclo = "";
+			//var_dump($data);
+			var_dump($operador_cpostal);
+			var_dump($ciclo->idCiclo);*/
+			//die();
+		//if(isset($direccion) != null || isset($cpostal) != null || isset($ciclo) != null || isset($provincia) != null){
+			if($direccion != null && $direccion != ""){
+				if($operador_direccion == "igual"){
+					$filtros["direccion"] = "a.direccionAlu = '{$direccion}'";
+				}elseif ($operador_direccion == "mayor"){
+					$filtros["direccion"] = "a.direccionAlu >'{$direccion}'";
+				}elseif ($operador_direccion == "menor"){
+					$filtros["direccion"] = "a.direccionAlu <'{$direccion}'";
+				}elseif ($operador_direccion == "mayorigual"){
+					$filtros["direccion"] = "a.direccionAlu >='{$direccion}'";
+				}elseif ($operador_direccion == "menorigual"){
+					$filtros["direccion"] = "a.direccionAlu <='{$direccion}'";
+				}elseif ($operador_direccion == "contiene"){
+					$filtros["direccion"] = "a.direccionAlu LIKE '%{$direccion}%'";
+                }
+			}
+			if($cpostal != null && $cpostal !=""){
+				if($operador_cpostal == "igual"){
+					$filtros["cpostal"] = "a.cpostalAlu = {$cpostal}";
+				}elseif ($operador_cpostal == "mayor"){
+					$filtros["cpostal"] = "a.cpostalAlu > {$cpostal}";
+				}elseif ($operador_cpostal == "menor"){
+					$filtros["cpostal"] = "a.cpostalAlu < {$cpostal}";
+				}elseif ($operador_cpostal == "mayorigual"){
+					$filtros["cpostal"] = "a.cpostalAlu >= {$cpostal}";
+				}elseif ($operador_cpostal == "menorigual"){
+					$filtros["cpostal"] = "a.cpostalAlu <={$cpostal}";
+				}elseif ($operador_cpostal == "contiene"){
+					$filtros["cpostal"] = "a.cpostalAlu LIKE '%{$cpostal}%'";
+				}
+			}
+			if($provincia != null && $provincia !=""){
+					$filtros["id_provincia"] = "a.provinciaAlu = {$provincia}";
+			}
+			if($ciclo != null && $ciclo !=""){
+					$filtros["id_ciclo"] = "a.codCiclo = {$ciclo}";
+			}
+			$alumno_repo = $em->getRepository("FctBundle:Alumno");
+			$alumnos = $alumno_repo->getBuscarAlumno($filtros, 5, $page);
+		}
+		else{
+			$alumno_repo = $em->getRepository("FctBundle:Alumno");
+			$alumnos = $alumno_repo->getPaginationAlumno(5, $page); //findAll();
+		}
 
         $totalitems = count($alumnos);
         $pagesCount = ceil($totalitems / 5);
@@ -97,9 +240,75 @@ class AlumnoController extends Controller {
                     "pagesCount" => $pagesCount,
                     "page" => $page,
                     "provincias" => $provincias,
+					"ciclos" => $ciclos,
                     "form" => $form->createView()
         ));
     }
+	
+	public function seemore_alumnoAction(Request $request, $id_alu){
+		$em = $this->getDoctrine()->getManager();
+        $alumno = $em->getRepository("FctBundle:Alumno")->find($id_alu);
+		$alumno1 = [];
+		
+		$alumno1['id'] = $alumno->getIdAlu();
+		$alumno1['nif'] = $alumno->getNifAlu();
+        $alumno1['nickname'] = $alumno->getNicknameAlu();
+        $alumno1['nombre'] = $alumno->getNombreAlu();
+        $alumno1['apellido1'] = $alumno->getApellido1Alu();
+        $alumno1['apellido2'] = $alumno->getApellido2Alu();
+        $alumno1['email'] = $alumno->getEmailAlu();
+		$alumno1['fotografia'] = $alumno->getFotografiaAlu();
+		$alumno1['direccion'] = $alumno->getDireccionAlu();
+		$alumno1['poblacion'] = $alumno->getPoblacionAlu();
+		$alumno1['provincia'] = $alumno->getProvinciaAlu()->getNombre();
+		$alumno1['cpostal'] = $alumno->getCpostalAlu();
+        $alumno1['codigoCiclo'] = $alumno->getCodCiclo()->getCodigo();
+		$alumno1['nombreCiclo'] = $alumno->getCodCiclo()->getNombreCiclo();
+		$alumno1['telfFijo'] = $alumno->getTelffijoAlu();
+		$alumno1['telfMovil'] = $alumno->getTelfMovilAlu();
+		
+		return $this->render('FctBundle:Alumno:seemoreAlumno.html.twig', array(
+                    "alumno" => $alumno1
+        ));
+		
+	}
+	
+	public function show_alumnoAction($page){
+		$em = $this->getDoctrine()->getManager();
+
+        $alumno_repo = $em->getRepository("FctBundle:Alumno");
+        $alumnos = $alumno_repo->getBuscarAlumno($filtros, 5, $page); //findAll();
+
+        $totalitems = count($alumnos);
+        $pagesCount = ceil($totalitems / 5);
+
+
+
+        $alumnos1 = [];
+        //$ciclo_repo = $em->getRepository("FctBundle:Ciclo");
+        //$ciclos = $ciclo_repo->findAll();
+
+        foreach ($alumnos as $alumno) {
+            $alumno1['id_alu'] = $alumno->getIdAlu();
+            $alumno1['nif'] = $alumno->getNifAlu();
+            $alumno1['nickname'] = $alumno->getNicknameAlu();
+            $alumno1['nombre'] = $alumno->getNombreAlu();
+            $alumno1['apellido1'] = $alumno->getApellido1Alu();
+            $alumno1['apellido2'] = $alumno->getApellido2Alu();
+            $alumno1['email'] = $alumno->getEmailAlu();
+            $alumno1['codigoCiclo'] = $alumno->getCodCiclo()->getCodigo();
+            $alumnos1[] = $alumno1;
+        }
+
+
+
+        return $this->render('FctBundle:Alumno:index.html.twig', array(
+                    "alumnos" => $alumnos1,
+                    "totalitems" => $totalitems,
+                    "pagesCount" => $pagesCount,
+                    "page" => $page
+        ));
+	}
 
     public function create_alumnoAction(Request $request) {
         $alumno = new Alumno();

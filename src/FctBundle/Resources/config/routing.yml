@@ -23,6 +23,15 @@ fct_index_profesor:
 fct_delete_profesor:
     path: /profesores/delete_profesor/{id_prof}
     defaults: { _controller: FctBundle:Profesor:delete_profesor }
+    
+fct_find_profesor:
+    path: /profesores/find_profesor/{page}
+    defaults: { _controller: FctBundle:Profesor:find_profesor, page:1}
+    methods: [GET, POST]
+    
+fct_seemore_profesor:
+    path: /profesores/seemore_profesor/{id_prof}
+    defaults: { _controller: FctBundle:Profesor:seemore_profesor }
 
 fct_index_alumno:
     path: /alumnos/{page}
@@ -41,8 +50,13 @@ fct_edit_alumno:
     defaults: { _controller: FctBundle:Alumno:edit_alumno }
     
 fct_find_alumno:
-    path: /alumnos/find_alumno/{page}/{direccion}/{ciclo}/{provincia}
-    defaults: { _controller: FctBundle:Alumno:find_alumno, page:1, direccion:null, ciclo:null, provincia:null }
+    path: /alumnos/find_alumno/{page}
+    defaults: { _controller: FctBundle:Alumno:find_alumno, page:1}
+    methods: [GET, POST]
+    
+fct_seemore_alumno:
+    path: /alumnos/seemore_alumno/{id_alu}
+    defaults: { _controller: FctBundle:Alumno:seemore_alumno }
     
 fct_index_ciclo:
     path: /ciclos/{page}
