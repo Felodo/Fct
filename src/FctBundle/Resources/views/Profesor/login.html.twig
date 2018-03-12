@@ -2,20 +2,22 @@
 {% block content %}
     
     {% if app.user != null %}
-        {{dump(app.user)}}
-    {% endif %}
+        {#{{dump(app.user)}}#}
     
-    {% if is_granted('ROLE_DIRECCION') %}
-        <div>
-            Estas logueado como administrador
-        </div>
-    {% endif %}
     
-    {% if is_granted('ROLE_PROFESOR') %}
-        <strong>
-            Estas logueado como usuario normal
-        </strong>
-    {% endif %}
+		{% if is_granted('ROLE_DIRECCION') %}
+			<div>
+				Estas logueado como administrador
+			</div>
+		{% endif %}
+    
+		{% if is_granted('ROLE_PROFESOR') %}
+			<strong>
+				Estas logueado como usuario normal
+			</strong>
+		{% endif %}
+		
+	{% else %}
     
     
 
@@ -37,6 +39,9 @@
             <input type="hidden" name="_target_path" value="/login">
         </form>
     </div>
+	
+	{% endif %}
+	
     <div class="clear-fix">
 
     </div>

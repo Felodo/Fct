@@ -42,4 +42,15 @@ class AlumnoRepository extends \Doctrine\ORM\EntityRepository
         $paginator = new Paginator($query, $fetchJoinCollection = true);
         return $paginator;
 	}
+	
+	public function getSelectCicloAlumno($idCiclo){
+        $em = $this->getEntityManager();
+        
+        $dql = "SELECT a FROM FctBundle\Entity\Alumno a WHERE a.codCiclo = '.$diCiclo.' ORDER BY a.idAlu DESC";
+        
+        $query = $em->createQuery($dql);
+        
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        return $paginator;
+    }
 }

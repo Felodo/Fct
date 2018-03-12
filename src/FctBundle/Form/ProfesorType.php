@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 
@@ -38,16 +39,23 @@ class ProfesorType extends AbstractType
                 "label" => "Imagen:"))
             ->add('nicknameProf', TextType::class, array("required"=>"required", 
                 "attr"=>["class"=>"form-nickname form-control"], "label" => "Nickname:"))
-            ->add('telfFijoProf', TextType::class, array("attr"=>["class"=>"form-fijo form-control"],
+			->add("passwordProf", RepeatedType::class, array(
+				"type" => PasswordType::class,
+				'invalid_message' => 'The password fields must match.',
+				'options' => array('attr' => array("class"=>"form-password form-control")),
+				'required' => true,
+				'first_options'  => array('label' => 'Contraseña:'),
+				'second_options' => array('label' => 'Confirma contraseña:')))
+            ->add('telfFijoProf', TextType::class, array("required"=>false, "attr"=>["class"=>"form-fijo form-control"],
                 "label" => "Telefono fijo:"))
-            ->add('telfMovilProf', TextType::class, array("attr"=>["class"=>"form-movil form-control"], 
+            ->add('telfMovilProf', TextType::class, array("required"=>false,"attr"=>["class"=>"form-movil form-control"], 
                 "label" => "Telefono movil:"))
-            ->add('emailProf', EmailType::class, array("required"=>"required", 
+            ->add('emailProf', EmailType::class, array("required"=>true, 
                 "attr"=>["class"=>"form-email form-control"],"label" => "Correo electronico:"))
-            ->add('passwordProf', PasswordType::class, array("required"=>"required", 
-                "attr"=>["class"=>"form-password form-control"], "label" => "Contraseña:"))
+            //->add('passwordProf', PasswordType::class, array("required"=>"required", 
+            //    "attr"=>["class"=>"form-password form-control"], "label" => "Contraseña:"))
             ->add('Guardar', SubmitType::class, array("attr"=>["class"=>"form-submit btn btn-success"]))
-                ->add('Cancelar', ResetType::class, array("attr"=>["class"=>"form-reset btn btn-alert"]))
+            ->add('Cancelar', ResetType::class, array("attr"=>["class"=>"form-reset btn btn-alert"]))
             //->add('rolProf')
         ;
     }

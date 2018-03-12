@@ -25,7 +25,12 @@ class ProfesorController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $profesor_repo = $em->getRepository("FctBundle:Profesor");
-        $profesores = $profesor_repo->getPaginatorProfesor();//findAll();
+        $profesores = $profesor_repo->getPaginationProfesor(5, $page);//findAll();
+		
+		$totalitems = count($profesores);
+        $pagesCount = ceil($totalitems / 5);
+		
+		
         $profesores1 = [];
 
         foreach ($profesores as $profesor) {
@@ -42,6 +47,9 @@ class ProfesorController extends Controller {
         }
         return $this->render('FctBundle:Profesor:index.html.twig', array(
                     "profesores" => $profesores1,
+					"totalitems" => $totalitems,
+                    "pagesCount" => $pagesCount,
+                    "page" => $page
         ));
     }
     
@@ -211,10 +219,11 @@ class ProfesorController extends Controller {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        if ($error)
+        if ($error){
             $status = "Error: No te has logueado correctamente!! :(";
-        else
+        }else{
             $status = "Te has logueado correctamente!! :)";
+		}
 
         return $this->render("FctBundle:Profesor:login.html.twig", [
                     "error" => $error,
@@ -308,10 +317,10 @@ class ProfesorController extends Controller {
                     $status = "Error: El profesor ya existe!! :(";
                 }
             } else {
-                $status = "Error: El profesor no se registró correctamente!! :(";
+                $status = "Error: El profesor no se registró correctamente, debido que que los datos no son válidos :(";
             }
             $this->session->getFlashBag()->add("status", $status);
-            return $this->redirectToRoute('fct_homepage');
+            return $this->redirectToRoute('sign_up');
         }
 
 
@@ -350,9 +359,10 @@ class ProfesorController extends Controller {
         return $this->redirectToRoute('fct_index_profesor');
     }
 
-    public function edit_perfil(Request $request, $id_prof) {
+    public function edit_perfilAction(Request $request, $id_prof) {
         $em = $this->getDoctrine()->getManager();
         $profesor = $em->getRepository("FctBundle:Profesor")->find($id_prof);
+		$rol = $profesor->getRolProf();
 
 
         $form = $this->createForm(ProfesorType::class, $profesor);
@@ -364,7 +374,7 @@ class ProfesorController extends Controller {
         if ($form->isSubmitted()) {
 
             if ($form->isValid()) {
-                $profesor = new Profesor();
+                //$profesor = new Profesor();
                 $profesor->setNifProf($form->get('nifProf')->getData());
                 $profesor->setNombreProf($form->get('nombreProf')->getData());
                 $profesor->setApellido1Prof($form->get('apellido1Prof')->getData());
@@ -393,6 +403,7 @@ class ProfesorController extends Controller {
                 $password = $encoder->encodePassword($form->get('passwordProf')->getData(), $profesor->getSalt());
 
                 $profesor->setPasswordProf($password);
+				$profesor->setRolProf($rol);
 
                 //y persistimos los datos almacenándolos dentro de doctrine
                 $em->persist($profesor);
@@ -415,5 +426,45 @@ class ProfesorController extends Controller {
                     "form" => $form->createView()
         ]);
     }
+	
+	public function edit_rolAction(Request $request, $id_prof){
+		$em = $this->getDoctrine()->getManager();
+        $profesor = $em->getRepository("FctBundle:Profesor")->find($id_prof);
+		
+		$defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+                ->add('rol', ChoiceType::class, 
+                        array("choices"=>['Direccion' => "ROLE_DIRECCION", 
+                            "Profesor" => "ROLE_PROFESOR"], 
+					"required" => "required",
+                    "attr" => ["class" => "form-grado form-control"], 
+					"label" => "Rol:"))
+				->add('Guardar cambios', SubmitType::class, array("attr"=>["class"=>"form-submit btn btn-success"]))
+                ->getForm();
+				
+		$form->handleRequest($request);
+		
+		if ($form->isSubmitted()) {
+			$profesor->setRolProf($form->get('rol')->getData());
+			
+			//y persistimos los datos almacenándolos dentro de doctrine
+                $em->persist($profesor);
+                //Volcamos los datos del ORM en la base de datos
+                $flush = $em->flush();
+				
+			if ($flush != NULL) {
+                    $status = "Error: No se realizó el cambio de rol correctamente!! :(";
+                } else {
+                    $status = "Se realizó el cambio de rol correctamente!! :)";
+                }
+				
+			$this->session->getFlashBag()->add("status", $status);
+            return $this->redirectToRoute("fct_index_profesor");
+		}
+		
+		return $this->render("FctBundle:Profesor:editRol.html.twig", [
+                    "form" => $form->createView()
+        ]);
+	}
 
 }

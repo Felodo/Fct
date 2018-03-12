@@ -9,10 +9,20 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
-    </head>
-    <body>
+		<script src=""></script>
+		<style>
+			#example2 {
+				border: 2px solid black;
+				padding: 25px;
+				background: url(mountain.jpg);
+				background-repeat: no-repeat;
+				background-size: 300px 100px;
+				
+		</style>
+	</head>
+    <body background="">
         <header>
-            <div><h2>DAWES-Practica2#FTC</h2></div>
+            <div style="height: 100px; background-image:url('{{ asset('../assets/imagen/FCTi.jpg') }}'); background-repeat: no-repeat; background-size: 300px 100px; "><h2>DAWES-Practica2#FTC</h2></div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
                 <a class="navbar-brand" href="{{path("fct_homepage")}}">Inicio</a>
                 {% if app.user != null %}
@@ -28,7 +38,7 @@
                                 {% endif %}
                                 <a class="dropdown-item" href="{{path("fct_index_ciclo")}}">Listado de ciclos</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="{{path('fct_find_ciclo')}}">Buscar ciclos</a>
                             </div>
                         </li>
 
@@ -43,7 +53,7 @@
                                 {% endif %}
                                 <a class="dropdown-item" href="{{path("fct_index_alumno")}}">Listado de alumnos</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="{{path('fct_find_alumno')}}">Buscar alumnos</a>
                             </div>
                         </li>
 
@@ -56,7 +66,7 @@
 
                                 <a class="dropdown-item" href="{{path("fct_index_profesor")}}">Listado de profesor</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="{{path('fct_find_profesor')}}">Buscar profesores</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -70,7 +80,7 @@
                                 {% endif %}
                                 <a class="dropdown-item" href="{{path("fct_index_empresa")}}">Listado de empresa</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="{{path('fct_find_empresa')}}">Buscar empresas</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -82,12 +92,12 @@
                                 <a class="dropdown-item" href="{{path("fct_create_fct")}}">Añadir formacion de centro de trabajo</a>
                                 <a class="dropdown-item" href="{{path("fct_index_fct")}}">Listado de Formaciones de Centros de Trabajo</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="{{ path('fct_find_fct')}}">Buscar formacion de centro de trabajo</a>
                             </div>
                         </li>
 
-                        <li class="nav-item active"><a class="nav-link" href="{{path("fct_index_alumno")}}">Alumnos</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="#">Profesores</a></li>
+                       <!-- <li class="nav-item active"><a class="nav-link" href="{{path("fct_index_alumno")}}">Alumnos</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="#">Profesores</a></li> -->
                     </ul>
                 {% endif %}
                 <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,8 +130,20 @@
                     </ul>-->
                 <ul class="navbar-nav navbar-right">
                     {% if app.user != null %}
-                        <li class="nav-item active"><a class="nav-link" href="#"> Bienvenido, {{app.user.nicknameProf}} </a></li>
-                        <li class="nav-item active"><a class="nav-link" href="{{path("logout")}}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Logout</a></li>
+						<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{path("fct_index_ciclo")}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class=""></span>
+                                Bienvenido, {{app.user.nicknameProf}}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="{{path("fct_edit_perfil", {"id_prof":app.user.idProf})}}">Editar perfil</a>
+                                <a class="dropdown-item" href="{{path("logout")}}">Salir</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                        <!--<li class="nav-item active"><a class="nav-link" href="#"> Bienvenido, {{app.user.nicknameProf}} </a></li>-->
+                       <!-- <li class="nav-item active"><a class="nav-link" href="{{path("logout")}}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Logout</a></li>-->
 
                     {% else %}
                         <li class="nav-item active"><a class="nav-link" href="{{path("sign_up")}}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign Up</a></li>
@@ -136,9 +158,9 @@
 
 
         </header>
-        <section id="content">
-
-            {% block content %} Gestion de FCT {% endblock %}
+        <section id="content" style="height: 910px; background-image:url('{{ asset('../assets/imagen/fct_blanco.gif') }}'); background-repeat: no-repeat; background-size: 900px 600px; background-position: right;">
+            
+			{% block content %} Gestion de FCT {% endblock %}
         </section>
         <footer>
             {% block footer %} <hr> Felix Lozano Dominguez - 2ºDAW &copy 2018 {% endblock %}

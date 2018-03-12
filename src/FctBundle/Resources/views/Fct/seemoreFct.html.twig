@@ -1,0 +1,64 @@
+{% extends "FctBundle::layout.html.twig" %}
+
+{% block content %}
+    <br>
+    <h2>Datos del Fct</h2>
+    <hr>
+    {% for message in app.session.flashbag().get('status') %}
+        <div class="alert alert-success">{{message}}</div>
+        <hr>
+    {% endfor %}
+
+    <br>
+    <div class="container centrar">
+        <div <div class="col-lg-6">
+            <p>
+            <h3>Datos personales del alumno</h3><br>
+			<img class="alineadoTextoImagen" src="{{asset("../assets/imagen"~fct.fotografiaAlu)}}" width="50px" /><br>
+            NIF: {{fct.nifAlu}}<br>
+            Nombre: {{fct.nombreAlu}}<br>
+            Primer Apellido: {{fct.apellido1Alu}}<br>Segundo Apellido: {{fct.apellido2Alu}}<br>
+
+            </p>
+            <p>
+            <h3>Datos Academicos</h3>
+            Nombre del ciclo: {{fct.codigoCiclo}}-{{fct.nombreCiclo}}<br>
+			Horas: {{fct.horasCiclo}}
+            </p>
+            
+        </div>
+        <div class="col-lg-6">
+			<p>
+            <h3>Datos personales del profesor</h3><br>
+			<img class="alineadoTextoImagen" src="{{asset("../assets/imagen"~fct.fotografiaProf)}}" width="50px" /><br>
+            NIF: {{fct.nifProf}}<br>
+            Nombre: {{fct.nombreProf}}<br>
+            Primer Apellido: {{fct.apellido1Prof}}<br>Segundo Apellido: {{fct.apellido2Prof}}<br>
+
+            </p>
+            
+        </div>
+		<div class="col-lg-6">
+			<p>
+            <h3>Datos de la empresa</h3><br>
+            Nombre: {{fct.nombreEmp}}<br>
+            Tutor: {{fct.tutorEmp}}<br>
+
+            </p>
+		</div>
+		 <div class="clear-fix">
+
+		
+		<p>
+                <a href="{{path('fct_index_fct')}}" class="btn btn-info" role="button">Volver</a>
+        </p>
+		</div>
+    </div>
+
+    <div class="clear-fix">
+
+    </div>
+    <div class="clear-fix">
+
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "FctBundle::layout.html.twig" %}
+
+{% block content %}
+    <br>
+    <h2>Datos de la Empresa</h2>
+    <hr>
+    {% for message in app.session.flashbag().get('status') %}
+        <div class="alert alert-success">{{message}}</div>
+        <hr>
+    {% endfor %}
+
+    <br>
+    <div class="container centrar">
+        <div>
+            <p>
+            <h3>Datos </h3><br>
+			
+            CIF: {{empresa.cif}}<br>
+            Nombre: {{empresa.nombre}}<br><br>
+
+			
+            Provincia: {{empresa.provincia}}<br>
+            Poblacion: {{empresa.poblacion}}<br>
+            Direccion: {{empresa.direccion}}<br>
+            Codigo Postal: {{empresa.cpostal}}
+
+            </p>
+            <h3>Datos Contactos</h3>
+            <p>
+                Nombre de contacto: {{empresa.tutor}}<br>
+                Correo electronico: {{empresa.email}}<br>
+                Telefono fijo: {{empresa.telffijo}}<br>
+                Telefono movil: {{empresa.telfmovil}}
+            </p> 
+            <p>
+                <a href="{{path('fct_index_empresa')}}" class="btn btn-info" role="button">Volver</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="clear-fix">
+
+    </div>
+    <div class="clear-fix">
+
+    </div>
+{% endblock %}

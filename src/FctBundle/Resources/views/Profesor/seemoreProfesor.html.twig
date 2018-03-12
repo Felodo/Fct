@@ -11,7 +11,7 @@
     
     <br>
 	<div class="container centrar">
-    <div style="float: left; width: 43%;">
+		<div style="float: left; width: 43%;">
 			<p>
 				<h3>Datos personales</h3><br>
 				NIF: {{profesor.nif}}<br>
@@ -29,13 +29,15 @@
 				
 			
 			</p>
-			<a href="{{path("fct_index_profesor")}}" class="btn btn-info" role="button">Volver</a>
-	</div>
-	<div class="col-lg-6">
-		<br><br><br>
+			
+		</div>
+		<div class="col-lg-6">
+			<br><br><br>
 			<img class="alineadoTextoImagen" src="{{asset("../assets/imagen"~profesor.fotografia)}}" width="50px" /><br>
-			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	</div>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		</div>
+		{% set i = 1%}
+		<a href="{{ path('fct_find_profesor', { 'page': 1 }) }}" class="btn btn-info">Volver</a>
 	</div>
 	
 	<div class="clear-fix">

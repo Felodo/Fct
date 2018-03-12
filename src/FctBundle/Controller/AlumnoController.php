@@ -151,12 +151,12 @@ class AlumnoController extends Controller {
             else
                 $provincia = "";
             
-            var_dump($direccion);
-            var_dump($operador_direccion);
-            var_dump($cpostal);
-            var_dump($operador_cpostal);
-            var_dump($ciclo);
-            var_dump($provincia);
+            //var_dump($direccion);
+            //var_dump($operador_direccion);
+            ///var_dump($cpostal);
+            //var_dump($operador_cpostal);
+            //var_dump($ciclo);
+            //var_dump($provincia);
             /*$operador_cpostal = $data['operador_cpostal'];
             if($data['ciclo'].getIdCiclo() != null)
                 $ciclo = $data['ciclo'].getIdCiclo();

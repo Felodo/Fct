@@ -1,0 +1,90 @@
+{% extends "FctBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="col-lg-4">
+        <h2>Buscar alumno</h2>
+        <hr>
+        {% for message in app.session.flashbag().get('status') %}
+            <div class="alert alert-success">{{message}}</div>
+            <hr>
+        {% endfor %}
+		
+		{{form_start(form, {'action':'','method':'POST'})}}
+			<label for="txtdireccion">Año:*
+				{{form_errors(form.operador_anio)}}
+				{{form_widget(form.operador_anio)}}
+			
+				{{form_errors(form.anio)}}
+				{{form_widget(form.anio)}}
+			</label><br>
+			<label for="txtdireccion">Selecciona Profesor:*
+				{{form_errors(form.idProf)}}
+				{{form_widget(form.idProf)}}
+			</label><br>
+			<label for="txtciclo">Selecciona empresa:*
+				{{form_errors(form.idEmp)}}
+				{{form_widget(form.idEmp)}}
+			</label>
+			<label for="txtprovincia">Selecciona alumno:*
+				{{form_errors(form.idAlu)}}
+				{{form_widget(form.idAlu)}}
+			</label>
+		{{form_end(form)}}
+		
+       
+            
+		<table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Año</th>
+                    <th>Profesor</th>
+                    <th>Empresa</th>
+                    <th>Alumno</th>
+                    <th colspan="2">Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fct in fcts %}
+                    <tr>
+                        <td>{{fct.anio}}</td>
+                        <td>{{fct.nombreProf}}</td>
+                        <td>{{fct.nombreEmp}}</td>
+                        <td>{{fct.nombreAlu}}</td>
+                        <td>
+                            <a class="btn btn-danger" href="{{path("fct_delete_fct", {"id_fct":fct.id_fct})}}"><span></span>X</a>
+                        </td><td>
+                            <a class="btn btn-danger" href="{{path("fct_edit_fct", {"id_fct":fct.id_fct})}}"><span></span>Editar</a>
+                        </td>
+						<td>
+                                <a class="btn btn-danger" href="{{path("fct_seemore_fct", {"id_fct":fct.id_fct})}}"><span></span>Ver mas</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+				{%if page == 1%}
+				<li class="page-item disabled"><a class="page-link" href="{{path("fct_find_alumno", {"page":page-1})}}">&laquo;</a></li>
+				{% else %}
+                <li class="page-item"><a class="page-link" href="{{path("fct_find_alumno", {"page":page-1})}}">&laquo;</a></li>
+				{% endif %}
+				{% if pagesCount > 0 %}
+                    {% for i in 1..pagesCount %}
+                    <li class="page-item"><a class="page-link" herf="{{path("fct_find_alumno", {"page":i})}}">{{i}}</a></li>
+                    {% endfor %}
+				{% endif %}
+				{% if page == pagesCount %}
+				<li class="page-item disabled"><a class="page-link" href="{{path("fct_find_alumno", {"page":page+1})}}">&raquo;</a></li>
+				{% else %}
+                <li class="page-item"><a class="page-link" href="{{path("fct_find_alumno", {"page":page+1})}}">&raquo;</a></li>
+				{% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="clear-fix">
+
+    </div>
+
+{% endblock %}{# empty Twig template #}

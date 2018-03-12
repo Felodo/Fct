@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
@@ -19,7 +20,12 @@ class FctType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('anio')
+			/*->add('idCiclo', EntityType::class, array("class"=>"FctBundle:Ciclo",
+                "placeholder"=>"Selecciona un ciclo...", 
+				"choice_label"=>"nombreCiclo",
+                "choice_value"=>"idCiclo",
+				"attr"=>["class"=>"form-id_profesor form-control"], "label"=>"Ciclo:"))*/
+            ->add('anio', IntegerType::class, array("attr"=>["class"=>"form-id_profesor form-control"], "label"=>"Año:"))
             ->add('idProf', EntityType::class, array("class"=>"FctBundle:Profesor",
                 "placeholder"=>"Selecciona un/a profesor/a...", 
                 "choice_label"=>"nifProf",

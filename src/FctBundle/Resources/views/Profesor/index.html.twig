@@ -42,7 +42,7 @@
                             <a class="btn btn-danger" href="{{path("fct_delete_profesor", {"id_prof":profesor.id_prof})}}"><span></span>X</a>
                         </td>
                         <td>
-                            <a class="btn btn-danger" href="{{path("fct_delete_profesor", {"id_prof":profesor.id_prof})}}"><span></span>X</a>
+                            <a class="btn btn-danger" href="{{path("fct_edit_rol", {"id_prof":profesor.id_prof})}}"><span></span>Cambiar rol</a>
 
                         </td>
 						{% endif %}
@@ -56,11 +56,20 @@
 
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="{{path("fct_index_profesor", {"page":page-1})}}">&laquo;</a></li>
+				{%if page == 1%}
+                <li class="page-item disabled"><a class="page-link" href="{{path("fct_index_profesor", {"page":page-1})}}">&laquo;</a></li>
+				{% else %}
+				<li class="page-item"><a class="page-link" href="{{path("fct_index_profesor", {"page":page-1})}}">&laquo;</a></li>
+				{% endif %}
                     {% for i in 1..pagesCount %}
                     <li class="page-item"><a class="page-link" herf="{{path("fct_index_profesor", {"page":i})}}">{{i}}</a></li>
                     {% endfor %}
-                <li class="page-item"><a class="page-link" href="{{path("fct_index_profesor", {"page":page+1})}}">&raquo;</a></li>
+				{% if page == pagesCount %}
+                <li class="page-item disabled"><a class="page-link" href="{{path("fct_index_profesor", {"page":page+1})}}">&raquo;</a></li>
+				
+				{% else %}
+				<li class="page-item"><a class="page-link" href="{{path("fct_index_profesor", {"page":page+1})}}">&raquo;</a></li>
+				{% endif %}
             </ul>
         </nav>
     </div>

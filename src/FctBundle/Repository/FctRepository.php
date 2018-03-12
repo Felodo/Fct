@@ -23,4 +23,21 @@ class FctRepository extends \Doctrine\ORM\EntityRepository
         $paginator = new Paginator($query, $fetchJoinCollection = true);
         return $paginator;
     }
+	
+	public function getBuscarFct($filtros, $pageSize=5, $currentPage=1){
+		$em = $this->getEntityManager();
+		
+		$dql = "SELECT a FROM FctBundle\Entity\Fct a";
+		
+		if(count($filtros) > 0) {
+			$dql .= ' WHERE ' . implode(' and ', $filtros);
+		}
+		
+		$query = $em->createQuery($dql)
+                ->setFirstResult($pageSize*($currentPage-1))
+                ->setMaxResults($pageSize);
+        
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        return $paginator;
+	}
 }

@@ -1,16 +1,29 @@
 {% extends "FctBundle::layout.html.twig" %}
 
 {% block content %}
-    <br>
-    <h2>Listado de los ciclos</h2>
-    <hr>
-    {% for message in app.session.flashbag().get('status') %}
-        <div class="alert alert-success">{{message}}</div>
-        <hr>
-    {% endfor %}
-    <div class="col-lg-4"><a class="btn btn-success btn-lg" href="{{path("fct_create_ciclo")}}">Añadir ciclo</a></div>
-    <br>
     <div class="col-lg-4">
+        <h2>Buscar alumno</h2>
+        <hr>
+        {% for message in app.session.flashbag().get('status') %}
+            <div class="alert alert-success">{{message}}</div>
+            <hr>
+        {% endfor %}
+		
+		{{form_start(form, {'action':'','method':'POST'})}}
+			<label for="txtdireccion">Horas:*
+				{{form_errors(form.operador_horasfct)}}
+				{{form_widget(form.operador_horasfct)}}</label><label>
+				{{form_errors(form.horasfct)}}
+				{{form_widget(form.horasfct)}}
+			</label>
+			<label for="txtciclo">Selecciona grado:*
+				{{form_errors(form.grado)}}
+				{{form_widget(form.grado)}}
+			</label>
+		{{form_end(form)}}
+		
+     
+            
         <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -41,23 +54,29 @@
                 {% endfor %}
             </tbody>
         </table>
-            
+
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-			{%if page == 1%}
-                <li class="page-item disabled"><a class="page-link" href="{{path("fct_index_ciclo", {"page":page-1})}}">&laquo;</a></li>
+				{%if page == 1%}
+				<li class="page-item disabled"><a class="page-link" href="{{path("fct_find_ciclo", {"page":page-1})}}">&laquo;</a></li>
 				{% else %}
-				<li class="page-item"><a class="page-link" href="{{path("fct_index_ciclo", {"page":page-1})}}">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="{{path("fct_find_ciclo", {"page":page-1})}}">&laquo;</a></li>
 				{% endif %}
+				{% if pagesCount > 0 %}
                     {% for i in 1..pagesCount %}
-                    <li class="page-item"><a class="page-link" herf="{{path("fct_index_ciclo", {"page":i})}}">{{i}}</a></li>
+                    <li class="page-item"><a class="page-link" herf="{{path("fct_find_ciclo", {"page":i})}}">{{i}}</a></li>
                     {% endfor %}
-					{% if page == pagesCount %}
-                <li class="page-item disabled"><a class="page-link" href="{{path("fct_index_ciclo", {"page":page+1})}}">&raquo;</a></li>
+				{% endif %}
+				{% if page == pagesCount %}
+				<li class="page-item disabled"><a class="page-link" href="{{path("fct_find_ciclo", {"page":page+1})}}">&raquo;</a></li>
 				{% else %}
-				<li class="page-item"><a class="page-link" href="{{path("fct_index_ciclo", {"page":page+1})}}">&raquo;</a></li>
+                <li class="page-item"><a class="page-link" href="{{path("fct_find_ciclo", {"page":page+1})}}">&raquo;</a></li>
 				{% endif %}
             </ul>
         </nav>
     </div>
-{% endblock %}
+    <div class="clear-fix">
+
+    </div>
+
+{% endblock %}{# empty Twig template #}

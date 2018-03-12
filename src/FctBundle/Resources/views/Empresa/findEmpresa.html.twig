@@ -1,16 +1,35 @@
 {% extends "FctBundle::layout.html.twig" %}
 
 {% block content %}
-    <br>
-    <h2>Listado de los ciclos</h2>
-    <hr>
-    {% for message in app.session.flashbag().get('status') %}
-        <div class="alert alert-success">{{message}}</div>
-        <hr>
-    {% endfor %}
-    <div class="col-lg-4"><a class="btn btn-success btn-lg" href="{{path("fct_create_empresa")}}">Añadir empresa</a></div>
-    <br>
     <div class="col-lg-4">
+        <h2>Buscar empresa</h2>
+        <hr>
+        {% for message in app.session.flashbag().get('status') %}
+            <div class="alert alert-success">{{message}}</div>
+            <hr>
+        {% endfor %}
+		
+		{{form_start(form, {'action':'','method':'POST'})}}
+			<label for="txtdireccion">Direccion:*
+				{{form_errors(form.operador_direccion)}}
+				{{form_widget(form.operador_direccion)}}</label><label>
+				{{form_errors(form.direccion)}}
+				{{form_widget(form.direccion)}}
+			</label>
+			<label for="txtdireccion">Direccion:*
+				{{form_errors(form.operador_cpostal)}}
+				{{form_widget(form.operador_cpostal)}}</label><label>
+				{{form_errors(form.cpostal)}}
+				{{form_widget(form.cpostal)}}
+			</label>
+			<label for="txtprovincia">Selecciona provincia:*
+				{{form_errors(form.idProvincia)}}
+				{{form_widget(form.idProvincia)}}
+			</label>
+		{{form_end(form)}}
+		
+      
+            
         <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -22,7 +41,7 @@
                     <th>Correo electronico</th>
                     <th>Telefonos</th>
                         
-                        <th colspan="3">Operaciones</th>
+                        <th>Operaciones</th>
                         
                 </tr>
             </thead>
@@ -50,16 +69,29 @@
                 {% endfor %}
             </tbody>
         </table>
-            
+
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="{{path("fct_index_empresa", {"page":page-1})}}">&laquo;</a></li>
+				{%if page == 1%}
+				<li class="page-item disabled"><a class="page-link" href="{{path("fct_find_alumno", {"page":page-1})}}">&laquo;</a></li>
+				{% else %}
+                <li class="page-item"><a class="page-link" href="{{path("fct_find_alumno", {"page":page-1})}}">&laquo;</a></li>
+				{% endif %}
+				{% if pagesCount > 0 %}
                     {% for i in 1..pagesCount %}
-                    <li class="page-item"><a class="page-link" herf="{{path("fct_index_empresa", {"page":i})}}">{{i}}</a></li>
+                    <li class="page-item"><a class="page-link" herf="{{path("fct_find_alumno", {"page":i})}}">{{i}}</a></li>
                     {% endfor %}
-                <li class="page-item"><a class="page-link" href="{{path("fct_index_empresa", {"page":page+1})}}">&raquo;</a></li>
+				{% endif %}
+				{% if page == pagesCount %}
+				<li class="page-item disabled"><a class="page-link" href="{{path("fct_find_alumno", {"page":page+1})}}">&raquo;</a></li>
+				{% else %}
+                <li class="page-item"><a class="page-link" href="{{path("fct_find_alumno", {"page":page+1})}}">&raquo;</a></li>
+				{% endif %}
             </ul>
         </nav>
     </div>
-{% endblock %}
-{# empty Twig template #}
+    <div class="clear-fix">
+
+    </div>
+
+{% endblock %}{# empty Twig template #}

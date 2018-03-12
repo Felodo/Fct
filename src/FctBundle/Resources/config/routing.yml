@@ -21,16 +21,23 @@ fct_index_profesor:
     defaults: { _controller: FctBundle:Profesor:index, page:1 }
     
 fct_delete_profesor:
-    path: /profesores/delete_profesor/{id_prof}
+    path: /profesores/delete_profesor/{id_prof}/
     defaults: { _controller: FctBundle:Profesor:delete_profesor }
     
 fct_find_profesor:
-    path: /profesores/find_profesor/{page}
-    defaults: { _controller: FctBundle:Profesor:find_profesor, page:1}
-    methods: [GET, POST]
+    path: /profesores/find_profesor/{page}/
+    defaults: { _controller: FctBundle:Profesor:find_profesor, page: 1 }
+    
+fct_edit_perfil:
+    path: /profesores/edit_perfil/{id_prof}/
+    defaults: { _controller: FctBundle:Profesor:edit_perfil }
+    
+fct_edit_rol:
+    path: /profesores/edit_rol/{id_prof}/
+    defaults: { _controller: FctBundle:Profesor:edit_rol }
     
 fct_seemore_profesor:
-    path: /profesores/seemore_profesor/{id_prof}
+    path: /profesores/seemore_profesor/{id_prof}/
     defaults: { _controller: FctBundle:Profesor:seemore_profesor }
 
 fct_index_alumno:
@@ -38,7 +45,7 @@ fct_index_alumno:
     defaults: { _controller: FctBundle:Alumno:index, page:1 }
 
 fct_create_alumno:
-    path: /alumnos/create_alumno
+    path: /alumnos/create_alumno/
     defaults: { _controller: FctBundle:Alumno:create_alumno }
     
 fct_delete_alumno:
@@ -50,9 +57,8 @@ fct_edit_alumno:
     defaults: { _controller: FctBundle:Alumno:edit_alumno }
     
 fct_find_alumno:
-    path: /alumnos/find_alumno/{page}
+    path: /alumnos/find_alumno/{page}/
     defaults: { _controller: FctBundle:Alumno:find_alumno, page:1}
-    methods: [GET, POST]
     
 fct_seemore_alumno:
     path: /alumnos/seemore_alumno/{id_alu}
@@ -63,7 +69,7 @@ fct_index_ciclo:
     defaults: { _controller: FctBundle:Ciclo:index, page:1 }
 
 fct_create_ciclo:
-    path: /ciclos/create_ciclo
+    path: /ciclos/create_ciclo/
     defaults: { _controller: FctBundle:Ciclo:create_ciclo }
     
 fct_delete_ciclo:
@@ -74,12 +80,16 @@ fct_edit_ciclo:
     path: /ciclos/edit_ciclo/{id_ciclo}
     defaults: { _controller: FctBundle:Ciclo:edit_ciclo }
     
+fct_find_ciclo:
+    path: /ciclos/edit_ciclo/{page}/
+    defaults: { _controller: FctBundle:Ciclo:find_ciclo, page: 1 }
+    
 fct_index_empresa:
     path: /empresas/{page}
     defaults: { _controller: FctBundle:Empresa:index, page:1 }
     
 fct_create_empresa:
-    path: /empresas/create_empresa
+    path: /empresas/create_empresa/
     defaults: { _controller: FctBundle:Empresa:create_empresa }
     
 fct_delete_empresa:
@@ -90,12 +100,22 @@ fct_edit_empresa:
     path: /empresas/edit_empresa/{id_emp}
     defaults: { _controller: FctBundle:Empresa:edit_empresa }
     
+fct_find_empresa:
+    path: /empresas/find_empresa/{page}/
+    defaults: { _controller: FctBundle:Empresa:find_empresa, page: 1 }
+    requirements:
+        page: '\d+'
+    
+fct_seemore_empresa:
+    path: /empresas/seemore_empresa/{id_emp}
+    defaults: { _controller: FctBundle:Empresa:seemore_empresa }
+    
 fct_index_fct:
     path: /fct/{page}
     defaults: { _controller: FctBundle:Fct:index, page:1 }
     
 fct_create_fct:
-    path: /fct/create_fct
+    path: /fct/create_fct/
     defaults: { _controller: FctBundle:Fct:create_fct }
     
 fct_delete_fct:
@@ -105,4 +125,12 @@ fct_delete_fct:
 fct_edit_fct:
     path: /fct/edit_fct/{id_fct}
     defaults: { _controller: FctBundle:Fct:edit_fct }
-
+    
+fct_find_fct:
+    path: /fct/find_fct/{page}/
+    defaults: { _controller: FctBundle:Fct:find_fct, page:1 }
+    methods: [GET, POST]
+    
+fct_seemore_fct:
+    path: /fct/seemore_fct/{id_fct}
+    defaults: { _controller: FctBundle:Fct:seemore_fct }
