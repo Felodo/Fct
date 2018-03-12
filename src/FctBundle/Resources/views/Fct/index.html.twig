@@ -18,7 +18,7 @@
                     <th>Profesor</th>
                     <th>Empresa</th>
                     <th>Alumno</th>
-                    <th colspan="2">Operaciones</th>
+                    <th colspan="3">Operaciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,24 +31,34 @@
                         <td>
                             <a class="btn btn-danger" href="{{path("fct_delete_fct", {"id_fct":fct.id_fct})}}"><span></span>X</a>
                         </td><td>
-                            <a class="btn btn-danger" href="{{path("fct_edit_fct", {"id_fct":fct.id_fct})}}"><span></span>Editar</a>
+                            <a class="btn btn-warning" href="{{path("fct_edit_fct", {"id_fct":fct.id_fct})}}"><span></span>Editar</a>
                         </td>
-						<td>
-                                <a class="btn btn-danger" href="{{path("fct_seemore_fct", {"id_fct":fct.id_fct})}}"><span></span>Ver mas</a>
+                        <td>
+                            <a class="btn btn-info" href="{{path("fct_seemore_fct", {"id_fct":fct.id_fct})}}"><span></span>Ver mas</a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-            
-            
+
+
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="{{path("fct_index_fct", {"page":page-1})}}">&laquo;</a></li>
-                    {% for i in 1..pagesCount %}
+                {%if page == 1%}
+                    <li class="page-item disabled"><a class="page-link" href="{{path("fct_index_fct", {"page":page-1})}}">&laquo;</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="{{path("fct_index_fct", {"page":page-1})}}">&laquo;</a></li>
+                {% endif%}
+                {% for i in 1..pagesCount %}
                     <li class="page-item"><a class="page-link" herf="{{path("fct_index_fct", {"page":i})}}">{{i}}</a></li>
-                    {% endfor %}
-                <li class="page-item"><a class="page-link" href="{{path("fct_index_fct", {"page":page+1})}}">&raquo;</a></li>
+                {% endfor %}
+                {% if page == pagesCount %}
+                    <li class="page-item disabled"><a class="page-link" href="{{path("fct_index_fct", {"page":page+1})}}">&raquo;</a></li>
+
+                {% else %}
+
+                    <li class="page-item"><a class="page-link" href="{{path("fct_index_fct", {"page":page+1})}}">&raquo;</a></li>
+                {% endif %}
             </ul>
         </nav>
     </div>

@@ -40,5 +40,71 @@ FctBundle\Entity\Alumno:
                 minMessage: "El NIF es de 9 caracteres"
                 max: 9
                 maxMessage: "El NIF es de 9 caracteres"
+        nicknameAlu:
+            - NotBlank: {message: "El nickname no puede estar vacio"}
+        telfFijoAlu:
+            - Type:
+                type: integer
+                message: "No es numerico"
+            - Length:
+                min: 9
+                minMessage: "El numero de telefono es de 9 digitos"
+                max: 9
+                maxMessage: "El numkero de telefono es de 9 digitos"
+        telfMovilAlu:
+            - Type:
+                type: integer
+                message: "No es numerico"
+            - Length:
+                min: 9
+                minMessage: "El numero de telefono es de 9 digitos"
+                max: 9
+                maxMessage: "El numero de telefono es de 9 digitos"
+        emailAlu:
+            - Email: {message: "Este valor no es correcto para la distraccion de correo electronico"}
+            
+FctBundle\Entity\Empresa:
+    properties:
+        cifEmp:
+            - NotBlank: {message: "El cif no puede estar vacio"}
+            - Length:
+                min: 9
+                minMessage: "El cif es de 9 caracteres"
+                max: 9
+                maxMessage: "El cif es de 9 caracteres"
+        telfFijoEmp:
+            - Type:
+                type: integer
+                message: "No es numerico"
+            - Length:
+                min: 9
+                minMessage: "El numero de telefono es de 9 digitos"
+                max: 9
+                maxMessage: "El numero de telefono es de 9 digitos"
+        telfMovilAlu:
+            - Type:
+                type: integer
+                message: "No es numerico"
+            - Length:
+                min: 9
+                minMessage: "El numero de telefono es de 9 digitos"
+                max: 9
+                maxMessage: "El numero de telefono es de 9 digitos"
+        emailEmp:
+            - Email: {message: "Este valor no es correcto para la distraccion de correo electronico"}
+       
+FctBundle\Entity\Ciclo:
+    properties:
+        horasfct:
+            - Type:
+                type: integer
+                message: "El valor no es valido"
                 
-        
+FctBundle\Entity\Fct:
+    properties:
+        anio:
+            - Type:
+                type: integer
+                message: "El valor no es valido"
+            
+                
