@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use FctBundle\Entity\Profesor;
+use FctBundle\Entity\Fct;
 use FctBundle\Form\ProfesorType;
 use FctBundle\Repository\ProfesorRepository;
 
@@ -278,9 +279,9 @@ class ProfesorController extends Controller {
 
                     $file = $form['fotografiaProf']->getData();
 
-                    if (!empty($file) && $file = null) {
+                    if (!empty($file) && $file != null) {
                         $ext = $file->guessExtension();
-                        $file_name = $profesor->getNicknameProf() . "." . $ext;
+                        $file_name = time() . "." . $ext;
                         $file->move('../assets/imagen', $file_name);
                         $profesor->setFotografiaProf($file_name);
                     } else {
@@ -339,8 +340,11 @@ class ProfesorController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $profesor_repo = $em->getRepository("FctBundle:Profesor");
         $profesor = $profesor_repo->find($id_prof);
+        
+        $fct_repo = $em->getRepository("FctBundle:Fct");
+        $fct = $fct_repo->findBy(['idProf' => $id_prof]);
 
-        if (count($profesor->getFct()) == 0) {
+        if (count($fct) == 0) {
             $em->remove($profesor);
             $flush = $em->flush();
 
@@ -382,9 +386,9 @@ class ProfesorController extends Controller {
 
                 $file = $form['fotografiaProf']->getData();
 
-                if (!empty($file) && $file == null) {
+                if (!empty($file) && $file != null) {
                     $ext = $file->guessExtension();
-                    $file_name = $profesor->getNicknameProf() . "." . $ext;
+                    $file_name = time() . "." . $ext;
                     $file->move('../assets/imagen', $file_name);
                     $profesor->setFotografiaProf($file_name);
                 } else {

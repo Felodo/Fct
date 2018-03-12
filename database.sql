@@ -224,6 +224,9 @@ INSERT INTO `PROFESORES` (`NIF_PROF`, `NOMBRE_PROF`, `APELLIDO1_PROF`,
 `APELLIDO2_PROF`, `NICKNAME_PROF`, `TELF_FIJO_PROF`, `TELF_MOVIL_PROF`, 
 `EMAIL_PROF`, `PASSWORD_PROF`, `ROL_PROF`) VALUES
 ('48922993S', 'RAUL', 'RODRIGUEZ', 'PEREZ', 'rarpe', 959, 666, 'rarpe75@gmail.com', '$2a$04$bK/7F9CcGxp5h0hrtv4sG.t94h5RYmvZvAviCdqt3iof08IopoRpq', 'ROLE_PROFESOR'),
+('48922993S', 'Roque', 'Ruíz', 'Patron', 'rorupa', 959, 666, 'rarupa75@gmail.com', '$2a$04$t5JO6Ka.Lr3dAliFpdp8PuuOPOPZWYmY3Mq0j/OxFaW2Y3JketSpy', 'ROLE_PROFESOR'),
+('48922993S', 'Jose Manuel', 'Dominguez', 'Padilla', 'josema', 959, 666, 'josema75@gmail.com', '$2a$04$jC05Ar.dvoDrUpzw8zLbseez.u1Pzgoa07.BEEm0kalEjb7VTu/u6', 'ROLE_PROFESOR'),
+('48922993S', 'Maria Jose', 'Baquero', 'Martinez', 'majo', 959, 666, 'majo75@gmail.com', '$2a$04$kaYuATCV5wSyS3oDNFuB1OTxmEuCcBh.hkyHkyup9SEciqYaRamDy', 'ROLE_PROFESOR'),
 ('48922996S', 'RODRIGO', 'RODRIGUEZ', 'PEREZ', 'rorpe', 959, 666, 'rorpe80@gmail.com', '$2a$04$TqWP1ZnQ3vMFVkGQAyHoFu7wi9kEoGkdVoBU5AHPWYkPtoU0fNmoW', 'ROLE_DIRECCION');
 
 INSERT INTO `EMPRESAS` (`CIF_EMP`, `NOMBRE_EMP`, `TUTOR_EMP`, `DIRECCION_EMP`, 

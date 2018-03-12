@@ -283,7 +283,10 @@ class EmpresaController extends Controller {
         $empresa_repo = $em->getRepository("FctBundle:Empresa");
         $empresa = $empresa_repo->find($id_empresa);
 
-        if (count($empresa->getFct()) == 0) {
+        $fct_repo = $em->getRepository("FctBundle:Fct");
+        $fct = $fct_repo->findBy(['idEmp' => $id_empresa]);
+
+        if (count($fct) == 0) {
             $em->remove($empresa);
             $flush = $em->flush();
 

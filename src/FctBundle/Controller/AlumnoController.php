@@ -343,9 +343,9 @@ class AlumnoController extends Controller {
 
                     $file = $form['fotografiaAlu']->getData();
 
-                    if (!empty($file) && $file = null) {
+                    if (!empty($file) && $file != null) {
                         $ext = $file->guessExtension();
-                        $file_name = $alumno->getNicknameAlu() . "." . $ext;
+                        $file_name = time() . "." . $ext;
                         $file->move('../assets/imagen', $file_name);
                         $alumno->setFotografiaAlu($file_name);
                     } else {
@@ -387,7 +387,10 @@ class AlumnoController extends Controller {
         $alumno_repo = $em->getRepository("FctBundle:Alumno");
         $alumno = $alumno_repo->find($id_alu);
 
-        if (count($alumno->getFct()) == 0) {
+        $fct_repo = $em->getRepository("FctBundle:Fct");
+        $fct = $fct_repo->findBy(['idAlu' => $id_alu]);
+
+        if (count($fct) == 0) {
             $em->remove($alumno);
             $flush = $em->flush();
 
@@ -438,9 +441,9 @@ class AlumnoController extends Controller {
 
                 $file = $form['fotografiaAlu']->getData();
 
-                if (!empty($file) && $file == null) {
+                if (!empty($file) && $file != null) {
                     $ext = $file->guessExtension();
-                    $file_name = $alumno->getNicknameAlu() . "." . $ext;
+                    $file_name = time() . "." . $ext;
                     $file->move('../assets/imagen', $file_name);
                     $alumno->setFotografiaAlu($file_name);
                 } else {

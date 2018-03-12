@@ -66,12 +66,12 @@
                             <a class="btn btn-danger" href="{{path("fct_delete_profesor", {"id_prof":profesor.id_prof})}}"><span></span>X</a>
                         </td>
                         <td>
-                            <a class="btn btn-danger" href="{{path("fct_delete_profesor", {"id_prof":profesor.id_prof})}}"><span></span>X</a>
+                            <a class="btn btn-warning" href="{{path("fct_edit_rol", {"id_prof":profesor.id_prof})}}"><span></span>Cambiar rol</a>
 
                         </td>
 						{% endif %}
                         <td>
-                            <a class="btn btn-danger" href="{{path("fct_seemore_profesor", {"id_prof":profesor.id_prof})}}"><span></span>Ver mas</a>
+                            <a class="btn btn-info" href="{{path("fct_seemore_profesor", {"id_prof":profesor.id_prof})}}"><span></span>Ver mas</a>
                         </td>
                     </tr>
                 {% endfor %}

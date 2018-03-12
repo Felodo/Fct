@@ -97,15 +97,15 @@ class CicloController extends Controller {
 
                     if ($flush != NULL) 
                     {
-                        $status = "Error: El alumno no se registró correctamente!! :(";
+                        $status = "Error: El ciclo no se registró correctamente!! :(";
                     } else {
-                        $status = "El alumno se ha registrado correctamente!! :)";
+                        $status = "El ciclo se ha registrado correctamente!! :)";
                     }
                 } else {
-                    $status = "Error: El alumno ya existe!! :(";
+                    $status = "Error: El ciclo ya existe!! :(";
                 }
             } else {
-                $status = "Error: El alumno no se ha registrado, porque el formulario no es valido :(";
+                $status = "Error: El ciclo no se ha registrado, porque el formulario no es valido :(";
             }
             $this->session->getFlashBag()->add("status", $status);
             return $this->redirectToRoute("fct_index_ciclo");
@@ -183,9 +183,9 @@ class CicloController extends Controller {
 		$defaultData = array('message' => 'Type your message here');
         $form = $this->createFormBuilder($defaultData)
 			->add('grado', ChoiceType::class, 
-                        array("choices"=>['Grado Basico' => "basico", 
-                            "Grado Medio" => "medio", 
-                            "Grado Superior" => "superior"], 
+                        array("choices"=>['Grado Basico' => "Grado Básico", 
+                            "Grado Medio" => "Grado Medio", 
+                            "Grado Superior" => "Grado Superior"], 
 					"required" => false,
                     "attr" => ["class" => "form-grado form-control"], 
 					"label" => ":"))
@@ -199,7 +199,7 @@ class CicloController extends Controller {
 					"required" => "required",
                     "attr" => ["class" => "form-grado form-control"], 
 					"label" => ":"))
-			->add('horasfct', TextType::class, array("required" => "required",
+			->add('horasfct', TextType::class, array("required" => false,
                     "attr" => ["class" => "form-horas form-control"], "label" => "Horas:"))
 			->add('Buscar', SubmitType::class, array("attr"=>["class"=>"form-submit btn btn-success"]))
 			->getForm();
@@ -212,7 +212,7 @@ class CicloController extends Controller {
 			$em = $this->getDoctrine()->getManager();
 			
 			if($form->get('grado')->getData() != null)
-                $grado = $form->get('grado')->getData()->getIdCiclo();
+                $grado = $form->get('grado')->getData();
             else
                 $grado = "";
 			
@@ -224,7 +224,7 @@ class CicloController extends Controller {
             }
 			
 			if($grado != null && $grado !=""){
-					$filtros["grado"] = "a.grado = {$grado}";
+					$filtros["grado"] = "a.grado = '{$grado}'";
 			}
 			
 			if($horasfct != null && $horasfct != ""){

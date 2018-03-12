@@ -52,11 +52,11 @@
                     {% for i in 1..pagesCount %}
                     <li class="page-item"><a class="page-link" herf="{{path("fct_index_ciclo", {"page":i})}}">{{i}}</a></li>
                     {% endfor %}
-					{% if page == pagesCount %}
+				{% if page == pagesCount %}
                 <li class="page-item disabled"><a class="page-link" href="{{path("fct_index_ciclo", {"page":page+1})}}">&raquo;</a></li>
 				{% else %}
 				<li class="page-item"><a class="page-link" href="{{path("fct_index_ciclo", {"page":page+1})}}">&raquo;</a></li>
-				{% endif %}
+			{% endif %}
             </ul>
         </nav>
     </div>
