@@ -28,6 +28,31 @@ security:
             logout:
                 path: /logout
                 target: /
+            
+    access_control:
+        - { path: ^/fct, roles: [ROLE_DIRECCION, ROLE_PROFESOR]}
+        - { path: ^/alumnos/index, roles: [ROLE_DIRECCION, ROLE_PROFESOR]}
+        - { path: ^/alumnos/find_alumnos, roles: [ROLE_DIRECCION, ROLE_PROFESOR]}
+        - { path: ^/alumnos/delete_alumno, roles: ROLE_DIRECCION}
+        - { path: ^/alumnos/create_alumno, roles: ROLE_DIRECCION}
+        - { path: ^/alumnos/edit_alumno, roles: ROLE_DIRECCION}
+        - { path: ^/profesores/index, roles: [ROLE_DIRECCION, ROLE_PROFESOR]}
+        - { path: ^/profesores/create_profesor/, roles: ROLE_DIRECCION}
+        - { path: ^/profesores/delete_profesor, roles: ROLE_DIRECCION}
+        - { path: ^/profesores/edit_perfil, roles: [ROLE_DIRECCION, ROLE_PROFESOR]}
+        - { path: ^/profesores/edit_rol, roles: ROLE_DIRECCION}
+        - { path: ^/profesores/find_profesores, roles: [ROLE_DIRECCION, ROLE_PROFESOR]}
+        - { path: ^/empresas/index, roles: [ROLE_DIRECCION, ROLE_PROFESOR]}
+        - { path: ^/empresas/find_empresa, roles: [ROLE_DIRECCION, ROLE_PROFESOR]}
+        - { path: ^/empresas/create_empresa/, roles: ROLE_DIRECCION}
+        - { path: ^/empresas/delete_empresa, roles: ROLE_DIRECCION}
+        - { path: ^/empresas/edit_empresa, roles: ROLE_DIRECCION}
+        - { path: ^/ciclos/index, roles: [ROLE_DIRECCION, ROLE_PROFESOR]}
+        - { path: ^/ciclos/find_ciclo, roles: [ROLE_DIRECCION, ROLE_PROFESOR]}
+        - { path: ^/ciclos/create_ciclo, roles: ROLE_DIRECCION}
+        - { path: ^/ciclos/delete_ciclo, roles: ROLE_DIRECCION}
+        - { path: ^/ciclos/edit_ciclo, roles: ROLE_DIRECCION}
+        
             # activate different ways to authenticate
 
             # http_basic: ~

@@ -8,7 +8,9 @@
         <div class="alert alert-success">{{message}}</div>
         <hr>
     {% endfor %}
+	{% if is_granted('ROLE_DIRECCION') %}
     <div class="col-lg-4"><a class="btn btn-success btn-lg" href="{{path("fct_create_ciclo")}}">Añadir ciclo</a></div>
+	{% endif %}
     <br>
     <div class="col-lg-4">
         <table class="table">

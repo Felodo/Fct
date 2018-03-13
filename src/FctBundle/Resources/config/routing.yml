@@ -9,7 +9,7 @@ logout:
     path: /logout
     
 sign_up:
-    path: /profesores/create_profesor
+    path: /sign_up
     defaults: { _controller: FctBundle:Profesor:create_profesor }
 
 fct_homepage:
@@ -19,6 +19,10 @@ fct_homepage:
 fct_index_profesor:
     path: /profesores/{page}
     defaults: { _controller: FctBundle:Profesor:index, page:1 }
+    
+fct_create_profesor:
+    path: /profesores/create_profesor/
+    defaults: { _controller:FctBundle:Profesor:create_profesor }
     
 fct_delete_profesor:
     path: /profesores/delete_profesor/{id_prof}/
